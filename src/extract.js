@@ -73,7 +73,7 @@ function parseSearchHtml(html) {
       card = p;
     }
     const title = firstText($, card, 'h1, h2, h3, [class*="title"], [class*="heading"]') || $(a).attr('title') || $(a).text();
-    const cardText = card.text().replace(/\s+/g, ' ').trim();
+    const cardText = spacedText($, card);
     const priceMatch = cardText.replace(clean(title), ' ').match(PRICE_RE);
     const price = parsePrice(priceMatch ? priceMatch[0] : '');
     const tags = card.find('.standard-tag div, [class*="tag"] > *').map((_, t) => $(t).text().trim()).get().filter(Boolean);
@@ -122,6 +122,13 @@ function dedupe(listings) {
 function firstText($, el, sel) {
   const f = el.find(sel).first();
   return f.length ? f.text() : '';
+}
+/** Text of an element with a space between every text node (cheerio's .text() glues them together). */
+function spacedText($, el) {
+  const parts = [];
+  const walk = n => { for (const c of n.children || []) c.type === 'text' ? parts.push(c.data) : walk(c); };
+  el.each((_, n) => walk(n));
+  return clean(parts.join(' '));
 }
 function clean(s) {
   return String(s ?? '').replace(/\s+/g, ' ').trim();
