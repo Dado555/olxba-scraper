@@ -49,7 +49,7 @@ export function serialize(r) {
     components: Object.fromEntries(Object.entries(o.components).map(([k, c]) => [k, { label: COMPONENTS[k], score: c.score, evidence: c.evidence }])),
   });
   return {
-    weights: r.weights, considered: r.considered, passedFilters: r.passedFilters, groups: r.groups,
+    weights: r.weights, considered: r.considered, passedFilters: r.passedFilters, rejected: r.rejected, groups: r.groups,
     results: r.results.map(g => ({ rank: g.rank, groupKey: g.key, offerCount: g.offers.length, best: offer(g.best), offers: g.offers.map(offer) })),
   };
 }

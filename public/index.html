@@ -41,6 +41,7 @@
   details summary { cursor:pointer; font-size:12px; color:var(--muted); margin-top:4px; }
   table.offers { width:100%; border-collapse:collapse; font-size:12px; } table.offers td { padding:3px 6px; border-top:1px solid var(--line); }
   .ev { font-size:12px; color:var(--muted); margin:2px 0 0 0; padding-left:16px; }
+  .banner ul { margin:4px 0; padding-left:18px; }
   .banner { padding:8px 12px; border-radius:6px; background:color-mix(in srgb, var(--warn) 15%, transparent); color:var(--fg); margin-bottom:10px; font-size:13px; }
 </style>
 </head>
@@ -86,6 +87,7 @@
 </aside>
 <div>
   <div id="summary" class="status"></div>
+  <div id="filterInfo"></div>
   <div id="results"></div>
 </div>
 </main>
@@ -150,6 +152,12 @@ function specLine(s) {
 }
 function renderResults(r) {
   $('#summary').textContent = `${r.considered} listings · ${r.passedFilters} pass filters · ${r.groups} distinct configurations · showing top ${r.results.length}`;
+  const NAMES = { price: 'Price', ram: 'RAM min', screen: 'Screen size', condition: 'Condition', broken: 'Broken/for parts (always excluded)' };
+  const rej = Object.entries(r.rejected || {});
+  const rejHtml = rej.length ? `<div class="banner"><b>Removed by hard filters</b> (each listing counted at the first filter it failed):<ul>${
+    rej.map(([k, v]) => `<li>${NAMES[k] || k}: ${v.outOfRange} out of range${v.unknown ? `, <b>${v.unknown} because the value is unknown</b>` : ''}</li>`).join('')}</ul>${
+    rej.some(([, v]) => v.unknown) ? 'Many titles don\'t state screen size, RAM or condition. Tick <i>“let listings with unknown values pass filters”</i> (they stay flagged), or run <i>Enrich</i> to read descriptions.' : ''}</div>` : '';
+  $('#filterInfo').innerHTML = r.passedFilters < r.considered ? rejHtml : '';
   $('#results').innerHTML = r.results.map(g => {
     const b = g.best;
     const comps = priorities.map(k => { const c = b.components[k];
@@ -168,7 +176,9 @@ function renderResults(r) {
       ${b.flags.length ? `<ul class="flags">${b.flags.map(f => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
       <details><summary>Evidence</summary><ul class="ev">${ev}</ul></details>${offers}
     </div>`;
-  }).join('') || '<p class="status">No listings yet. Paste a search URL and crawl, or run <code>npm run demo</code>.</p>';
+  }).join('') || (r.considered
+    ? '<p class="status">All collected listings were removed by the hard filters. See the breakdown above and loosen a filter.</p>'
+    : '<p class="status">No listings yet. Paste a search URL and crawl, or run <code>npm run demo</code>.</p>');
 }
 
 let t;

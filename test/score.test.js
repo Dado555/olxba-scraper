@@ -70,3 +70,12 @@ test('hard filters: price, RAM, screen, condition, unknown handling', () => {
   const unk = f.flatMap(g => g.offers).find(o => o.listing.id === '61000004');
   assert.ok(unk.flags.some(x => /screen size unknown/.test(x)));
 });
+
+test('filter rejections are counted by reason so an empty result is explainable', () => {
+  const r = rank(listings(), { filters: { screenMin: 15, allowUnknown: false } });
+  assert.equal(r.passedFilters, 1); // only the 15.6" EliteBook states its size
+  assert.equal(r.rejected.screen.unknown + r.rejected.screen.outOfRange, r.considered - 1);
+  assert.ok(r.rejected.screen.unknown > 0);
+  const none = rank(listings(), { filters: { priceMax: 10 } });
+  assert.ok(none.rejected.price.outOfRange > 0);
+});

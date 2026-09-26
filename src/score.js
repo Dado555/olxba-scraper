@@ -146,16 +146,22 @@ export function scoreListings(listings) {
   return rows;
 }
 
-export function applyFilters(rows, f = {}) {
+/** Returns rows passing the hard filters; `stats` (if given) counts rejections per filter as {unknown, outOfRange}. */
+export function applyFilters(rows, f = {}, stats = {}) {
   const allow = f.allowUnknown ?? true;
+  const reject = (name, unknown) => {
+    stats[name] ??= { unknown: 0, outOfRange: 0 };
+    stats[name][unknown ? 'unknown' : 'outOfRange']++;
+    return false;
+  };
+  const check = (name, val, ok) => (val == null ? (allow || reject(name, true)) : (ok(val) || reject(name, false)));
   return rows.filter(({ listing: l, specs: s }) => {
     const price = l.price_km, ram = s.ram_gb?.value, size = s.screen_in?.value, cond = s.condition?.value;
-    const check = (val, ok) => (val == null ? allow : ok(val));
-    if ((f.priceMin != null || f.priceMax != null) && !check(price, p => (f.priceMin == null || p >= f.priceMin) && (f.priceMax == null || p <= f.priceMax))) return false;
-    if (f.ramMin != null && !check(ram, r => r >= f.ramMin)) return false;
-    if ((f.screenMin != null || f.screenMax != null) && !check(size, x => (f.screenMin == null || x >= f.screenMin) && (f.screenMax == null || x <= f.screenMax))) return false;
-    if (f.conditions?.length && !check(cond, c => f.conditions.includes(c))) return false;
-    if (f.excludeBroken !== false && cond === 'broken') return false;
+    if ((f.priceMin != null || f.priceMax != null) && !check('price', price, p => (f.priceMin == null || p >= f.priceMin) && (f.priceMax == null || p <= f.priceMax))) return false;
+    if (f.ramMin != null && !check('ram', ram, r => r >= f.ramMin)) return false;
+    if ((f.screenMin != null || f.screenMax != null) && !check('screen', size, x => (f.screenMin == null || x >= f.screenMin) && (f.screenMax == null || x <= f.screenMax))) return false;
+    if (f.conditions?.length && !check('condition', cond, c => f.conditions.includes(c))) return false;
+    if (f.excludeBroken !== false && cond === 'broken') return reject('broken', false);
     return true;
   });
 }
@@ -164,7 +170,8 @@ export function rank(listings, { priorities = DEFAULT_PRIORITIES, filters = {}, 
   const order = [...priorities.filter(p => COMPONENTS[p]), ...DEFAULT_PRIORITIES.filter(p => !priorities.includes(p))];
   const weights = Object.fromEntries(order.map((k, i) => [k, POSITION_WEIGHTS[i]]));
   const all = scoreListings(listings);
-  const rows = applyFilters(all, filters);
+  const rejected = {};
+  const rows = applyFilters(all, filters, rejected);
   for (const r of rows) {
     let total = 0, knownW = 0;
     const flags = [];
@@ -194,7 +201,7 @@ export function rank(listings, { priorities = DEFAULT_PRIORITIES, filters = {}, 
   }
   const ranked = [...groups.values()].slice(0, top).map((g, i) => ({ rank: i + 1, ...g,
     offers: [...g.offers].sort((a, b) => (a.listing.price_km ?? Infinity) - (b.listing.price_km ?? Infinity) || b.total - a.total) }));
-  return { weights, considered: all.length, passedFilters: rows.length, groups: groups.size, results: ranked };
+  return { weights, considered: all.length, passedFilters: rows.length, rejected, groups: groups.size, results: ranked };
 }
 
 /** Same exact model + CPU + RAM + storage → same configuration. Anything uncertain stays ungrouped. */

@@ -48,6 +48,7 @@ switch (cmd) {
   case 'rank': {
     const r = rankRun(db, { filters, top: +(o.top ?? 20) });
     console.log(`${r.considered} listings, ${r.passedFilters} after filters, ${r.groups} configurations. Weights: ${JSON.stringify(r.weights)}`);
+    for (const [k, v] of Object.entries(r.rejected)) console.log(`  removed by ${k} filter: ${v.outOfRange} out of range, ${v.unknown} unknown value`);
     for (const g of r.results) {
       const b = g.best;
       console.log(`#${g.rank} ${b.total} (conf ${b.confidence}%) ${b.listing.price_km ?? '?'} KM  ${b.listing.title}${g.offers.length > 1 ? `  [${g.offers.length} offers]` : ''}\n     ${b.listing.url}  ` +
