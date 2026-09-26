@@ -79,3 +79,15 @@ test('description + attribute table enrich the title', () => {
   const s3 = extractSpecs({ title: 'HP 8GB RAM', attributes: { RAM: '16 GB' } });
   assert.equal(s3.ram_gb.value, 16); assert.equal(s3.conflicts.length, 1);
 });
+
+test('weight, ports and CPU conflicts (inputs for mobility/connectivity/ambiguity)', async () => {
+  const { parseWeight, parsePorts, allExactCpuModels } = await import('../src/specs.js');
+  assert.equal(parseWeight('težina 1,4 kg').value, 1.4);
+  assert.equal(parseWeight('dostava 10 kg'), null);
+  assert.equal(parseWeight('bez podataka'), null);
+  assert.deepEqual(parsePorts('2x Thunderbolt 3, HDMI, RJ45, WiFi 6'), ['Thunderbolt/USB4', 'HDMI', 'Ethernet', 'Wi-Fi 6+']);
+  assert.deepEqual(parsePorts('USB-C punjenje'), ['USB-C']);
+  assert.deepEqual(parsePorts('Lenovo T480'), []);
+  assert.deepEqual(allExactCpuModels('i5-8350U ili i7-8650U'), ['i5-8350u', 'i7-8650u']);
+  assert.equal(extractSpecs({ title: 'Dell i5-8350U 8GB' }).cpu_conflict, undefined);
+});

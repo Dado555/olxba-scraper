@@ -50,19 +50,44 @@ npm run demo                   # separate DB: data/demo.sqlite
 
 ## Scoring (all visible in the UI's "Evidence" panel)
 
-| Component | Based on | Unknown when |
+Ranking targets development and DevOps work. The pipeline runs in this order:
+
+1. **Hard filters come first.** A known price, RAM, screen size or condition outside your constraint removes the listing,
+   whatever its quality. If a filtered field is *unknown*, the listing is either removed (box unticked) or kept and
+   marked **"Needs verification"** (box ticked). It is never assumed to pass.
+2. **Quality score (0–100)** is a weighted sum of six components. The weights follow the drag order:
+   **25 / 20 / 20 / 15 / 10 / 10** (default order below). `rank(…, { weights: {ram: …} })` accepts explicit weights too.
+3. **Mode** (dropdown, or `npm run rank -- --rank-mode value`):
+   - *Best laptop within budget* (`quality`, the default): total = quality. Your budget is the "Price max" hard filter.
+   - *Best value* (`value`): total = 0.8 × quality + 0.2 × affordability, with affordability = 100·e^(−price/1500 KM).
+     An unknown price counts as affordability 0 and is flagged.
+
+| Component (default weight) | Built from | Curve / rule |
 |---|---|---|
-| CPU performance | Exact CPU model → fixed generation × tier (i3/i5/i7/i9, Ryzen 3–9) × suffix (U/H/HX/P) table. These are coarse relative tiers, **not benchmarks** | Only "i5" etc. is known, or no CPU is mentioned |
-| Screen quality | Resolution (HD…4K/Retina) + panel (IPS/OLED/TN) + ≥120 Hz | Resolution not stated |
-| Keyboard / build | Fixed model-family table (e.g. ThinkPad T/X 85, EliteBook 78, IdeaPad 52), plus backlit keyboard/metal, minus stated damage | Model family not identified |
-| RAM / upgradeability | GB amount, +10 if slots/upgrade mentioned, −10 if soldered (always true for Apple Silicon) | RAM not stated |
-| Battery | Stated hours, health %, "nova baterija", or "baterija slaba" | Nothing stated (common before enrichment) |
-| Value for money | Percentile of (mean of known CPU/RAM/screen scores) ÷ price, compared within the filtered set | Price or CPU unknown |
+| RAM & headroom (25) | Stated RAM; stated upgrade path or soldered RAM; stated storage | log₂ curve 4→16 GB 50, 32 GB 80, 64 GB 95 (diminishing); upgradeable +8, soldered −8, not stated ±0; storage <256 −10, 512 +4, 1 TB +7, HDD/eMMC −6 |
+| CPU performance (20) | **Exact** CPU model only | If `src/cpu-benchmarks.json` has the model: single- and multi-thread, each 100·x/(x+reference), averaged (basis *stated*). Otherwise a fixed tier estimate from the exact model number (basis *estimate*). "i7", "Ryzen 7" or a generation alone → **unknown**. Two different CPUs in one ad → **ambiguous/unknown** |
+| Display quality (20) | Resolution/panel/refresh stated **in this ad** | HD 20, FHD 60, WUXGA 66, QHD 78, Retina 82, 3K 85, 4K 88; IPS +10, OLED +12, TN −15, panel not stated ±0; ≥120 Hz +5. Never copied from other configurations of the model |
+| Keyboard / build / work comfort (15) | Model-family table (always labelled *estimate*) plus stated backlight (+6), metal (+3), damage (−30) | No family and no stated features → unknown |
+| Battery & mobility (10) | Stated battery hours/health/new/weak; stated weight | Two equal halves: battery (hours×11, health %, new 85, weak 10) and weight (1.3 kg 90 … 2.5 kg 25). A missing half counts as 30 (*partial*) |
+| Connectivity & longevity (10) | Ports stated (Thunderbolt/USB4, USB-C, HDMI, Ethernet, Wi-Fi 6+); warranty | Two halves: ports 20 + points per stated port (unmentioned ports aren't assumed missing *or* present); warranty 0 mo 20 … 12 mo 75 … 36 mo 100 |
 
-**Grouping:** listings with the same exact model, CPU model, RAM and storage are grouped as one configuration. The group
-shows every offer, cheapest first. If any of those fields is uncertain, the listing is never grouped.
+**Unknown handling:** an unknown component counts as **30** and is flagged. Each result shows its *possible range*, which is
+the quality if every unknown were 0 or 100. It also shows how much of the weight is *stated*, *estimated*, *partial*
+or *unknown*. Nothing unstated earns a bonus.
 
-**Tie-breaks:** total score, then confidence, then price, then listing ID.
+**Independence:** every curve is a fixed function of the ad's own data. There is no min/max or percentile scaling
+against the batch, so another ad can't change a laptop's score. A lower price never lowers its Best Value score, and a better
+stated spec never lowers its quality. Unit tests check all three.
+
+**CPU benchmarks:** `src/cpu-benchmarks.json` ships **empty** on purpose, because no verified numbers were available. Fill
+`cpus` from one consistent source (keys such as `"i5-8350u"`, `"ryzen 7 5800h"`, `"apple m1"`) and set `reference` to the
+score that should map to 50. Until then, CPU scores are labelled estimates.
+
+**Grouping:** offers are grouped only when the configuration is verified: the same exact model, one unambiguous exact CPU,
+the same RAM, the same storage and the same stated resolution (unknown resolution never merges with a known one).
+Model-family matches alone never group.
+
+**Tie-breaks:** total, then quality, then % verified, then price, then listing ID.
 
 ## Project layout
 

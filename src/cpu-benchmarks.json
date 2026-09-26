@@ -1,0 +1,7 @@
+{
+  "_about": "Optional CPU benchmark table. Intentionally EMPTY: no numbers are shipped because none were verified. Add entries from one consistent source (e.g. your own Geekbench 6 or Cinebench R23 lookups). Keys are normalised model names: \"i5-8350u\", \"ryzen 7 5800h\", \"ultra 7 155h\", \"apple m1\". Scores map through score = 100*x/(x+reference): a CPU equal to the reference scores 50.",
+  "source": null,
+  "units": { "single": "Geekbench 6 single-core", "multi": "Geekbench 6 multi-core" },
+  "reference": { "single": 2000, "multi": 8000 },
+  "cpus": {}
+}

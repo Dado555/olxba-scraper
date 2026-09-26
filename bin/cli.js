@@ -13,7 +13,7 @@ const HELP = `Usage: node bin/cli.js <command> [options]
       --restart              start this search from page 1 again
       --mode auto|html|api   page source (default auto)
   enrich                   fetch detail pages for the top --top N groups (default 40)
-  rank                     print the top results in the terminal
+  rank                     print the top results in the terminal (--rank-mode quality|value)
   export                   write data/results.json and .csv (--out path/prefix)
   serve                    start the local UI at http://127.0.0.1:5173 (--port)
   demo                     load bundled synthetic fixtures into data/demo.sqlite and serve
@@ -23,7 +23,7 @@ Common: --db path (default data/olx.sqlite)  --delay seconds between requests (d
 const { values: o, positionals } = parseArgs({ allowPositionals: true, options: {
   'max-pages': { type: 'string' }, restart: { type: 'boolean' }, mode: { type: 'string', default: 'auto' },
   db: { type: 'string', default: 'data/olx.sqlite' }, delay: { type: 'string', default: '6' }, port: { type: 'string', default: '5173' },
-  top: { type: 'string' }, out: { type: 'string', default: 'data/results' }, 'price-max': { type: 'string' }, 'ram-min': { type: 'string' },
+  top: { type: 'string' }, 'rank-mode': { type: 'string', default: 'quality' }, out: { type: 'string', default: 'data/results' }, 'price-max': { type: 'string' }, 'ram-min': { type: 'string' },
   help: { type: 'boolean', short: 'h' } } });
 const [cmd, arg] = positionals;
 const delayMs = Math.max(3, Number(o.delay)) * 1000;
@@ -46,16 +46,17 @@ switch (cmd) {
   }
   case 'enrich': console.log(await enrichShortlist(db, makeFetcher(), { n: +(o.top ?? 40), filters })); break;
   case 'rank': {
-    const r = rankRun(db, { filters, top: +(o.top ?? 20) });
-    console.log(`${r.considered} listings, ${r.passedFilters} after filters, ${r.groups} configurations. Weights: ${JSON.stringify(r.weights)}`);
+    const r = rankRun(db, { filters, top: +(o.top ?? 20), mode: o['rank-mode'] });
+    console.log(`Mode: ${r.mode}. ${r.considered} listings, ${r.passedFilters} after filters, ${r.groups} configurations. Weights: ${JSON.stringify(r.weights)}`);
+    for (const [k, v] of Object.entries(r.rejected)) console.log(`  removed by ${k} filter: ${v.outOfRange} out of range, ${v.unknown} unknown value`);
     for (const g of r.results) {
       const b = g.best;
-      console.log(`#${g.rank} ${b.total} (conf ${b.confidence}%) ${b.listing.price_km ?? '?'} KM  ${b.listing.title}${g.offers.length > 1 ? `  [${g.offers.length} offers]` : ''}\n     ${b.listing.url}  ` +
+      console.log(`#${g.rank} ${b.total} (quality ${b.quality}, range ${b.qualityRange.join('–')}, verified ${b.confidence}%) ${b.listing.price_km ?? '?'} KM  ${b.listing.title}${g.offers.length > 1 ? `  [${g.offers.length} offers]` : ''}\n     ${b.listing.url}  ` +
         Object.entries(b.components).map(([k, c]) => `${k}:${c.score ?? '?'}`).join(' '));
     }
     break;
   }
-  case 'export': console.log(exportResults(db, { out: o.out, filters, top: +(o.top ?? 50) })); break;
+  case 'export': console.log(exportResults(db, { out: o.out, filters, top: +(o.top ?? 50), mode: o['rank-mode'] })); break;
   case 'demo':
     loadDemo(db, fileURLToPath(new URL('../test/fixtures', import.meta.url)));
     console.log('Loaded SYNTHETIC fixture data (not live OLX data).');

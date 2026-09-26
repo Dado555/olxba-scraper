@@ -3,7 +3,7 @@ import { createServer } from 'node:http';
 import { readFileSync } from 'node:fs';
 import { rankRun, serialize, enrichShortlist, latestRun, exportResults } from './app.js';
 import { crawl } from './crawl.js';
-import { COMPONENTS, DEFAULT_PRIORITIES } from './score.js';
+import { COMPONENTS, DEFAULT_PRIORITIES, POSITION_WEIGHTS, MODES } from './score.js';
 
 export function startServer(db, makeFetcher, { port = 5173, host = '127.0.0.1' } = {}) {
   const html = new URL('../public/index.html', import.meta.url);
@@ -18,7 +18,7 @@ export function startServer(db, makeFetcher, { port = 5173, host = '127.0.0.1' }
   const routes = {
     'GET /': (_, res) => send(res, 200, readFileSync(html), 'text/html; charset=utf-8'),
     'GET /api/state': () => ({ run: latestRun(db), runs: db.prepare('SELECT * FROM runs ORDER BY id DESC').all(),
-      job: { running: job.running, kind: job.kind, log: job.log.slice(-60) }, components: COMPONENTS, defaultPriorities: DEFAULT_PRIORITIES }),
+      job: { running: job.running, kind: job.kind, log: job.log.slice(-60) }, components: COMPONENTS, defaultPriorities: DEFAULT_PRIORITIES, positionWeights: POSITION_WEIGHTS, modes: MODES }),
     'POST /api/rank': b => serialize(rankRun(db, b)),
     'POST /api/crawl': b => { startJob('crawl', () => crawl(db, makeFetcher(log), b.url, { maxPages: b.maxPages || Infinity, restart: !!b.restart, log })
       .then(s => log(`Crawl ${s.status}: ${s.unique_listings} unique listings, ${s.pages_fetched} pages. ${s.status_detail ?? ''}`))); return { started: true }; },

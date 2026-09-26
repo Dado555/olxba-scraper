@@ -73,6 +73,12 @@ export function extractSpecs({ title = '', description = '', attributes = null, 
   if (!s.ram_soldered && s.cpu?.value.vendor === 'Apple')
     s.ram_soldered = f(true, 'rule', 'Apple Silicon MacBooks have soldered RAM');
   s.battery = firstOf(sources, parseBattery);
+  s.weight_kg = firstOf(sources, parseWeight);
+  const ports = [...new Set([title, description].flatMap(t => parsePorts(t)))];
+  if (ports.length) s.ports = f(ports, 'text', ports.join(', '));
+  // Two different exact CPU models in the ad (e.g. "i5-8350U / i7-8650U", or title vs description) → ambiguous.
+  const exactCpus = [...new Set([title, description].flatMap(allExactCpuModels))];
+  if (exactCpus.length > 1) s.cpu_conflict = f(exactCpus, 'text', exactCpus.join(' vs '));
 
   for (const k of Object.keys(s)) if (s[k] == null) delete s[k];
   return s;
@@ -176,6 +182,37 @@ export function parseWarranty(t) {
   m = t.match(/\bgarancij\w*\b/i);
   return m ? ev({ months: null }, m[0]) : null;
 }
+/** Every distinct exact Intel Core / Ryzen / Core Ultra model mentioned in the text. */
+export function allExactCpuModels(t) {
+  if (!t) return [];
+  const out = [];
+  for (const m of t.matchAll(/\b(i[3579])\s*[- ]?\s*(\d{4,5})([a-z]{0,2}\d?)\b/gi)) out.push(`${m[1]}-${m[2]}${m[3]}`.toLowerCase());
+  for (const m of t.matchAll(/\bryzen\s*([3579])\s*(?:pro\s*)?(\d{4})([a-z]{0,2})\b/gi)) out.push(`ryzen ${m[1]} ${m[2]}${m[3]}`.toLowerCase());
+  for (const m of t.matchAll(/\bcore\s*ultra\s*([579])\s*[- ]?\s*(\d{3})([a-z]{0,2})\b/gi)) out.push(`ultra ${m[1]} ${m[2]}${m[3]}`.toLowerCase());
+  return out;
+}
+
+/** Stated weight, e.g. "1,4 kg", "težina 1.8kg". Only plausible laptop weights. */
+export function parseWeight(t) {
+  const m = t && t.match(/(?<![\d.,])([0-4](?:[.,]\d{1,2})?)\s*kg\b/i);
+  if (!m) return null;
+  const v = +m[1].replace(',', '.');
+  return v >= 0.7 && v <= 4.5 ? ev(v, m[0]) : null;
+}
+
+/** Ports/wireless explicitly mentioned. Absence of a mention is NOT treated as absence of the port. */
+export function parsePorts(t) {
+  if (!t) return [];
+  const table = [
+    [/thunderbolt|\btb[34]\b|\busb4\b/i, 'Thunderbolt/USB4'],
+    [/usb[- ]?c\b|type[- ]?c\b/i, 'USB-C'],
+    [/\bhdmi\b/i, 'HDMI'],
+    [/\brj[- ]?45\b|\bethernet\b|\blan port/i, 'Ethernet'],
+    [/wi-?fi\s*(6e?|7)\b|802\.11ax|802\.11be/i, 'Wi-Fi 6+'],
+  ];
+  return table.filter(([re]) => re.test(t)).map(([, v]) => v);
+}
+
 export function parseBattery(t) {
   if (!t) return null;
   let m = t.match(/(?:baterij\w*|battery)[^.]{0,40}?(?:drži|drzi|traje|izdr\w*)?\s*(?:oko|do|preko|cca\.?|~)?\s*(\d{1,2}(?:[.,]\d)?)\s*(?:-\s*\d+\s*)?(h\b|sat\w*)/i);

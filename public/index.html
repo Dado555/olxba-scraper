@@ -41,6 +41,11 @@
   details summary { cursor:pointer; font-size:12px; color:var(--muted); margin-top:4px; }
   table.offers { width:100%; border-collapse:collapse; font-size:12px; } table.offers td { padding:3px 6px; border-top:1px solid var(--line); }
   .ev { font-size:12px; color:var(--muted); margin:2px 0 0 0; padding-left:16px; }
+  .basis { font-size:10px; padding:0 4px; border-radius:3px; border:1px solid var(--line); }
+  .b-verified { color:var(--good); } .b-estimate, .b-partial { color:var(--warn); } .b-unknown { color:var(--muted); }
+  .verify { font-size:12px; color:var(--bad); margin-top:2px; }
+  select { width:100%; padding:6px 8px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); }
+  .banner ul { margin:4px 0; padding-left:18px; }
   .banner { padding:8px 12px; border-radius:6px; background:color-mix(in srgb, var(--warn) 15%, transparent); color:var(--fg); margin-bottom:10px; font-size:13px; }
 </style>
 </head>
@@ -77,7 +82,9 @@
   <section class="card">
     <h2>3 · Priorities (drag to reorder)</h2>
     <ol id="prio"></ol>
-    <div class="status">Weights by position: 30 / 24 / 18 / 13 / 9 / 6. Unknown components count as 30/100 and are flagged.</div>
+    <div class="status" id="weightHelp"></div>
+    <label for="mode">Ranking mode</label>
+    <select id="mode"></select>
   </section>
   <section class="card">
     <button id="exportBtn">Export results (JSON + CSV)</button>
@@ -86,14 +93,16 @@
 </aside>
 <div>
   <div id="summary" class="status"></div>
+  <div id="filterInfo"></div>
   <div id="results"></div>
 </div>
 </main>
 <script>
 const $ = s => document.querySelector(s);
 let COMPONENTS = {}, priorities = [];
+const BASIS = { verified: '✓ stated', estimate: '≈ estimate', partial: '½ partial', unknown: '? unknown' };
 const saved = (() => { try { return JSON.parse(localStorage.getItem('olxRanker') || '{}'); } catch { return {}; } })();
-const WEIGHTS = [30, 24, 18, 13, 9, 6];
+let WEIGHTS = [25, 20, 20, 15, 10, 10];
 
 async function api(path, body) {
   const r = await fetch(path, body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {});
@@ -107,7 +116,7 @@ function filters() {
     conditions: [...document.querySelectorAll('.cond:checked')].map(c => c.value), allowUnknown: $('#allowUnknown').checked };
 }
 function persist() {
-  try { localStorage.setItem('olxRanker', JSON.stringify({ priorities, filters: filters(), url: $('#url').value })); } catch {}
+  try { localStorage.setItem('olxRanker', JSON.stringify({ priorities, mode: $('#mode').value, filters: filters(), url: $('#url').value })); } catch {}
 }
 
 function renderPrio() {
@@ -150,31 +159,40 @@ function specLine(s) {
 }
 function renderResults(r) {
   $('#summary').textContent = `${r.considered} listings · ${r.passedFilters} pass filters · ${r.groups} distinct configurations · showing top ${r.results.length}`;
+  const NAMES = { price: 'Price', ram: 'RAM min', screen: 'Screen size', condition: 'Condition', broken: 'Broken/for parts (always excluded)' };
+  const rej = Object.entries(r.rejected || {});
+  const rejHtml = rej.length ? `<div class="banner"><b>Removed by hard filters</b> (each listing counted at the first filter it failed):<ul>${
+    rej.map(([k, v]) => `<li>${NAMES[k] || k}: ${v.outOfRange} out of range${v.unknown ? `, <b>${v.unknown} because the value is unknown</b>` : ''}</li>`).join('')}</ul>${
+    rej.some(([, v]) => v.unknown) ? 'Many titles don\'t state screen size, RAM or condition. Tick <i>“let listings with unknown values pass filters”</i> (they stay flagged), or run <i>Enrich</i> to read descriptions.' : ''}</div>` : '';
+  $('#filterInfo').innerHTML = r.passedFilters < r.considered ? rejHtml : '';
   $('#results').innerHTML = r.results.map(g => {
     const b = g.best;
     const comps = priorities.map(k => { const c = b.components[k];
-      return `<div class="comp ${c.score == null ? 'unk' : ''}" title="${esc(c.evidence.join('\n'))}"><small>${esc(c.label)}: <b>${c.score ?? 'unknown'}</b></small>
+      return `<div class="comp ${c.score == null ? 'unk' : ''}" title="${esc(c.evidence.join('\n'))}"><small>${esc(c.label)}: <b>${c.score ?? 'unknown'}</b> <span class="basis b-${c.basis}">${BASIS[c.basis]}</span></small>
         <div class="bar"><i style="width:${c.score ?? 0}%"></i></div></div>`; }).join('');
-    const ev = priorities.map(k => `<li><b>${esc(b.components[k].label)}:</b> ${esc(b.components[k].evidence.join(' · '))}</li>`).join('');
+    const ev = priorities.map(k => `<li><b>${esc(b.components[k].label)}</b> <span class="basis b-${b.components[k].basis}">${BASIS[b.components[k].basis]}</span>: ${esc(b.components[k].evidence.join(' · '))}</li>`).join('');
     const offers = g.offerCount > 1 ? `<details><summary>${g.offerCount} offers for this configuration (cheapest first)</summary><table class="offers">${
       g.offers.map(o => `<tr><td>${o.price_km != null ? o.price_km + ' KM' : esc(o.price_raw || '?')}</td><td><a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.title)}</a></td><td>${o.total}</td></tr>`).join('')}</table></details>` : '';
     return `<div class="res">
       <div class="res-head"><span class="rank">#${g.rank}</span><span class="total">${b.total}</span>
         <span class="price">${b.price_km != null ? b.price_km.toLocaleString('bs') + ' KM' : esc(b.price_raw || 'price ?')}</span>
         <span class="title"><a href="${esc(b.url)}" target="_blank" rel="noopener">${esc(b.title)}</a></span>
-        <span class="conf">${b.confidence}% of weight from stated data${b.enriched ? ' · description read' : ''}</span></div>
+        <span class="conf">quality ${b.quality} (possible ${b.qualityRange[0]}–${b.qualityRange[1]})${r.mode === 'value' ? ` · affordability ${b.affordability ?? 'unknown'}` : ''} · verified ${b.certainty.verified}% / estimated ${b.certainty.estimate}% / partial ${b.certainty.partial}% / unknown ${b.certainty.unknown}% of weight${b.enriched ? ' · description read' : ''}</span></div>
+      ${b.needsVerification?.length ? `<div class="verify">Needs verification: ${esc(b.needsVerification.join(', '))} not stated in the ad</div>` : ''}
       <div class="specs">${specLine(b.specs)}</div>
       <div class="comps">${comps}</div>
       ${b.flags.length ? `<ul class="flags">${b.flags.map(f => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
       <details><summary>Evidence</summary><ul class="ev">${ev}</ul></details>${offers}
     </div>`;
-  }).join('') || '<p class="status">No listings yet. Paste a search URL and crawl, or run <code>npm run demo</code>.</p>';
+  }).join('') || (r.considered
+    ? '<p class="status">All collected listings were removed by the hard filters. See the breakdown above and loosen a filter.</p>'
+    : '<p class="status">No listings yet. Paste a search URL and crawl, or run <code>npm run demo</code>.</p>');
 }
 
 let t;
 function refresh() { clearTimeout(t); t = setTimeout(async () => {
   persist();
-  try { renderResults(await api('/api/rank', { priorities, filters: filters(), top: 50 })); }
+  try { renderResults(await api('/api/rank', { priorities, mode: $('#mode').value, filters: filters(), top: 50 })); }
   catch (e) { $('#summary').textContent = 'Error: ' + e.message; }
 }, 150); }
 
@@ -197,9 +215,9 @@ $('#crawlBtn').onclick = async () => {
   try { await api('/api/crawl', { url: $('#url').value, maxPages: Number($('#maxPages').value) || undefined, restart: $('#restart').checked }); persist(); }
   catch (e) { alert(e.message); }
 };
-$('#enrichBtn').onclick = async () => { try { await api('/api/enrich', { n: 40, priorities, filters: filters() }); } catch (e) { alert(e.message); } };
+$('#enrichBtn').onclick = async () => { try { await api('/api/enrich', { n: 40, priorities, mode: $('#mode').value, filters: filters() }); } catch (e) { alert(e.message); } };
 $('#exportBtn').onclick = async () => {
-  try { const r = await api('/api/export', { priorities, filters: filters(), top: 50 }); $('#exportMsg').textContent = `Wrote ${r.count} rows to ${r.json} and ${r.csv}`; }
+  try { const r = await api('/api/export', { priorities, mode: $('#mode').value, filters: filters(), top: 50 }); $('#exportMsg').textContent = `Wrote ${r.count} rows to ${r.json} and ${r.csv}`; }
   catch (e) { $('#exportMsg').textContent = e.message; }
 };
 document.querySelectorAll('aside input').forEach(i => i.addEventListener('input', () => { if (i.id !== 'url' && i.id !== 'maxPages') refresh(); }));
@@ -207,6 +225,11 @@ document.querySelectorAll('aside input').forEach(i => i.addEventListener('input'
 (async () => {
   const s = await api('/api/state');
   COMPONENTS = s.components;
+  if (s.positionWeights) WEIGHTS = s.positionWeights;
+  $('#weightHelp').textContent = `Weights by position: ${WEIGHTS.join(' / ')}. Unknown components count as 30/100 and are flagged; nothing unknown gets a bonus.`;
+  $('#mode').innerHTML = Object.entries(s.modes || { quality: 'Best laptop within budget' }).map(([k, v]) => `<option value="${k}">${v}${k === 'value' ? ' (80% quality + 20% affordability)' : ' (quality; price max = budget)'}</option>`).join('');
+  if (saved.mode && s.modes?.[saved.mode]) $('#mode').value = saved.mode;
+  $('#mode').addEventListener('change', refresh);
   priorities = (saved.priorities?.length === 6 && saved.priorities.every(k => COMPONENTS[k])) ? saved.priorities : s.defaultPriorities;
   const f = saved.filters || {};
   for (const k of ['priceMin', 'priceMax', 'ramMin', 'screenMin', 'screenMax']) if (f[k] != null) $('#' + k).value = f[k];
