@@ -1,24 +1,24 @@
 {
-  "name": "olxba-scraper",
-  "version": "1.0.0",
-  "description": "A web scraper for the Bosnian listings site olx.ba ",
-  "main": "olx-scraper.js",
+  "name": "olxba-laptop-ranker",
+  "version": "2.0.0",
+  "description": "Local OLX.ba laptop discovery and deterministic ranking app",
   "type": "module",
-  "scripts": {
-    "example": "node example.js"
+  "engines": {
+    "node": ">=22.5"
   },
-  "keywords": [
-    "olx.ba",
-    "scraper",
-    "crawler",
-    "listings"
-  ],
-  "author": "Teo Medesi",
+  "bin": {
+    "olx-laptops": "bin/cli.js"
+  },
+  "scripts": {
+    "start": "node --no-warnings bin/cli.js serve",
+    "crawl": "node --no-warnings bin/cli.js crawl",
+    "enrich": "node --no-warnings bin/cli.js enrich",
+    "export": "node --no-warnings bin/cli.js export",
+    "smoke": "node --no-warnings bin/cli.js crawl --max-pages 2",
+    "test": "node --no-warnings --test test/*.test.js"
+  },
   "license": "MIT",
   "dependencies": {
-    "puppeteer": "^20.8.0",
-    "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-adblocker": "^2.13.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2"
+    "cheerio": "^1.2.0"
   }
 }

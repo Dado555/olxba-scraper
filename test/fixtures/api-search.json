@@ -1,0 +1,6 @@
+{"_comment":"SYNTHETIC FIXTURE modelled on OLX.ba /api/search response shape (not a live capture)",
+ "data":[
+  {"id":61000009,"title":"Lenovo ThinkPad X1 Carbon Gen 7 i7-8665U 16GB 512GB 14\" WQHD","display_price":"1.700 KM","price":1700,"special_labels":[{"label":"Stanje","value":"Korišteno"}]},
+  {"id":61000010,"title":"Acer Aspire 5 i3-1115G4 8GB","display_price":"Na upit","price":0,"special_labels":[]}
+ ],
+ "meta":{"total":2,"last_page":1,"current_page":1}}
