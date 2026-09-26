@@ -15,7 +15,9 @@
     "enrich": "node --no-warnings bin/cli.js enrich",
     "export": "node --no-warnings bin/cli.js export",
     "smoke": "node --no-warnings bin/cli.js crawl --max-pages 2",
-    "test": "node --no-warnings --test test/*.test.js"
+    "test": "node --no-warnings --test test/*.test.js",
+    "demo": "node --no-warnings bin/cli.js demo",
+    "rank": "node --no-warnings bin/cli.js rank"
   },
   "license": "MIT",
   "dependencies": {

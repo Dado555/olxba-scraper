@@ -69,3 +69,16 @@ test('block detection', () => {
   assert.ok(detectBlock(429, ''));
   assert.equal(detectBlock(200, fx('search-page-1.html')), null);
 });
+
+// Real pages you saved locally (see README "Verifying against live OLX.ba"). Skipped when absent.
+import { readdirSync, existsSync } from 'node:fs';
+const liveDir = new URL('./fixtures/live/', import.meta.url);
+const liveFiles = existsSync(liveDir) ? readdirSync(liveDir).filter(f => /^search.*\.(html|json)$/.test(f)) : [];
+test('live captured search pages parse into listings', { skip: liveFiles.length === 0 && 'no files in test/fixtures/live/' }, () => {
+  for (const f of liveFiles) {
+    const r = parseSearchPage(readFileSync(new URL(f, liveDir), 'utf8'));
+    assert.ok(r.listings.length > 0, `${f}: no listings extracted`);
+    for (const l of r.listings) { assert.match(l.id, /^\d+$/); assert.ok(l.title, `${f}: ${l.id} has no title`); }
+    console.log(`${f}: ${r.listings.length} listings, lastPage=${r.lastPage}, priced=${r.listings.filter(l => l.price_km != null).length}`);
+  }
+});

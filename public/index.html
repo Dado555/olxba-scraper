@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OLX.ba Laptop Ranker</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --fg:#1d2330; --muted:#667085; --line:#e3e6eb; --accent:#2f6fde; --warn:#b45309; --bad:#b42318; --good:#15803d; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#14161b; --card:#1d2027; --fg:#e7e9ee; --muted:#9aa3b2; --line:#2e333d; --accent:#6f9cf0; --warn:#f0a44b; --bad:#f07167; --good:#4ade80; } }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.45 system-ui, sans-serif; background:var(--bg); color:var(--fg); }
+  header { padding:14px 20px; border-bottom:1px solid var(--line); background:var(--card); }
+  h1 { font-size:18px; margin:0; } h2 { font-size:14px; margin:0 0 8px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); }
+  main { display:grid; grid-template-columns: 300px 1fr; gap:16px; padding:16px 20px; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  section.card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:12px; margin-bottom:12px; }
+  label { display:block; margin:6px 0 2px; color:var(--muted); font-size:12px; }
+  input[type=text], input[type=number] { width:100%; padding:6px 8px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); }
+  .row { display:flex; gap:8px; } .row > * { flex:1; }
+  button { padding:6px 10px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); cursor:pointer; }
+  button.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+  button:disabled { opacity:.5; cursor:default; }
+  #prio { list-style:none; margin:0; padding:0; }
+  #prio li { display:flex; align-items:center; gap:6px; padding:6px 8px; margin:4px 0; border:1px solid var(--line); border-radius:6px; cursor:grab; background:var(--bg); }
+  #prio li.drag { opacity:.4; } #prio li .w { margin-left:auto; color:var(--muted); font-variant-numeric:tabular-nums; }
+  #prio li button { padding:0 6px; }
+  #log { font:12px ui-monospace, monospace; white-space:pre-wrap; max-height:180px; overflow:auto; color:var(--muted); }
+  .status { font-size:12px; color:var(--muted); }
+  .res { border:1px solid var(--line); border-radius:8px; background:var(--card); margin-bottom:10px; padding:10px 12px; }
+  .res-head { display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; }
+  .rank { font-weight:700; color:var(--muted); min-width:28px; }
+  .total { font-weight:700; font-size:18px; font-variant-numeric:tabular-nums; }
+  .price { font-weight:600; }
+  .title a { color:var(--accent); text-decoration:none; font-weight:600; } .title a:hover { text-decoration:underline; }
+  .conf { font-size:12px; color:var(--muted); }
+  .comps { display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap:6px 12px; margin:8px 0 4px; }
+  .comp .bar { height:6px; border-radius:3px; background:var(--line); overflow:hidden; } .comp .bar i { display:block; height:100%; background:var(--accent); }
+  .comp.unk .bar i { background:transparent; } .comp small { color:var(--muted); }
+  .specs { font-size:12px; color:var(--muted); }
+  .flags { font-size:12px; color:var(--warn); margin:4px 0 0; padding-left:16px; }
+  details summary { cursor:pointer; font-size:12px; color:var(--muted); margin-top:4px; }
+  table.offers { width:100%; border-collapse:collapse; font-size:12px; } table.offers td { padding:3px 6px; border-top:1px solid var(--line); }
+  .ev { font-size:12px; color:var(--muted); margin:2px 0 0 0; padding-left:16px; }
+  .banner { padding:8px 12px; border-radius:6px; background:color-mix(in srgb, var(--warn) 15%, transparent); color:var(--fg); margin-bottom:10px; font-size:13px; }
+</style>
+</head>
+<body>
+<header><h1>OLX.ba Laptop Ranker</h1><div class="status" id="runStatus">Loading…</div></header>
+<main>
+<aside>
+  <section class="card">
+    <h2>1 · Collect</h2>
+    <label for="url">OLX.ba filtered search URL</label>
+    <input type="text" id="url" placeholder="https://olx.ba/pretraga?category_id=39&…">
+    <div class="row">
+      <div><label for="maxPages">Max pages (blank = all)</label><input type="number" id="maxPages" min="1" placeholder="all"></div>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <button class="primary" id="crawlBtn">Crawl / resume</button>
+      <button id="enrichBtn" title="Fetch descriptions for the current top groups only">Enrich top 40</button>
+    </div>
+    <label><input type="checkbox" id="restart"> restart from page 1</label>
+    <div id="log"></div>
+  </section>
+  <section class="card">
+    <h2>2 · Hard filters</h2>
+    <div class="row"><div><label for="priceMin">Price min (KM)</label><input type="number" id="priceMin"></div>
+      <div><label for="priceMax">Price max (KM)</label><input type="number" id="priceMax"></div></div>
+    <div class="row"><div><label for="ramMin">RAM min (GB)</label><input type="number" id="ramMin"></div><div></div></div>
+    <div class="row"><div><label for="screenMin">Screen min (")</label><input type="number" id="screenMin" step="0.1"></div>
+      <div><label for="screenMax">Screen max (")</label><input type="number" id="screenMax" step="0.1"></div></div>
+    <label>Condition</label>
+    <label style="display:inline"><input type="checkbox" class="cond" value="new"> new</label>
+    <label style="display:inline"><input type="checkbox" class="cond" value="used"> used</label>
+    <label><input type="checkbox" id="allowUnknown" checked> let listings with unknown values pass filters (flagged)</label>
+  </section>
+  <section class="card">
+    <h2>3 · Priorities (drag to reorder)</h2>
+    <ol id="prio"></ol>
+    <div class="status">Weights by position: 30 / 24 / 18 / 13 / 9 / 6. Unknown components count as 30/100 and are flagged.</div>
+  </section>
+  <section class="card">
+    <button id="exportBtn">Export results (JSON + CSV)</button>
+    <div class="status" id="exportMsg"></div>
+  </section>
+</aside>
+<div>
+  <div id="summary" class="status"></div>
+  <div id="results"></div>
+</div>
+</main>
+<script>
+const $ = s => document.querySelector(s);
+let COMPONENTS = {}, priorities = [];
+const saved = (() => { try { return JSON.parse(localStorage.getItem('olxRanker') || '{}'); } catch { return {}; } })();
+const WEIGHTS = [30, 24, 18, 13, 9, 6];
+
+async function api(path, body) {
+  const r = await fetch(path, body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {});
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+}
+function filters() {
+  const n = id => { const v = $('#' + id).value; return v === '' ? undefined : Number(v); };
+  return { priceMin: n('priceMin'), priceMax: n('priceMax'), ramMin: n('ramMin'), screenMin: n('screenMin'), screenMax: n('screenMax'),
+    conditions: [...document.querySelectorAll('.cond:checked')].map(c => c.value), allowUnknown: $('#allowUnknown').checked };
+}
+function persist() {
+  try { localStorage.setItem('olxRanker', JSON.stringify({ priorities, filters: filters(), url: $('#url').value })); } catch {}
+}
+
+function renderPrio() {
+  const ol = $('#prio'); ol.innerHTML = '';
+  priorities.forEach((k, i) => {
+    const li = document.createElement('li');
+    li.draggable = true; li.dataset.k = k;
+    li.innerHTML = `<span>⋮⋮</span><span>${COMPONENTS[k]}</span><span class="w">${WEIGHTS[i]}%</span>
+      <button aria-label="move up" ${i === 0 ? 'disabled' : ''}>↑</button><button aria-label="move down" ${i === priorities.length - 1 ? 'disabled' : ''}>↓</button>`;
+    const [up, down] = li.querySelectorAll('button');
+    up.onclick = () => move(i, i - 1); down.onclick = () => move(i, i + 1);
+    li.addEventListener('dragstart', e => { li.classList.add('drag'); e.dataTransfer.setData('text/plain', String(i)); });
+    li.addEventListener('dragend', () => li.classList.remove('drag'));
+    li.addEventListener('dragover', e => e.preventDefault());
+    li.addEventListener('drop', e => { e.preventDefault(); move(Number(e.dataTransfer.getData('text/plain')), i); });
+    ol.appendChild(li);
+  });
+}
+function move(from, to) {
+  if (to < 0 || to >= priorities.length || from === to) return;
+  const [k] = priorities.splice(from, 1); priorities.splice(to, 0, k);
+  renderPrio(); refresh();
+}
+
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function specLine(s) {
+  const v = k => s[k]?.value;
+  const parts = [
+    v('model') ? v('model').name + (v('model').exact ? '' : ' (series only)') : 'model ?',
+    v('cpu') ? (v('cpu').model || v('cpu').family) : 'CPU ?',
+    v('ram_gb') ? v('ram_gb') + ' GB RAM' : 'RAM ?',
+    v('storage') ? v('storage').gb + ' GB ' + (v('storage').type || '') : 'storage ?',
+    v('screen_in') ? v('screen_in') + '"' : 'screen ?',
+    v('resolution') ? v('resolution') + (v('panel') ? ' ' + v('panel') : '') : 'resolution ?',
+    v('condition') || 'condition ?',
+    v('warranty') ? (v('warranty').months != null ? `warranty ${v('warranty').months} mo` : 'warranty (length ?)') : 'warranty ?',
+  ];
+  if (v('gpu')) parts.push(v('gpu'));
+  return parts.map(esc).join(' · ');
+}
+function renderResults(r) {
+  $('#summary').textContent = `${r.considered} listings · ${r.passedFilters} pass filters · ${r.groups} distinct configurations · showing top ${r.results.length}`;
+  $('#results').innerHTML = r.results.map(g => {
+    const b = g.best;
+    const comps = priorities.map(k => { const c = b.components[k];
+      return `<div class="comp ${c.score == null ? 'unk' : ''}" title="${esc(c.evidence.join('\n'))}"><small>${esc(c.label)}: <b>${c.score ?? 'unknown'}</b></small>
+        <div class="bar"><i style="width:${c.score ?? 0}%"></i></div></div>`; }).join('');
+    const ev = priorities.map(k => `<li><b>${esc(b.components[k].label)}:</b> ${esc(b.components[k].evidence.join(' · '))}</li>`).join('');
+    const offers = g.offerCount > 1 ? `<details><summary>${g.offerCount} offers for this configuration (cheapest first)</summary><table class="offers">${
+      g.offers.map(o => `<tr><td>${o.price_km != null ? o.price_km + ' KM' : esc(o.price_raw || '?')}</td><td><a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.title)}</a></td><td>${o.total}</td></tr>`).join('')}</table></details>` : '';
+    return `<div class="res">
+      <div class="res-head"><span class="rank">#${g.rank}</span><span class="total">${b.total}</span>
+        <span class="price">${b.price_km != null ? b.price_km.toLocaleString('bs') + ' KM' : esc(b.price_raw || 'price ?')}</span>
+        <span class="title"><a href="${esc(b.url)}" target="_blank" rel="noopener">${esc(b.title)}</a></span>
+        <span class="conf">${b.confidence}% of weight from stated data${b.enriched ? ' · description read' : ''}</span></div>
+      <div class="specs">${specLine(b.specs)}</div>
+      <div class="comps">${comps}</div>
+      ${b.flags.length ? `<ul class="flags">${b.flags.map(f => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
+      <details><summary>Evidence</summary><ul class="ev">${ev}</ul></details>${offers}
+    </div>`;
+  }).join('') || '<p class="status">No listings yet. Paste a search URL and crawl, or run <code>npm run demo</code>.</p>';
+}
+
+let t;
+function refresh() { clearTimeout(t); t = setTimeout(async () => {
+  persist();
+  try { renderResults(await api('/api/rank', { priorities, filters: filters(), top: 50 })); }
+  catch (e) { $('#summary').textContent = 'Error: ' + e.message; }
+}, 150); }
+
+let wasRunning = false;
+async function poll() {
+  try {
+    const s = await api('/api/state');
+    const run = s.run;
+    $('#runStatus').textContent = run ? `Last run #${run.id}: ${run.status}${run.status_detail ? ' — ' + run.status_detail : ''} · pages fetched ${run.pages_fetched}${run.last_page ? ' (site reports ' + run.last_page + ')' : ''}` : 'No crawl yet.';
+    $('#log').textContent = s.job.log.join('\n'); $('#log').scrollTop = 1e9;
+    $('#crawlBtn').disabled = $('#enrichBtn').disabled = s.job.running;
+    if (wasRunning && !s.job.running) refresh();
+    if (s.job.running) refresh();
+    wasRunning = s.job.running;
+  } catch {}
+  setTimeout(poll, 3000);
+}
+
+$('#crawlBtn').onclick = async () => {
+  try { await api('/api/crawl', { url: $('#url').value, maxPages: Number($('#maxPages').value) || undefined, restart: $('#restart').checked }); persist(); }
+  catch (e) { alert(e.message); }
+};
+$('#enrichBtn').onclick = async () => { try { await api('/api/enrich', { n: 40, priorities, filters: filters() }); } catch (e) { alert(e.message); } };
+$('#exportBtn').onclick = async () => {
+  try { const r = await api('/api/export', { priorities, filters: filters(), top: 50 }); $('#exportMsg').textContent = `Wrote ${r.count} rows to ${r.json} and ${r.csv}`; }
+  catch (e) { $('#exportMsg').textContent = e.message; }
+};
+document.querySelectorAll('aside input').forEach(i => i.addEventListener('input', () => { if (i.id !== 'url' && i.id !== 'maxPages') refresh(); }));
+
+(async () => {
+  const s = await api('/api/state');
+  COMPONENTS = s.components;
+  priorities = (saved.priorities?.length === 6 && saved.priorities.every(k => COMPONENTS[k])) ? saved.priorities : s.defaultPriorities;
+  const f = saved.filters || {};
+  for (const k of ['priceMin', 'priceMax', 'ramMin', 'screenMin', 'screenMax']) if (f[k] != null) $('#' + k).value = f[k];
+  document.querySelectorAll('.cond').forEach(c => c.checked = (f.conditions || []).includes(c.value));
+  if (f.allowUnknown === false) $('#allowUnknown').checked = false;
+  if (saved.url) $('#url').value = saved.url;
+  if (s.run?.search_url?.includes('demo=fixtures'))
+    $('#results').insertAdjacentHTML('beforebegin', '<div class="banner">Demo mode: these results come from bundled <b>synthetic test fixtures</b>, not live OLX.ba data.</div>');
+  renderPrio(); refresh(); poll();
+})();
+</script>
+</body>
+</html>
