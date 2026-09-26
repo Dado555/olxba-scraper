@@ -21,15 +21,16 @@ test('enrichment fetches detail pages for the shortlist only, then re-ranks with
     return url.endsWith('robots.txt') ? { status: 404, body: '' } : { status: 200, body: detail };
   };
   const fetcher = new Fetcher({ cacheDir: mkdtempSync(join(tmpdir(), 'olxe-')), transport, delayMs: 0, jitterMs: 0, sleep: async () => {}, log: null });
+  const shortlist = rankRun(db, { top: 2 }).results.flatMap(g => g.offers.map(o => o.listing.id));
   const r = await enrichShortlist(db, fetcher, { n: 2, log: () => {} });
   const listingCalls = calls.filter(c => c.includes('/artikal/'));
-  // top 2 groups = T480 group (2 offers) + one more listing → exactly 3 detail pages out of 10 listings
-  assert.equal(listingCalls.length, 3);
-  assert.equal(r.done, 3);
-  assert.equal(db.prepare('SELECT COUNT(*) n FROM listings WHERE detail_fetched_at IS NOT NULL').get().n, 3);
-  const top = rankRun(db, {}).results[0].best;
-  assert.ok(top.listing.detail_fetched_at);
-  assert.notEqual(top.components.battery.score, null);
+  // exactly the offers in the top 2 groups, nothing else (10 listings in the DB)
+  assert.deepEqual(listingCalls.map(c => c.split('/').pop()).sort(), shortlist.sort());
+  assert.equal(r.done, shortlist.length);
+  assert.equal(db.prepare('SELECT COUNT(*) n FROM listings WHERE detail_fetched_at IS NOT NULL').get().n, shortlist.length);
+  assert.ok(shortlist.length < 10);
+  const enriched = rankRun(db, {}).results.flatMap(g => g.offers).find(o => o.listing.detail_fetched_at);
+  assert.notEqual(enriched.components.battery.score, null); // description data is used after enrichment
 });
 
 test('export writes JSON and CSV for the top results', () => {

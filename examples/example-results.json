@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T14:42:46.651Z",
+  "generated_at": "2026-09-26T17:41:03.004Z",
   "run": {
     "id": 1,
     "search_url": "https://olx.ba/pretraga?category_id=39&attr=ram(16)&demo=fixtures",
@@ -8,27 +8,29 @@
     "next_page": 4,
     "last_page": null,
     "pages_fetched": 3,
-    "started_at": "2026-09-26 14:42:46",
-    "updated_at": "2026-09-26 14:42:46"
+    "started_at": "2026-09-26 17:41:02",
+    "updated_at": "2026-09-26 17:41:02"
   },
   "options": {
     "top": 50
   },
+  "mode": "quality",
   "weights": {
-    "cpu": 30,
-    "value": 24,
-    "screen": 18,
-    "build": 13,
-    "ram": 9,
-    "battery": 6
+    "ram": 25,
+    "cpu": 20,
+    "screen": 20,
+    "build": 15,
+    "battery": 10,
+    "connectivity": 10
   },
   "considered": 10,
   "passedFilters": 10,
+  "rejected": {},
   "groups": 9,
   "results": [
     {
       "rank": 1,
-      "groupKey": "lenovo thinkpad t480 | i5-8350u | 16gb | 256gb",
+      "groupKey": "lenovo thinkpad t480 | i5-8350u | 16gb | 256gb | fhd",
       "offerCount": 2,
       "best": {
         "id": "61000001",
@@ -36,9 +38,26 @@
         "title": "Lenovo ThinkPad T480 i5-8350U 16GB RAM 256GB SSD 14\" FHD IPS",
         "price_km": 650,
         "price_raw": "650 KM",
-        "total": 70.7,
-        "confidence": 100,
-        "flags": [],
+        "total": 56.9,
+        "quality": 56.9,
+        "qualityRange": [
+          53.9,
+          63.9
+        ],
+        "affordability": 64.8,
+        "confidence": 45,
+        "certainty": {
+          "verified": 45,
+          "estimate": 35,
+          "partial": 20,
+          "unknown": 0
+        },
+        "needsVerification": [],
+        "flags": [
+          "CPU score is an estimate",
+          "weight unknown",
+          "ports unknown"
+        ],
         "enriched": true,
         "specs": {
           "model": {
@@ -111,53 +130,89 @@
             },
             "source": "description",
             "evidence": "baterije (unutrašnja + vanjska), baterija drži oko 6h"
-          }
+          },
+          "weight_kg": null,
+          "ports": null,
+          "cpu_conflict": null
         },
         "components": {
+          "ram": {
+            "label": "RAM & headroom",
+            "score": 58,
+            "basis": "verified",
+            "range": [
+              58,
+              58
+            ],
+            "evidence": [
+              "16 GB (attributes: \"RAM: 16 GB\") → 50",
+              "upgrade path stated +8 (\"dva slota\")",
+              "storage 256 GB SSD +0"
+            ]
+          },
           "cpu": {
             "label": "CPU performance",
             "score": 36,
+            "basis": "estimate",
+            "range": [
+              36,
+              36
+            ],
             "evidence": [
-              "i5-8350U: Intel gen 8 base 36 × tier 1 × suffix U 1 (source: title \"i5-8350U\")"
+              "i5-8350U: Intel gen 8 base 36 × tier 1 × suffix U 1 (source: title \"i5-8350U\")",
+              "tier estimate from the exact model number (no benchmark entry)"
             ]
           },
           "screen": {
-            "label": "Screen quality",
+            "label": "Display quality",
             "score": 70,
+            "basis": "verified",
+            "range": [
+              70,
+              70
+            ],
             "evidence": [
               "FHD (title: \"FHD\") → 60",
               "IPS panel +10"
             ]
           },
           "build": {
-            "label": "Keyboard / build comfort",
-            "score": 90,
+            "label": "Keyboard / build / work comfort",
+            "score": 86,
+            "basis": "estimate",
+            "range": [
+              86,
+              86
+            ],
             "evidence": [
-              "ThinkPad T/X/P series family baseline 85",
-              "backlit keyboard +5 (\"pozadinskim osvjetljenjem\")"
-            ]
-          },
-          "ram": {
-            "label": "RAM / upgradeability",
-            "score": 85,
-            "evidence": [
-              "16 GB (attributes: \"RAM: 16 GB\") → 75",
-              "upgradeable +10 (\"dva slota\")"
+              "ThinkPad T/X/P series family baseline 80 (model-family estimate, not this unit)",
+              "backlit keyboard +6 (\"pozadinskim osvjetljenjem\")"
             ]
           },
           "battery": {
-            "label": "Battery",
-            "score": 66,
+            "label": "Battery & mobility",
+            "score": 48,
+            "basis": "partial",
+            "range": [
+              33,
+              83
+            ],
             "evidence": [
-              "\"baterije (unutrašnja + vanjska), baterija drži oko 6h\" (description)",
-              "6 h × 11"
+              "battery \"baterije (unutrašnja + vanjska), baterija drži oko 6h\" (description): 6 h × 11",
+              "weight not stated (counted as 30)"
             ]
           },
-          "value": {
-            "label": "Value for money",
-            "score": 100,
+          "connectivity": {
+            "label": "Connectivity & longevity",
+            "score": 35,
+            "basis": "partial",
+            "range": [
+              20,
+              70
+            ],
             "evidence": [
-              "performance per KM is better than 100% of the 8 comparable listings"
+              "warranty 3 months (\"Garancija 3 mjeseca\") → 40",
+              "ports not stated (counted as 30)"
             ]
           }
         }
@@ -169,12 +224,27 @@
           "title": "Lenovo ThinkPad T480 i5-8350U 16GB 256GB SSD 14 FHD",
           "price_km": 590,
           "price_raw": "590 KM",
-          "total": 61.8,
-          "confidence": 94,
+          "total": 49.7,
+          "quality": 49.7,
+          "qualityRange": [
+            43.7,
+            63.7
+          ],
+          "affordability": 67.5,
+          "confidence": 45,
+          "certainty": {
+            "verified": 45,
+            "estimate": 35,
+            "partial": 0,
+            "unknown": 20
+          },
+          "needsVerification": [],
           "flags": [
+            "RAM upgradeability unknown",
+            "CPU score is an estimate",
             "panel type unknown",
-            "upgradeability unknown",
-            "Battery unknown (counted as 30)",
+            "Battery & mobility unknown (counted as 30)",
+            "Connectivity & longevity unknown (counted as 30)",
             "title only (description not fetched yet)"
           ],
           "enriched": false,
@@ -233,49 +303,86 @@
             },
             "warranty": null,
             "gpu": null,
-            "battery": null
+            "battery": null,
+            "weight_kg": null,
+            "ports": null,
+            "cpu_conflict": null
           },
           "components": {
+            "ram": {
+              "label": "RAM & headroom",
+              "score": 50,
+              "basis": "verified",
+              "range": [
+                50,
+                50
+              ],
+              "evidence": [
+                "16 GB (title: \"16GB\") → 50",
+                "upgrade path not stated: no bonus",
+                "storage 256 GB SSD +0"
+              ]
+            },
             "cpu": {
               "label": "CPU performance",
               "score": 36,
+              "basis": "estimate",
+              "range": [
+                36,
+                36
+              ],
               "evidence": [
-                "i5-8350U: Intel gen 8 base 36 × tier 1 × suffix U 1 (source: title \"i5-8350U\")"
+                "i5-8350U: Intel gen 8 base 36 × tier 1 × suffix U 1 (source: title \"i5-8350U\")",
+                "tier estimate from the exact model number (no benchmark entry)"
               ]
             },
             "screen": {
-              "label": "Screen quality",
+              "label": "Display quality",
               "score": 60,
+              "basis": "verified",
+              "range": [
+                60,
+                60
+              ],
               "evidence": [
-                "FHD (title: \"FHD\") → 60"
+                "FHD (title: \"FHD\") → 60",
+                "panel type not stated: no panel bonus"
               ]
             },
             "build": {
-              "label": "Keyboard / build comfort",
-              "score": 85,
+              "label": "Keyboard / build / work comfort",
+              "score": 80,
+              "basis": "estimate",
+              "range": [
+                80,
+                80
+              ],
               "evidence": [
-                "ThinkPad T/X/P series family baseline 85"
-              ]
-            },
-            "ram": {
-              "label": "RAM / upgradeability",
-              "score": 75,
-              "evidence": [
-                "16 GB (title: \"16GB\") → 75"
+                "ThinkPad T/X/P series family baseline 80 (model-family estimate, not this unit)"
               ]
             },
             "battery": {
-              "label": "Battery",
+              "label": "Battery & mobility",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "battery condition not stated"
+                "battery condition and weight not stated"
               ]
             },
-            "value": {
-              "label": "Value for money",
-              "score": 85.7,
+            "connectivity": {
+              "label": "Connectivity & longevity",
+              "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "performance per KM is better than 86% of the 8 comparable listings"
+                "ports and warranty not stated"
               ]
             }
           }
@@ -286,9 +393,26 @@
           "title": "Lenovo ThinkPad T480 i5-8350U 16GB RAM 256GB SSD 14\" FHD IPS",
           "price_km": 650,
           "price_raw": "650 KM",
-          "total": 70.7,
-          "confidence": 100,
-          "flags": [],
+          "total": 56.9,
+          "quality": 56.9,
+          "qualityRange": [
+            53.9,
+            63.9
+          ],
+          "affordability": 64.8,
+          "confidence": 45,
+          "certainty": {
+            "verified": 45,
+            "estimate": 35,
+            "partial": 20,
+            "unknown": 0
+          },
+          "needsVerification": [],
+          "flags": [
+            "CPU score is an estimate",
+            "weight unknown",
+            "ports unknown"
+          ],
           "enriched": true,
           "specs": {
             "model": {
@@ -361,53 +485,89 @@
               },
               "source": "description",
               "evidence": "baterije (unutrašnja + vanjska), baterija drži oko 6h"
-            }
+            },
+            "weight_kg": null,
+            "ports": null,
+            "cpu_conflict": null
           },
           "components": {
+            "ram": {
+              "label": "RAM & headroom",
+              "score": 58,
+              "basis": "verified",
+              "range": [
+                58,
+                58
+              ],
+              "evidence": [
+                "16 GB (attributes: \"RAM: 16 GB\") → 50",
+                "upgrade path stated +8 (\"dva slota\")",
+                "storage 256 GB SSD +0"
+              ]
+            },
             "cpu": {
               "label": "CPU performance",
               "score": 36,
+              "basis": "estimate",
+              "range": [
+                36,
+                36
+              ],
               "evidence": [
-                "i5-8350U: Intel gen 8 base 36 × tier 1 × suffix U 1 (source: title \"i5-8350U\")"
+                "i5-8350U: Intel gen 8 base 36 × tier 1 × suffix U 1 (source: title \"i5-8350U\")",
+                "tier estimate from the exact model number (no benchmark entry)"
               ]
             },
             "screen": {
-              "label": "Screen quality",
+              "label": "Display quality",
               "score": 70,
+              "basis": "verified",
+              "range": [
+                70,
+                70
+              ],
               "evidence": [
                 "FHD (title: \"FHD\") → 60",
                 "IPS panel +10"
               ]
             },
             "build": {
-              "label": "Keyboard / build comfort",
-              "score": 90,
+              "label": "Keyboard / build / work comfort",
+              "score": 86,
+              "basis": "estimate",
+              "range": [
+                86,
+                86
+              ],
               "evidence": [
-                "ThinkPad T/X/P series family baseline 85",
-                "backlit keyboard +5 (\"pozadinskim osvjetljenjem\")"
-              ]
-            },
-            "ram": {
-              "label": "RAM / upgradeability",
-              "score": 85,
-              "evidence": [
-                "16 GB (attributes: \"RAM: 16 GB\") → 75",
-                "upgradeable +10 (\"dva slota\")"
+                "ThinkPad T/X/P series family baseline 80 (model-family estimate, not this unit)",
+                "backlit keyboard +6 (\"pozadinskim osvjetljenjem\")"
               ]
             },
             "battery": {
-              "label": "Battery",
-              "score": 66,
+              "label": "Battery & mobility",
+              "score": 48,
+              "basis": "partial",
+              "range": [
+                33,
+                83
+              ],
               "evidence": [
-                "\"baterije (unutrašnja + vanjska), baterija drži oko 6h\" (description)",
-                "6 h × 11"
+                "battery \"baterije (unutrašnja + vanjska), baterija drži oko 6h\" (description): 6 h × 11",
+                "weight not stated (counted as 30)"
               ]
             },
-            "value": {
-              "label": "Value for money",
-              "score": 100,
+            "connectivity": {
+              "label": "Connectivity & longevity",
+              "score": 35,
+              "basis": "partial",
+              "range": [
+                20,
+                70
+              ],
               "evidence": [
-                "performance per KM is better than 100% of the 8 comparable listings"
+                "warranty 3 months (\"Garancija 3 mjeseca\") → 40",
+                "ports not stated (counted as 30)"
               ]
             }
           }
@@ -416,235 +576,343 @@
     },
     {
       "rank": 2,
-      "groupKey": "apple macbook air m1 | apple m1 | 8gb | 256gb",
+      "groupKey": "lenovo thinkpad x1 carbon gen 7 | i7-8665u | 16gb | 512gb | qhd",
       "offerCount": 1,
       "best": {
-        "id": "61000006",
-        "url": "https://olx.ba/artikal/61000006",
-        "title": "Apple MacBook Air M1 8GB 256GB 13.3 Retina",
-        "price_km": 1400,
-        "price_raw": "1.400 KM",
-        "total": 65.7,
-        "confidence": 94,
+        "id": "61000009",
+        "url": "https://olx.ba/artikal/61000009",
+        "title": "Lenovo ThinkPad X1 Carbon Gen 7 i7-8665U 16GB 512GB 14\" WQHD",
+        "price_km": 1700,
+        "price_raw": "1.700 KM",
+        "total": 55.2,
+        "quality": 55.2,
+        "qualityRange": [
+          49.2,
+          69.2
+        ],
+        "affordability": 32.2,
+        "confidence": 45,
+        "certainty": {
+          "verified": 45,
+          "estimate": 35,
+          "partial": 0,
+          "unknown": 20
+        },
+        "needsVerification": [],
         "flags": [
-          "Battery unknown (counted as 30)",
+          "RAM upgradeability unknown",
+          "CPU score is an estimate",
+          "panel type unknown",
+          "Battery & mobility unknown (counted as 30)",
+          "Connectivity & longevity unknown (counted as 30)",
           "title only (description not fetched yet)"
         ],
         "enriched": false,
         "specs": {
           "model": {
             "value": {
-              "brand": "Apple",
-              "name": "Apple MacBook Air M1",
+              "brand": "Lenovo",
+              "name": "Lenovo ThinkPad X1 Carbon Gen 7",
               "exact": true
             },
             "source": "title",
-            "evidence": "MacBook Air M1"
+            "evidence": "ThinkPad X1 Carbon Gen 7"
           },
           "cpu": {
             "value": {
-              "vendor": "Apple",
-              "family": "Apple Silicon",
-              "gen": 1,
-              "variant": "",
-              "model": "Apple M1",
+              "vendor": "Intel",
+              "family": "Core i7",
+              "tier": 7,
+              "gen": 8,
+              "model": "i7-8665U",
+              "suffix": "U",
               "exact": true
             },
             "source": "title",
-            "evidence": "M1"
+            "evidence": "i7-8665U"
           },
           "ram_gb": {
-            "value": 8,
+            "value": 16,
             "source": "title",
-            "evidence": "8GB"
+            "evidence": "16GB"
           },
           "storage": {
             "value": {
-              "gb": 256,
+              "gb": 512,
               "type": null
             },
             "source": "title",
-            "evidence": "256GB"
+            "evidence": "512GB"
           },
           "screen_in": {
-            "value": 13.3,
+            "value": 14,
             "source": "title",
-            "evidence": "13.3 Retina"
+            "evidence": "14\""
           },
           "resolution": {
-            "value": "Retina",
+            "value": "QHD",
             "source": "title",
-            "evidence": "Retina"
+            "evidence": "WQHD"
           },
           "panel": null,
           "refresh_hz": null,
           "condition": {
             "value": "used",
             "source": "card",
-            "evidence": "used"
+            "evidence": "Stanje: Korišteno"
           },
           "warranty": null,
           "gpu": null,
-          "battery": null
+          "battery": null,
+          "weight_kg": null,
+          "ports": null,
+          "cpu_conflict": null
         },
         "components": {
+          "ram": {
+            "label": "RAM & headroom",
+            "score": 54,
+            "basis": "verified",
+            "range": [
+              54,
+              54
+            ],
+            "evidence": [
+              "16 GB (title: \"16GB\") → 50",
+              "upgrade path not stated: no bonus",
+              "storage 512 GB +4"
+            ]
+          },
           "cpu": {
             "label": "CPU performance",
-            "score": 62,
+            "score": 40.3,
+            "basis": "estimate",
+            "range": [
+              40.3,
+              40.3
+            ],
             "evidence": [
-              "Apple M1: Apple Silicon gen 1 (source: title \"M1\")"
+              "i7-8665U: Intel gen 8 base 36 × tier 1.12 × suffix U 1 (source: title \"i7-8665U\")",
+              "tier estimate from the exact model number (no benchmark entry)"
             ]
           },
           "screen": {
-            "label": "Screen quality",
-            "score": 82,
+            "label": "Display quality",
+            "score": 78,
+            "basis": "verified",
+            "range": [
+              78,
+              78
+            ],
             "evidence": [
-              "Retina (title: \"Retina\") → 82"
+              "QHD (title: \"WQHD\") → 78",
+              "panel type not stated: no panel bonus"
             ]
           },
           "build": {
-            "label": "Keyboard / build comfort",
-            "score": 82,
+            "label": "Keyboard / build / work comfort",
+            "score": 80,
+            "basis": "estimate",
+            "range": [
+              80,
+              80
+            ],
             "evidence": [
-              "MacBook (aluminium unibody) family baseline 82"
-            ]
-          },
-          "ram": {
-            "label": "RAM / upgradeability",
-            "score": 30,
-            "evidence": [
-              "8 GB (title: \"8GB\") → 40",
-              "soldered −10 (Apple Silicon MacBooks have soldered RAM)"
+              "ThinkPad T/X/P series family baseline 80 (model-family estimate, not this unit)"
             ]
           },
           "battery": {
-            "label": "Battery",
+            "label": "Battery & mobility",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "battery condition not stated"
+              "battery condition and weight not stated"
             ]
           },
-          "value": {
-            "label": "Value for money",
-            "score": 71.4,
+          "connectivity": {
+            "label": "Connectivity & longevity",
+            "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "performance per KM is better than 71% of the 8 comparable listings"
+              "ports and warranty not stated"
             ]
           }
         }
       },
       "offers": [
         {
-          "id": "61000006",
-          "url": "https://olx.ba/artikal/61000006",
-          "title": "Apple MacBook Air M1 8GB 256GB 13.3 Retina",
-          "price_km": 1400,
-          "price_raw": "1.400 KM",
-          "total": 65.7,
-          "confidence": 94,
+          "id": "61000009",
+          "url": "https://olx.ba/artikal/61000009",
+          "title": "Lenovo ThinkPad X1 Carbon Gen 7 i7-8665U 16GB 512GB 14\" WQHD",
+          "price_km": 1700,
+          "price_raw": "1.700 KM",
+          "total": 55.2,
+          "quality": 55.2,
+          "qualityRange": [
+            49.2,
+            69.2
+          ],
+          "affordability": 32.2,
+          "confidence": 45,
+          "certainty": {
+            "verified": 45,
+            "estimate": 35,
+            "partial": 0,
+            "unknown": 20
+          },
+          "needsVerification": [],
           "flags": [
-            "Battery unknown (counted as 30)",
+            "RAM upgradeability unknown",
+            "CPU score is an estimate",
+            "panel type unknown",
+            "Battery & mobility unknown (counted as 30)",
+            "Connectivity & longevity unknown (counted as 30)",
             "title only (description not fetched yet)"
           ],
           "enriched": false,
           "specs": {
             "model": {
               "value": {
-                "brand": "Apple",
-                "name": "Apple MacBook Air M1",
+                "brand": "Lenovo",
+                "name": "Lenovo ThinkPad X1 Carbon Gen 7",
                 "exact": true
               },
               "source": "title",
-              "evidence": "MacBook Air M1"
+              "evidence": "ThinkPad X1 Carbon Gen 7"
             },
             "cpu": {
               "value": {
-                "vendor": "Apple",
-                "family": "Apple Silicon",
-                "gen": 1,
-                "variant": "",
-                "model": "Apple M1",
+                "vendor": "Intel",
+                "family": "Core i7",
+                "tier": 7,
+                "gen": 8,
+                "model": "i7-8665U",
+                "suffix": "U",
                 "exact": true
               },
               "source": "title",
-              "evidence": "M1"
+              "evidence": "i7-8665U"
             },
             "ram_gb": {
-              "value": 8,
+              "value": 16,
               "source": "title",
-              "evidence": "8GB"
+              "evidence": "16GB"
             },
             "storage": {
               "value": {
-                "gb": 256,
+                "gb": 512,
                 "type": null
               },
               "source": "title",
-              "evidence": "256GB"
+              "evidence": "512GB"
             },
             "screen_in": {
-              "value": 13.3,
+              "value": 14,
               "source": "title",
-              "evidence": "13.3 Retina"
+              "evidence": "14\""
             },
             "resolution": {
-              "value": "Retina",
+              "value": "QHD",
               "source": "title",
-              "evidence": "Retina"
+              "evidence": "WQHD"
             },
             "panel": null,
             "refresh_hz": null,
             "condition": {
               "value": "used",
               "source": "card",
-              "evidence": "used"
+              "evidence": "Stanje: Korišteno"
             },
             "warranty": null,
             "gpu": null,
-            "battery": null
+            "battery": null,
+            "weight_kg": null,
+            "ports": null,
+            "cpu_conflict": null
           },
           "components": {
+            "ram": {
+              "label": "RAM & headroom",
+              "score": 54,
+              "basis": "verified",
+              "range": [
+                54,
+                54
+              ],
+              "evidence": [
+                "16 GB (title: \"16GB\") → 50",
+                "upgrade path not stated: no bonus",
+                "storage 512 GB +4"
+              ]
+            },
             "cpu": {
               "label": "CPU performance",
-              "score": 62,
+              "score": 40.3,
+              "basis": "estimate",
+              "range": [
+                40.3,
+                40.3
+              ],
               "evidence": [
-                "Apple M1: Apple Silicon gen 1 (source: title \"M1\")"
+                "i7-8665U: Intel gen 8 base 36 × tier 1.12 × suffix U 1 (source: title \"i7-8665U\")",
+                "tier estimate from the exact model number (no benchmark entry)"
               ]
             },
             "screen": {
-              "label": "Screen quality",
-              "score": 82,
+              "label": "Display quality",
+              "score": 78,
+              "basis": "verified",
+              "range": [
+                78,
+                78
+              ],
               "evidence": [
-                "Retina (title: \"Retina\") → 82"
+                "QHD (title: \"WQHD\") → 78",
+                "panel type not stated: no panel bonus"
               ]
             },
             "build": {
-              "label": "Keyboard / build comfort",
-              "score": 82,
+              "label": "Keyboard / build / work comfort",
+              "score": 80,
+              "basis": "estimate",
+              "range": [
+                80,
+                80
+              ],
               "evidence": [
-                "MacBook (aluminium unibody) family baseline 82"
-              ]
-            },
-            "ram": {
-              "label": "RAM / upgradeability",
-              "score": 30,
-              "evidence": [
-                "8 GB (title: \"8GB\") → 40",
-                "soldered −10 (Apple Silicon MacBooks have soldered RAM)"
+                "ThinkPad T/X/P series family baseline 80 (model-family estimate, not this unit)"
               ]
             },
             "battery": {
-              "label": "Battery",
+              "label": "Battery & mobility",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "battery condition not stated"
+                "battery condition and weight not stated"
               ]
             },
-            "value": {
-              "label": "Value for money",
-              "score": 71.4,
+            "connectivity": {
+              "label": "Connectivity & longevity",
+              "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "performance per KM is better than 71% of the 8 comparable listings"
+                "ports and warranty not stated"
               ]
             }
           }
@@ -661,13 +929,28 @@
         "title": "Gaming laptop Lenovo Legion 5 Ryzen 7 5800H RTX 3060 16GB 1TB 165Hz",
         "price_km": 1990,
         "price_raw": "1.990 KM",
-        "total": 60.8,
-        "confidence": 76,
+        "total": 51.9,
+        "quality": 51.9,
+        "qualityRange": [
+          39.9,
+          79.9
+        ],
+        "affordability": 26.5,
+        "confidence": 25,
+        "certainty": {
+          "verified": 25,
+          "estimate": 35,
+          "partial": 0,
+          "unknown": 40
+        },
+        "needsVerification": [],
         "flags": [
-          "Screen quality unknown (counted as 30)",
+          "RAM upgradeability unknown",
+          "CPU score is an estimate",
+          "Display quality unknown (counted as 30)",
           "model series only, exact model unknown",
-          "upgradeability unknown",
-          "Battery unknown (counted as 30)",
+          "Battery & mobility unknown (counted as 30)",
+          "Connectivity & longevity unknown (counted as 30)",
           "title only (description not fetched yet)"
         ],
         "enriched": false,
@@ -727,49 +1010,85 @@
             "source": "title",
             "evidence": "RTX 3060"
           },
-          "battery": null
+          "battery": null,
+          "weight_kg": null,
+          "ports": null,
+          "cpu_conflict": null
         },
         "components": {
+          "ram": {
+            "label": "RAM & headroom",
+            "score": 57,
+            "basis": "verified",
+            "range": [
+              57,
+              57
+            ],
+            "evidence": [
+              "16 GB (title: \"16GB\") → 50",
+              "upgrade path not stated: no bonus",
+              "storage 1024 GB +7"
+            ]
+          },
           "cpu": {
             "label": "CPU performance",
             "score": 80.1,
+            "basis": "estimate",
+            "range": [
+              80.1,
+              80.1
+            ],
             "evidence": [
-              "Ryzen 7 5800H: Ryzen 5000 base 55 × tier 1.12 × suffix H 1.3 (source: title \"Ryzen 7 5800H\")"
+              "Ryzen 7 5800H: Ryzen 5000 base 55 × tier 1.12 × suffix H 1.3 (source: title \"Ryzen 7 5800H\")",
+              "tier estimate from the exact model number (no benchmark entry)"
             ]
           },
           "screen": {
-            "label": "Screen quality",
+            "label": "Display quality",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
               "resolution not stated"
             ]
           },
           "build": {
-            "label": "Keyboard / build comfort",
-            "score": 70,
+            "label": "Keyboard / build / work comfort",
+            "score": 64,
+            "basis": "estimate",
+            "range": [
+              64,
+              64
+            ],
             "evidence": [
-              "Lenovo Legion family baseline 70"
-            ]
-          },
-          "ram": {
-            "label": "RAM / upgradeability",
-            "score": 75,
-            "evidence": [
-              "16 GB (title: \"16GB\") → 75"
+              "Lenovo Legion family baseline 64 (model-family estimate, not this unit)"
             ]
           },
           "battery": {
-            "label": "Battery",
+            "label": "Battery & mobility",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "battery condition not stated"
+              "battery condition and weight not stated"
             ]
           },
-          "value": {
-            "label": "Value for money",
-            "score": 57.1,
+          "connectivity": {
+            "label": "Connectivity & longevity",
+            "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "performance per KM is better than 57% of the 8 comparable listings"
+              "ports and warranty not stated"
             ]
           }
         }
@@ -781,13 +1100,28 @@
           "title": "Gaming laptop Lenovo Legion 5 Ryzen 7 5800H RTX 3060 16GB 1TB 165Hz",
           "price_km": 1990,
           "price_raw": "1.990 KM",
-          "total": 60.8,
-          "confidence": 76,
+          "total": 51.9,
+          "quality": 51.9,
+          "qualityRange": [
+            39.9,
+            79.9
+          ],
+          "affordability": 26.5,
+          "confidence": 25,
+          "certainty": {
+            "verified": 25,
+            "estimate": 35,
+            "partial": 0,
+            "unknown": 40
+          },
+          "needsVerification": [],
           "flags": [
-            "Screen quality unknown (counted as 30)",
+            "RAM upgradeability unknown",
+            "CPU score is an estimate",
+            "Display quality unknown (counted as 30)",
             "model series only, exact model unknown",
-            "upgradeability unknown",
-            "Battery unknown (counted as 30)",
+            "Battery & mobility unknown (counted as 30)",
+            "Connectivity & longevity unknown (counted as 30)",
             "title only (description not fetched yet)"
           ],
           "enriched": false,
@@ -847,49 +1181,85 @@
               "source": "title",
               "evidence": "RTX 3060"
             },
-            "battery": null
+            "battery": null,
+            "weight_kg": null,
+            "ports": null,
+            "cpu_conflict": null
           },
           "components": {
+            "ram": {
+              "label": "RAM & headroom",
+              "score": 57,
+              "basis": "verified",
+              "range": [
+                57,
+                57
+              ],
+              "evidence": [
+                "16 GB (title: \"16GB\") → 50",
+                "upgrade path not stated: no bonus",
+                "storage 1024 GB +7"
+              ]
+            },
             "cpu": {
               "label": "CPU performance",
               "score": 80.1,
+              "basis": "estimate",
+              "range": [
+                80.1,
+                80.1
+              ],
               "evidence": [
-                "Ryzen 7 5800H: Ryzen 5000 base 55 × tier 1.12 × suffix H 1.3 (source: title \"Ryzen 7 5800H\")"
+                "Ryzen 7 5800H: Ryzen 5000 base 55 × tier 1.12 × suffix H 1.3 (source: title \"Ryzen 7 5800H\")",
+                "tier estimate from the exact model number (no benchmark entry)"
               ]
             },
             "screen": {
-              "label": "Screen quality",
+              "label": "Display quality",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
                 "resolution not stated"
               ]
             },
             "build": {
-              "label": "Keyboard / build comfort",
-              "score": 70,
+              "label": "Keyboard / build / work comfort",
+              "score": 64,
+              "basis": "estimate",
+              "range": [
+                64,
+                64
+              ],
               "evidence": [
-                "Lenovo Legion family baseline 70"
-              ]
-            },
-            "ram": {
-              "label": "RAM / upgradeability",
-              "score": 75,
-              "evidence": [
-                "16 GB (title: \"16GB\") → 75"
+                "Lenovo Legion family baseline 64 (model-family estimate, not this unit)"
               ]
             },
             "battery": {
-              "label": "Battery",
+              "label": "Battery & mobility",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "battery condition not stated"
+                "battery condition and weight not stated"
               ]
             },
-            "value": {
-              "label": "Value for money",
-              "score": 57.1,
+            "connectivity": {
+              "label": "Connectivity & longevity",
+              "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "performance per KM is better than 57% of the 8 comparable listings"
+                "ports and warranty not stated"
               ]
             }
           }
@@ -898,239 +1268,335 @@
     },
     {
       "rank": 4,
-      "groupKey": "lenovo thinkpad x1 carbon gen 7 | i7-8665u | 16gb | 512gb",
+      "groupKey": "apple macbook air m1 | apple m1 | 8gb | 256gb | retina",
       "offerCount": 1,
       "best": {
-        "id": "61000009",
-        "url": "https://olx.ba/artikal/61000009",
-        "title": "Lenovo ThinkPad X1 Carbon Gen 7 i7-8665U 16GB 512GB 14\" WQHD",
-        "price_km": 1700,
-        "price_raw": "1.700 KM",
-        "total": 56,
-        "confidence": 94,
+        "id": "61000006",
+        "url": "https://olx.ba/artikal/61000006",
+        "title": "Apple MacBook Air M1 8GB 256GB 13.3 Retina",
+        "price_km": 1400,
+        "price_raw": "1.400 KM",
+        "total": 49.7,
+        "quality": 49.7,
+        "qualityRange": [
+          43.7,
+          63.7
+        ],
+        "affordability": 39.3,
+        "confidence": 45,
+        "certainty": {
+          "verified": 45,
+          "estimate": 35,
+          "partial": 0,
+          "unknown": 20
+        },
+        "needsVerification": [],
         "flags": [
-          "panel type unknown",
-          "upgradeability unknown",
-          "Battery unknown (counted as 30)",
+          "CPU score is an estimate",
+          "Battery & mobility unknown (counted as 30)",
+          "Connectivity & longevity unknown (counted as 30)",
           "title only (description not fetched yet)"
         ],
         "enriched": false,
         "specs": {
           "model": {
             "value": {
-              "brand": "Lenovo",
-              "name": "Lenovo ThinkPad X1 Carbon Gen 7",
+              "brand": "Apple",
+              "name": "Apple MacBook Air M1",
               "exact": true
             },
             "source": "title",
-            "evidence": "ThinkPad X1 Carbon Gen 7"
+            "evidence": "MacBook Air M1"
           },
           "cpu": {
             "value": {
-              "vendor": "Intel",
-              "family": "Core i7",
-              "tier": 7,
-              "gen": 8,
-              "model": "i7-8665U",
-              "suffix": "U",
+              "vendor": "Apple",
+              "family": "Apple Silicon",
+              "gen": 1,
+              "variant": "",
+              "model": "Apple M1",
               "exact": true
             },
             "source": "title",
-            "evidence": "i7-8665U"
+            "evidence": "M1"
           },
           "ram_gb": {
-            "value": 16,
+            "value": 8,
             "source": "title",
-            "evidence": "16GB"
+            "evidence": "8GB"
           },
           "storage": {
             "value": {
-              "gb": 512,
+              "gb": 256,
               "type": null
             },
             "source": "title",
-            "evidence": "512GB"
+            "evidence": "256GB"
           },
           "screen_in": {
-            "value": 14,
+            "value": 13.3,
             "source": "title",
-            "evidence": "14\""
+            "evidence": "13.3 Retina"
           },
           "resolution": {
-            "value": "QHD",
+            "value": "Retina",
             "source": "title",
-            "evidence": "WQHD"
+            "evidence": "Retina"
           },
           "panel": null,
           "refresh_hz": null,
           "condition": {
             "value": "used",
             "source": "card",
-            "evidence": "Stanje: Korišteno"
+            "evidence": "used"
           },
           "warranty": null,
           "gpu": null,
-          "battery": null
+          "battery": null,
+          "weight_kg": null,
+          "ports": null,
+          "cpu_conflict": null
         },
         "components": {
+          "ram": {
+            "label": "RAM & headroom",
+            "score": 14,
+            "basis": "verified",
+            "range": [
+              14,
+              14
+            ],
+            "evidence": [
+              "8 GB (title: \"8GB\") → 22",
+              "soldered −8 (Apple Silicon MacBooks have soldered RAM)",
+              "storage 256 GB +0"
+            ]
+          },
           "cpu": {
             "label": "CPU performance",
-            "score": 40.3,
+            "score": 62,
+            "basis": "estimate",
+            "range": [
+              62,
+              62
+            ],
             "evidence": [
-              "i7-8665U: Intel gen 8 base 36 × tier 1.12 × suffix U 1 (source: title \"i7-8665U\")"
+              "Apple M1: Apple Silicon gen 1 (source: title \"M1\")",
+              "tier estimate from the exact model number (no benchmark entry)"
             ]
           },
           "screen": {
-            "label": "Screen quality",
-            "score": 78,
+            "label": "Display quality",
+            "score": 82,
+            "basis": "verified",
+            "range": [
+              82,
+              82
+            ],
             "evidence": [
-              "QHD (title: \"WQHD\") → 78"
+              "Retina (title: \"Retina\") → 82"
             ]
           },
           "build": {
-            "label": "Keyboard / build comfort",
-            "score": 85,
+            "label": "Keyboard / build / work comfort",
+            "score": 76,
+            "basis": "estimate",
+            "range": [
+              76,
+              76
+            ],
             "evidence": [
-              "ThinkPad T/X/P series family baseline 85"
-            ]
-          },
-          "ram": {
-            "label": "RAM / upgradeability",
-            "score": 75,
-            "evidence": [
-              "16 GB (title: \"16GB\") → 75"
+              "MacBook family baseline 76 (model-family estimate, not this unit)"
             ]
           },
           "battery": {
-            "label": "Battery",
+            "label": "Battery & mobility",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "battery condition not stated"
+              "battery condition and weight not stated"
             ]
           },
-          "value": {
-            "label": "Value for money",
-            "score": 42.9,
+          "connectivity": {
+            "label": "Connectivity & longevity",
+            "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "performance per KM is better than 43% of the 8 comparable listings"
+              "ports and warranty not stated"
             ]
           }
         }
       },
       "offers": [
         {
-          "id": "61000009",
-          "url": "https://olx.ba/artikal/61000009",
-          "title": "Lenovo ThinkPad X1 Carbon Gen 7 i7-8665U 16GB 512GB 14\" WQHD",
-          "price_km": 1700,
-          "price_raw": "1.700 KM",
-          "total": 56,
-          "confidence": 94,
+          "id": "61000006",
+          "url": "https://olx.ba/artikal/61000006",
+          "title": "Apple MacBook Air M1 8GB 256GB 13.3 Retina",
+          "price_km": 1400,
+          "price_raw": "1.400 KM",
+          "total": 49.7,
+          "quality": 49.7,
+          "qualityRange": [
+            43.7,
+            63.7
+          ],
+          "affordability": 39.3,
+          "confidence": 45,
+          "certainty": {
+            "verified": 45,
+            "estimate": 35,
+            "partial": 0,
+            "unknown": 20
+          },
+          "needsVerification": [],
           "flags": [
-            "panel type unknown",
-            "upgradeability unknown",
-            "Battery unknown (counted as 30)",
+            "CPU score is an estimate",
+            "Battery & mobility unknown (counted as 30)",
+            "Connectivity & longevity unknown (counted as 30)",
             "title only (description not fetched yet)"
           ],
           "enriched": false,
           "specs": {
             "model": {
               "value": {
-                "brand": "Lenovo",
-                "name": "Lenovo ThinkPad X1 Carbon Gen 7",
+                "brand": "Apple",
+                "name": "Apple MacBook Air M1",
                 "exact": true
               },
               "source": "title",
-              "evidence": "ThinkPad X1 Carbon Gen 7"
+              "evidence": "MacBook Air M1"
             },
             "cpu": {
               "value": {
-                "vendor": "Intel",
-                "family": "Core i7",
-                "tier": 7,
-                "gen": 8,
-                "model": "i7-8665U",
-                "suffix": "U",
+                "vendor": "Apple",
+                "family": "Apple Silicon",
+                "gen": 1,
+                "variant": "",
+                "model": "Apple M1",
                 "exact": true
               },
               "source": "title",
-              "evidence": "i7-8665U"
+              "evidence": "M1"
             },
             "ram_gb": {
-              "value": 16,
+              "value": 8,
               "source": "title",
-              "evidence": "16GB"
+              "evidence": "8GB"
             },
             "storage": {
               "value": {
-                "gb": 512,
+                "gb": 256,
                 "type": null
               },
               "source": "title",
-              "evidence": "512GB"
+              "evidence": "256GB"
             },
             "screen_in": {
-              "value": 14,
+              "value": 13.3,
               "source": "title",
-              "evidence": "14\""
+              "evidence": "13.3 Retina"
             },
             "resolution": {
-              "value": "QHD",
+              "value": "Retina",
               "source": "title",
-              "evidence": "WQHD"
+              "evidence": "Retina"
             },
             "panel": null,
             "refresh_hz": null,
             "condition": {
               "value": "used",
               "source": "card",
-              "evidence": "Stanje: Korišteno"
+              "evidence": "used"
             },
             "warranty": null,
             "gpu": null,
-            "battery": null
+            "battery": null,
+            "weight_kg": null,
+            "ports": null,
+            "cpu_conflict": null
           },
           "components": {
+            "ram": {
+              "label": "RAM & headroom",
+              "score": 14,
+              "basis": "verified",
+              "range": [
+                14,
+                14
+              ],
+              "evidence": [
+                "8 GB (title: \"8GB\") → 22",
+                "soldered −8 (Apple Silicon MacBooks have soldered RAM)",
+                "storage 256 GB +0"
+              ]
+            },
             "cpu": {
               "label": "CPU performance",
-              "score": 40.3,
+              "score": 62,
+              "basis": "estimate",
+              "range": [
+                62,
+                62
+              ],
               "evidence": [
-                "i7-8665U: Intel gen 8 base 36 × tier 1.12 × suffix U 1 (source: title \"i7-8665U\")"
+                "Apple M1: Apple Silicon gen 1 (source: title \"M1\")",
+                "tier estimate from the exact model number (no benchmark entry)"
               ]
             },
             "screen": {
-              "label": "Screen quality",
-              "score": 78,
+              "label": "Display quality",
+              "score": 82,
+              "basis": "verified",
+              "range": [
+                82,
+                82
+              ],
               "evidence": [
-                "QHD (title: \"WQHD\") → 78"
+                "Retina (title: \"Retina\") → 82"
               ]
             },
             "build": {
-              "label": "Keyboard / build comfort",
-              "score": 85,
+              "label": "Keyboard / build / work comfort",
+              "score": 76,
+              "basis": "estimate",
+              "range": [
+                76,
+                76
+              ],
               "evidence": [
-                "ThinkPad T/X/P series family baseline 85"
-              ]
-            },
-            "ram": {
-              "label": "RAM / upgradeability",
-              "score": 75,
-              "evidence": [
-                "16 GB (title: \"16GB\") → 75"
+                "MacBook family baseline 76 (model-family estimate, not this unit)"
               ]
             },
             "battery": {
-              "label": "Battery",
+              "label": "Battery & mobility",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "battery condition not stated"
+                "battery condition and weight not stated"
               ]
             },
-            "value": {
-              "label": "Value for money",
-              "score": 42.9,
+            "connectivity": {
+              "label": "Connectivity & longevity",
+              "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "performance per KM is better than 43% of the 8 comparable listings"
+                "ports and warranty not stated"
               ]
             }
           }
@@ -1139,7 +1605,7 @@
     },
     {
       "rank": 5,
-      "groupKey": "hp elitebook 840 g8 | i5-1135g7 | 16gb | ?",
+      "groupKey": "id:61000003",
       "offerCount": 1,
       "best": {
         "id": "61000003",
@@ -1147,12 +1613,28 @@
         "title": "HP EliteBook 840 G8 Ryzen? NE - i5-1135G7 16 GB 15,6",
         "price_km": 1899.5,
         "price_raw": "1 899,50 KM",
-        "total": 42.5,
-        "confidence": 76,
+        "total": 45.6,
+        "quality": 45.6,
+        "qualityRange": [
+          33.6,
+          73.6
+        ],
+        "affordability": 28.2,
+        "confidence": 25,
+        "certainty": {
+          "verified": 25,
+          "estimate": 35,
+          "partial": 0,
+          "unknown": 40
+        },
+        "needsVerification": [],
         "flags": [
-          "Screen quality unknown (counted as 30)",
-          "upgradeability unknown",
-          "Battery unknown (counted as 30)",
+          "RAM upgradeability unknown",
+          "storage unknown",
+          "CPU score is an estimate",
+          "Display quality unknown (counted as 30)",
+          "Battery & mobility unknown (counted as 30)",
+          "Connectivity & longevity unknown (counted as 30)",
           "title only (description not fetched yet)"
         ],
         "enriched": false,
@@ -1200,49 +1682,85 @@
           },
           "warranty": null,
           "gpu": null,
-          "battery": null
+          "battery": null,
+          "weight_kg": null,
+          "ports": null,
+          "cpu_conflict": null
         },
         "components": {
+          "ram": {
+            "label": "RAM & headroom",
+            "score": 50,
+            "basis": "verified",
+            "range": [
+              50,
+              50
+            ],
+            "evidence": [
+              "16 GB (title: \"16 GB\") → 50",
+              "upgrade path not stated: no bonus",
+              "storage size not stated: no adjustment"
+            ]
+          },
           "cpu": {
             "label": "CPU performance",
             "score": 50,
+            "basis": "estimate",
+            "range": [
+              50,
+              50
+            ],
             "evidence": [
-              "i5-1135G7: Intel gen 11 base 50 × tier 1 × suffix G7 1 (source: title \"i5-1135G7\")"
+              "i5-1135G7: Intel gen 11 base 50 × tier 1 × suffix G7 1 (source: title \"i5-1135G7\")",
+              "tier estimate from the exact model number (no benchmark entry)"
             ]
           },
           "screen": {
-            "label": "Screen quality",
+            "label": "Display quality",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
               "resolution not stated"
             ]
           },
           "build": {
-            "label": "Keyboard / build comfort",
-            "score": 78,
+            "label": "Keyboard / build / work comfort",
+            "score": 74,
+            "basis": "estimate",
+            "range": [
+              74,
+              74
+            ],
             "evidence": [
-              "HP EliteBook/ZBook family baseline 78"
-            ]
-          },
-          "ram": {
-            "label": "RAM / upgradeability",
-            "score": 75,
-            "evidence": [
-              "16 GB (title: \"16 GB\") → 75"
+              "HP EliteBook/ZBook family baseline 74 (model-family estimate, not this unit)"
             ]
           },
           "battery": {
-            "label": "Battery",
+            "label": "Battery & mobility",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "battery condition not stated"
+              "battery condition and weight not stated"
             ]
           },
-          "value": {
-            "label": "Value for money",
-            "score": 14.3,
+          "connectivity": {
+            "label": "Connectivity & longevity",
+            "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "performance per KM is better than 14% of the 8 comparable listings"
+              "ports and warranty not stated"
             ]
           }
         }
@@ -1254,12 +1772,28 @@
           "title": "HP EliteBook 840 G8 Ryzen? NE - i5-1135G7 16 GB 15,6",
           "price_km": 1899.5,
           "price_raw": "1 899,50 KM",
-          "total": 42.5,
-          "confidence": 76,
+          "total": 45.6,
+          "quality": 45.6,
+          "qualityRange": [
+            33.6,
+            73.6
+          ],
+          "affordability": 28.2,
+          "confidence": 25,
+          "certainty": {
+            "verified": 25,
+            "estimate": 35,
+            "partial": 0,
+            "unknown": 40
+          },
+          "needsVerification": [],
           "flags": [
-            "Screen quality unknown (counted as 30)",
-            "upgradeability unknown",
-            "Battery unknown (counted as 30)",
+            "RAM upgradeability unknown",
+            "storage unknown",
+            "CPU score is an estimate",
+            "Display quality unknown (counted as 30)",
+            "Battery & mobility unknown (counted as 30)",
+            "Connectivity & longevity unknown (counted as 30)",
             "title only (description not fetched yet)"
           ],
           "enriched": false,
@@ -1307,49 +1841,85 @@
             },
             "warranty": null,
             "gpu": null,
-            "battery": null
+            "battery": null,
+            "weight_kg": null,
+            "ports": null,
+            "cpu_conflict": null
           },
           "components": {
+            "ram": {
+              "label": "RAM & headroom",
+              "score": 50,
+              "basis": "verified",
+              "range": [
+                50,
+                50
+              ],
+              "evidence": [
+                "16 GB (title: \"16 GB\") → 50",
+                "upgrade path not stated: no bonus",
+                "storage size not stated: no adjustment"
+              ]
+            },
             "cpu": {
               "label": "CPU performance",
               "score": 50,
+              "basis": "estimate",
+              "range": [
+                50,
+                50
+              ],
               "evidence": [
-                "i5-1135G7: Intel gen 11 base 50 × tier 1 × suffix G7 1 (source: title \"i5-1135G7\")"
+                "i5-1135G7: Intel gen 11 base 50 × tier 1 × suffix G7 1 (source: title \"i5-1135G7\")",
+                "tier estimate from the exact model number (no benchmark entry)"
               ]
             },
             "screen": {
-              "label": "Screen quality",
+              "label": "Display quality",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
                 "resolution not stated"
               ]
             },
             "build": {
-              "label": "Keyboard / build comfort",
-              "score": 78,
+              "label": "Keyboard / build / work comfort",
+              "score": 74,
+              "basis": "estimate",
+              "range": [
+                74,
+                74
+              ],
               "evidence": [
-                "HP EliteBook/ZBook family baseline 78"
-              ]
-            },
-            "ram": {
-              "label": "RAM / upgradeability",
-              "score": 75,
-              "evidence": [
-                "16 GB (title: \"16 GB\") → 75"
+                "HP EliteBook/ZBook family baseline 74 (model-family estimate, not this unit)"
               ]
             },
             "battery": {
-              "label": "Battery",
+              "label": "Battery & mobility",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "battery condition not stated"
+                "battery condition and weight not stated"
               ]
             },
-            "value": {
-              "label": "Value for money",
-              "score": 14.3,
+            "connectivity": {
+              "label": "Connectivity & longevity",
+              "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "performance per KM is better than 14% of the 8 comparable listings"
+                "ports and warranty not stated"
               ]
             }
           }
@@ -1358,7 +1928,7 @@
     },
     {
       "rank": 6,
-      "groupKey": "dell latitude 7490 | i7-8650u | 8gb | 512gb",
+      "groupKey": "dell latitude 7490 | i7-8650u | 8gb | 512gb | res?",
       "offerCount": 1,
       "best": {
         "id": "61000002",
@@ -1366,12 +1936,27 @@
         "title": "Dell Latitude 7490 Intel Core i7-8650U 8GB 512 GB NVMe 14 inch",
         "price_km": 1150,
         "price_raw": "1.150 KM",
-        "total": 40.2,
-        "confidence": 76,
+        "total": 38,
+        "quality": 38,
+        "qualityRange": [
+          26,
+          66
+        ],
+        "affordability": 46.5,
+        "confidence": 25,
+        "certainty": {
+          "verified": 25,
+          "estimate": 35,
+          "partial": 0,
+          "unknown": 40
+        },
+        "needsVerification": [],
         "flags": [
-          "Screen quality unknown (counted as 30)",
-          "upgradeability unknown",
-          "Battery unknown (counted as 30)",
+          "RAM upgradeability unknown",
+          "CPU score is an estimate",
+          "Display quality unknown (counted as 30)",
+          "Battery & mobility unknown (counted as 30)",
+          "Connectivity & longevity unknown (counted as 30)",
           "title only (description not fetched yet)"
         ],
         "enriched": false,
@@ -1426,49 +2011,85 @@
           },
           "warranty": null,
           "gpu": null,
-          "battery": null
+          "battery": null,
+          "weight_kg": null,
+          "ports": null,
+          "cpu_conflict": null
         },
         "components": {
+          "ram": {
+            "label": "RAM & headroom",
+            "score": 26,
+            "basis": "verified",
+            "range": [
+              26,
+              26
+            ],
+            "evidence": [
+              "8 GB (title: \"8GB\") → 22",
+              "upgrade path not stated: no bonus",
+              "storage 512 GB SSD +4"
+            ]
+          },
           "cpu": {
             "label": "CPU performance",
             "score": 40.3,
+            "basis": "estimate",
+            "range": [
+              40.3,
+              40.3
+            ],
             "evidence": [
-              "i7-8650U: Intel gen 8 base 36 × tier 1.12 × suffix U 1 (source: title \"Intel Core i7-8650U\")"
+              "i7-8650U: Intel gen 8 base 36 × tier 1.12 × suffix U 1 (source: title \"Intel Core i7-8650U\")",
+              "tier estimate from the exact model number (no benchmark entry)"
             ]
           },
           "screen": {
-            "label": "Screen quality",
+            "label": "Display quality",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
               "resolution not stated"
             ]
           },
           "build": {
-            "label": "Keyboard / build comfort",
-            "score": 80,
+            "label": "Keyboard / build / work comfort",
+            "score": 76,
+            "basis": "estimate",
+            "range": [
+              76,
+              76
+            ],
             "evidence": [
-              "Latitude 7000/9000 family baseline 80"
-            ]
-          },
-          "ram": {
-            "label": "RAM / upgradeability",
-            "score": 40,
-            "evidence": [
-              "8 GB (title: \"8GB\") → 40"
+              "Latitude 7000/9000 family baseline 76 (model-family estimate, not this unit)"
             ]
           },
           "battery": {
-            "label": "Battery",
+            "label": "Battery & mobility",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "battery condition not stated"
+              "battery condition and weight not stated"
             ]
           },
-          "value": {
-            "label": "Value for money",
-            "score": 28.6,
+          "connectivity": {
+            "label": "Connectivity & longevity",
+            "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "performance per KM is better than 29% of the 8 comparable listings"
+              "ports and warranty not stated"
             ]
           }
         }
@@ -1480,12 +2101,27 @@
           "title": "Dell Latitude 7490 Intel Core i7-8650U 8GB 512 GB NVMe 14 inch",
           "price_km": 1150,
           "price_raw": "1.150 KM",
-          "total": 40.2,
-          "confidence": 76,
+          "total": 38,
+          "quality": 38,
+          "qualityRange": [
+            26,
+            66
+          ],
+          "affordability": 46.5,
+          "confidence": 25,
+          "certainty": {
+            "verified": 25,
+            "estimate": 35,
+            "partial": 0,
+            "unknown": 40
+          },
+          "needsVerification": [],
           "flags": [
-            "Screen quality unknown (counted as 30)",
-            "upgradeability unknown",
-            "Battery unknown (counted as 30)",
+            "RAM upgradeability unknown",
+            "CPU score is an estimate",
+            "Display quality unknown (counted as 30)",
+            "Battery & mobility unknown (counted as 30)",
+            "Connectivity & longevity unknown (counted as 30)",
             "title only (description not fetched yet)"
           ],
           "enriched": false,
@@ -1540,49 +2176,85 @@
             },
             "warranty": null,
             "gpu": null,
-            "battery": null
+            "battery": null,
+            "weight_kg": null,
+            "ports": null,
+            "cpu_conflict": null
           },
           "components": {
+            "ram": {
+              "label": "RAM & headroom",
+              "score": 26,
+              "basis": "verified",
+              "range": [
+                26,
+                26
+              ],
+              "evidence": [
+                "8 GB (title: \"8GB\") → 22",
+                "upgrade path not stated: no bonus",
+                "storage 512 GB SSD +4"
+              ]
+            },
             "cpu": {
               "label": "CPU performance",
               "score": 40.3,
+              "basis": "estimate",
+              "range": [
+                40.3,
+                40.3
+              ],
               "evidence": [
-                "i7-8650U: Intel gen 8 base 36 × tier 1.12 × suffix U 1 (source: title \"Intel Core i7-8650U\")"
+                "i7-8650U: Intel gen 8 base 36 × tier 1.12 × suffix U 1 (source: title \"Intel Core i7-8650U\")",
+                "tier estimate from the exact model number (no benchmark entry)"
               ]
             },
             "screen": {
-              "label": "Screen quality",
+              "label": "Display quality",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
                 "resolution not stated"
               ]
             },
             "build": {
-              "label": "Keyboard / build comfort",
-              "score": 80,
+              "label": "Keyboard / build / work comfort",
+              "score": 76,
+              "basis": "estimate",
+              "range": [
+                76,
+                76
+              ],
               "evidence": [
-                "Latitude 7000/9000 family baseline 80"
-              ]
-            },
-            "ram": {
-              "label": "RAM / upgradeability",
-              "score": 40,
-              "evidence": [
-                "8 GB (title: \"8GB\") → 40"
+                "Latitude 7000/9000 family baseline 76 (model-family estimate, not this unit)"
               ]
             },
             "battery": {
-              "label": "Battery",
+              "label": "Battery & mobility",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "battery condition not stated"
+                "battery condition and weight not stated"
               ]
             },
-            "value": {
-              "label": "Value for money",
-              "score": 28.6,
+            "connectivity": {
+              "label": "Connectivity & longevity",
+              "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "performance per KM is better than 29% of the 8 comparable listings"
+                "ports and warranty not stated"
               ]
             }
           }
@@ -1599,14 +2271,29 @@
         "title": "Acer Aspire 5 i3-1115G4 8GB",
         "price_km": null,
         "price_raw": "Na upit",
-        "total": 36,
-        "confidence": 52,
+        "total": 32.5,
+        "quality": 32.5,
+        "qualityRange": [
+          20.5,
+          60.5
+        ],
+        "affordability": null,
+        "confidence": 25,
+        "certainty": {
+          "verified": 25,
+          "estimate": 35,
+          "partial": 0,
+          "unknown": 40
+        },
+        "needsVerification": [],
         "flags": [
-          "Value for money unknown (counted as 30)",
-          "Screen quality unknown (counted as 30)",
+          "RAM upgradeability unknown",
+          "storage unknown",
+          "CPU score is an estimate",
+          "Display quality unknown (counted as 30)",
           "model series only, exact model unknown",
-          "upgradeability unknown",
-          "Battery unknown (counted as 30)",
+          "Battery & mobility unknown (counted as 30)",
+          "Connectivity & longevity unknown (counted as 30)",
           "title only (description not fetched yet)"
         ],
         "enriched": false,
@@ -1646,49 +2333,85 @@
           "condition": null,
           "warranty": null,
           "gpu": null,
-          "battery": null
+          "battery": null,
+          "weight_kg": null,
+          "ports": null,
+          "cpu_conflict": null
         },
         "components": {
+          "ram": {
+            "label": "RAM & headroom",
+            "score": 22,
+            "basis": "verified",
+            "range": [
+              22,
+              22
+            ],
+            "evidence": [
+              "8 GB (title: \"8GB\") → 22",
+              "upgrade path not stated: no bonus",
+              "storage size not stated: no adjustment"
+            ]
+          },
           "cpu": {
             "label": "CPU performance",
             "score": 37.5,
+            "basis": "estimate",
+            "range": [
+              37.5,
+              37.5
+            ],
             "evidence": [
-              "i3-1115G4: Intel gen 11 base 50 × tier 0.75 × suffix G4 1 (source: title \"i3-1115G4\")"
+              "i3-1115G4: Intel gen 11 base 50 × tier 0.75 × suffix G4 1 (source: title \"i3-1115G4\")",
+              "tier estimate from the exact model number (no benchmark entry)"
             ]
           },
           "screen": {
-            "label": "Screen quality",
+            "label": "Display quality",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
               "resolution not stated"
             ]
           },
           "build": {
-            "label": "Keyboard / build comfort",
-            "score": 52,
+            "label": "Keyboard / build / work comfort",
+            "score": 50,
+            "basis": "estimate",
+            "range": [
+              50,
+              50
+            ],
             "evidence": [
-              "consumer/budget line family baseline 52"
-            ]
-          },
-          "ram": {
-            "label": "RAM / upgradeability",
-            "score": 40,
-            "evidence": [
-              "8 GB (title: \"8GB\") → 40"
+              "consumer/budget line family baseline 50 (model-family estimate, not this unit)"
             ]
           },
           "battery": {
-            "label": "Battery",
+            "label": "Battery & mobility",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "battery condition not stated"
+              "battery condition and weight not stated"
             ]
           },
-          "value": {
-            "label": "Value for money",
+          "connectivity": {
+            "label": "Connectivity & longevity",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "price not stated"
+              "ports and warranty not stated"
             ]
           }
         }
@@ -1700,14 +2423,29 @@
           "title": "Acer Aspire 5 i3-1115G4 8GB",
           "price_km": null,
           "price_raw": "Na upit",
-          "total": 36,
-          "confidence": 52,
+          "total": 32.5,
+          "quality": 32.5,
+          "qualityRange": [
+            20.5,
+            60.5
+          ],
+          "affordability": null,
+          "confidence": 25,
+          "certainty": {
+            "verified": 25,
+            "estimate": 35,
+            "partial": 0,
+            "unknown": 40
+          },
+          "needsVerification": [],
           "flags": [
-            "Value for money unknown (counted as 30)",
-            "Screen quality unknown (counted as 30)",
+            "RAM upgradeability unknown",
+            "storage unknown",
+            "CPU score is an estimate",
+            "Display quality unknown (counted as 30)",
             "model series only, exact model unknown",
-            "upgradeability unknown",
-            "Battery unknown (counted as 30)",
+            "Battery & mobility unknown (counted as 30)",
+            "Connectivity & longevity unknown (counted as 30)",
             "title only (description not fetched yet)"
           ],
           "enriched": false,
@@ -1747,49 +2485,85 @@
             "condition": null,
             "warranty": null,
             "gpu": null,
-            "battery": null
+            "battery": null,
+            "weight_kg": null,
+            "ports": null,
+            "cpu_conflict": null
           },
           "components": {
+            "ram": {
+              "label": "RAM & headroom",
+              "score": 22,
+              "basis": "verified",
+              "range": [
+                22,
+                22
+              ],
+              "evidence": [
+                "8 GB (title: \"8GB\") → 22",
+                "upgrade path not stated: no bonus",
+                "storage size not stated: no adjustment"
+              ]
+            },
             "cpu": {
               "label": "CPU performance",
               "score": 37.5,
+              "basis": "estimate",
+              "range": [
+                37.5,
+                37.5
+              ],
               "evidence": [
-                "i3-1115G4: Intel gen 11 base 50 × tier 0.75 × suffix G4 1 (source: title \"i3-1115G4\")"
+                "i3-1115G4: Intel gen 11 base 50 × tier 0.75 × suffix G4 1 (source: title \"i3-1115G4\")",
+                "tier estimate from the exact model number (no benchmark entry)"
               ]
             },
             "screen": {
-              "label": "Screen quality",
+              "label": "Display quality",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
                 "resolution not stated"
               ]
             },
             "build": {
-              "label": "Keyboard / build comfort",
-              "score": 52,
+              "label": "Keyboard / build / work comfort",
+              "score": 50,
+              "basis": "estimate",
+              "range": [
+                50,
+                50
+              ],
               "evidence": [
-                "consumer/budget line family baseline 52"
-              ]
-            },
-            "ram": {
-              "label": "RAM / upgradeability",
-              "score": 40,
-              "evidence": [
-                "8 GB (title: \"8GB\") → 40"
+                "consumer/budget line family baseline 50 (model-family estimate, not this unit)"
               ]
             },
             "battery": {
-              "label": "Battery",
+              "label": "Battery & mobility",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "battery condition not stated"
+                "battery condition and weight not stated"
               ]
             },
-            "value": {
-              "label": "Value for money",
+            "connectivity": {
+              "label": "Connectivity & longevity",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "price not stated"
+                "ports and warranty not stated"
               ]
             }
           }
@@ -1807,14 +2581,27 @@
         "price_km": null,
         "price_raw": "Po dogovoru",
         "total": 30,
+        "quality": 30,
+        "qualityRange": [
+          0,
+          100
+        ],
+        "affordability": null,
         "confidence": 0,
+        "certainty": {
+          "verified": 0,
+          "estimate": 0,
+          "partial": 0,
+          "unknown": 100
+        },
+        "needsVerification": [],
         "flags": [
+          "RAM & headroom unknown (counted as 30)",
           "CPU performance unknown (counted as 30)",
-          "Value for money unknown (counted as 30)",
-          "Screen quality unknown (counted as 30)",
-          "Keyboard / build comfort unknown (counted as 30)",
-          "RAM / upgradeability unknown (counted as 30)",
-          "Battery unknown (counted as 30)",
+          "Display quality unknown (counted as 30)",
+          "Keyboard / build / work comfort unknown (counted as 30)",
+          "Battery & mobility unknown (counted as 30)",
+          "Connectivity & longevity unknown (counted as 30)",
           "title only (description not fetched yet)"
         ],
         "enriched": false,
@@ -1830,49 +2617,82 @@
           "condition": null,
           "warranty": null,
           "gpu": null,
-          "battery": null
+          "battery": null,
+          "weight_kg": null,
+          "ports": null,
+          "cpu_conflict": null
         },
         "components": {
+          "ram": {
+            "label": "RAM & headroom",
+            "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
+            "evidence": [
+              "RAM amount not stated"
+            ]
+          },
           "cpu": {
             "label": "CPU performance",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
               "CPU not stated"
             ]
           },
           "screen": {
-            "label": "Screen quality",
+            "label": "Display quality",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
               "resolution not stated"
             ]
           },
           "build": {
-            "label": "Keyboard / build comfort",
+            "label": "Keyboard / build / work comfort",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
               "model not identified"
             ]
           },
-          "ram": {
-            "label": "RAM / upgradeability",
-            "score": null,
-            "evidence": [
-              "RAM amount not stated"
-            ]
-          },
           "battery": {
-            "label": "Battery",
+            "label": "Battery & mobility",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "battery condition not stated"
+              "battery condition and weight not stated"
             ]
           },
-          "value": {
-            "label": "Value for money",
+          "connectivity": {
+            "label": "Connectivity & longevity",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "price not stated"
+              "ports and warranty not stated"
             ]
           }
         }
@@ -1885,14 +2705,27 @@
           "price_km": null,
           "price_raw": "Po dogovoru",
           "total": 30,
+          "quality": 30,
+          "qualityRange": [
+            0,
+            100
+          ],
+          "affordability": null,
           "confidence": 0,
+          "certainty": {
+            "verified": 0,
+            "estimate": 0,
+            "partial": 0,
+            "unknown": 100
+          },
+          "needsVerification": [],
           "flags": [
+            "RAM & headroom unknown (counted as 30)",
             "CPU performance unknown (counted as 30)",
-            "Value for money unknown (counted as 30)",
-            "Screen quality unknown (counted as 30)",
-            "Keyboard / build comfort unknown (counted as 30)",
-            "RAM / upgradeability unknown (counted as 30)",
-            "Battery unknown (counted as 30)",
+            "Display quality unknown (counted as 30)",
+            "Keyboard / build / work comfort unknown (counted as 30)",
+            "Battery & mobility unknown (counted as 30)",
+            "Connectivity & longevity unknown (counted as 30)",
             "title only (description not fetched yet)"
           ],
           "enriched": false,
@@ -1908,49 +2741,82 @@
             "condition": null,
             "warranty": null,
             "gpu": null,
-            "battery": null
+            "battery": null,
+            "weight_kg": null,
+            "ports": null,
+            "cpu_conflict": null
           },
           "components": {
+            "ram": {
+              "label": "RAM & headroom",
+              "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
+              "evidence": [
+                "RAM amount not stated"
+              ]
+            },
             "cpu": {
               "label": "CPU performance",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
                 "CPU not stated"
               ]
             },
             "screen": {
-              "label": "Screen quality",
+              "label": "Display quality",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
                 "resolution not stated"
               ]
             },
             "build": {
-              "label": "Keyboard / build comfort",
+              "label": "Keyboard / build / work comfort",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
                 "model not identified"
               ]
             },
-            "ram": {
-              "label": "RAM / upgradeability",
-              "score": null,
-              "evidence": [
-                "RAM amount not stated"
-              ]
-            },
             "battery": {
-              "label": "Battery",
+              "label": "Battery & mobility",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "battery condition not stated"
+                "battery condition and weight not stated"
               ]
             },
-            "value": {
-              "label": "Value for money",
+            "connectivity": {
+              "label": "Connectivity & longevity",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "price not stated"
+                "ports and warranty not stated"
               ]
             }
           }
@@ -1967,13 +2833,29 @@
         "title": "Asus VivoBook 15 Celeron N4020 4GB 128GB eMMC",
         "price_km": 449,
         "price_raw": "449 KM",
-        "total": 17.9,
-        "confidence": 76,
+        "total": 21.5,
+        "quality": 21.5,
+        "qualityRange": [
+          9.5,
+          49.5
+        ],
+        "affordability": 74.1,
+        "confidence": 25,
+        "certainty": {
+          "verified": 25,
+          "estimate": 35,
+          "partial": 0,
+          "unknown": 40
+        },
+        "needsVerification": [],
         "flags": [
-          "Screen quality unknown (counted as 30)",
+          "RAM upgradeability unknown",
+          "storage unknown",
+          "CPU score is an estimate",
+          "Display quality unknown (counted as 30)",
           "model series only, exact model unknown",
-          "upgradeability unknown",
-          "Battery unknown (counted as 30)",
+          "Battery & mobility unknown (counted as 30)",
+          "Connectivity & longevity unknown (counted as 30)",
           "title only (description not fetched yet)"
         ],
         "enriched": false,
@@ -2015,49 +2897,85 @@
           },
           "warranty": null,
           "gpu": null,
-          "battery": null
+          "battery": null,
+          "weight_kg": null,
+          "ports": null,
+          "cpu_conflict": null
         },
         "components": {
+          "ram": {
+            "label": "RAM & headroom",
+            "score": 0,
+            "basis": "verified",
+            "range": [
+              0,
+              0
+            ],
+            "evidence": [
+              "4 GB (title: \"4GB\") → 0",
+              "upgrade path not stated: no bonus",
+              "storage size not stated: no adjustment"
+            ]
+          },
           "cpu": {
             "label": "CPU performance",
             "score": 10,
+            "basis": "estimate",
+            "range": [
+              10,
+              10
+            ],
             "evidence": [
-              "Celeron N4020: low-power Celeron/Pentium/Athlon class (source: title \"Celeron N4020\")"
+              "Celeron N4020: low-power Celeron/Pentium/Athlon class (source: title \"Celeron N4020\")",
+              "tier estimate from the exact model number (no benchmark entry)"
             ]
           },
           "screen": {
-            "label": "Screen quality",
+            "label": "Display quality",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
               "resolution not stated"
             ]
           },
           "build": {
-            "label": "Keyboard / build comfort",
-            "score": 52,
+            "label": "Keyboard / build / work comfort",
+            "score": 50,
+            "basis": "estimate",
+            "range": [
+              50,
+              50
+            ],
             "evidence": [
-              "consumer/budget line family baseline 52"
-            ]
-          },
-          "ram": {
-            "label": "RAM / upgradeability",
-            "score": 10,
-            "evidence": [
-              "4 GB (title: \"4GB\") → 10"
+              "consumer/budget line family baseline 50 (model-family estimate, not this unit)"
             ]
           },
           "battery": {
-            "label": "Battery",
+            "label": "Battery & mobility",
             "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "battery condition not stated"
+              "battery condition and weight not stated"
             ]
           },
-          "value": {
-            "label": "Value for money",
-            "score": 0,
+          "connectivity": {
+            "label": "Connectivity & longevity",
+            "score": null,
+            "basis": "unknown",
+            "range": [
+              0,
+              100
+            ],
             "evidence": [
-              "performance per KM is better than 0% of the 8 comparable listings"
+              "ports and warranty not stated"
             ]
           }
         }
@@ -2069,13 +2987,29 @@
           "title": "Asus VivoBook 15 Celeron N4020 4GB 128GB eMMC",
           "price_km": 449,
           "price_raw": "449 KM",
-          "total": 17.9,
-          "confidence": 76,
+          "total": 21.5,
+          "quality": 21.5,
+          "qualityRange": [
+            9.5,
+            49.5
+          ],
+          "affordability": 74.1,
+          "confidence": 25,
+          "certainty": {
+            "verified": 25,
+            "estimate": 35,
+            "partial": 0,
+            "unknown": 40
+          },
+          "needsVerification": [],
           "flags": [
-            "Screen quality unknown (counted as 30)",
+            "RAM upgradeability unknown",
+            "storage unknown",
+            "CPU score is an estimate",
+            "Display quality unknown (counted as 30)",
             "model series only, exact model unknown",
-            "upgradeability unknown",
-            "Battery unknown (counted as 30)",
+            "Battery & mobility unknown (counted as 30)",
+            "Connectivity & longevity unknown (counted as 30)",
             "title only (description not fetched yet)"
           ],
           "enriched": false,
@@ -2117,49 +3051,85 @@
             },
             "warranty": null,
             "gpu": null,
-            "battery": null
+            "battery": null,
+            "weight_kg": null,
+            "ports": null,
+            "cpu_conflict": null
           },
           "components": {
+            "ram": {
+              "label": "RAM & headroom",
+              "score": 0,
+              "basis": "verified",
+              "range": [
+                0,
+                0
+              ],
+              "evidence": [
+                "4 GB (title: \"4GB\") → 0",
+                "upgrade path not stated: no bonus",
+                "storage size not stated: no adjustment"
+              ]
+            },
             "cpu": {
               "label": "CPU performance",
               "score": 10,
+              "basis": "estimate",
+              "range": [
+                10,
+                10
+              ],
               "evidence": [
-                "Celeron N4020: low-power Celeron/Pentium/Athlon class (source: title \"Celeron N4020\")"
+                "Celeron N4020: low-power Celeron/Pentium/Athlon class (source: title \"Celeron N4020\")",
+                "tier estimate from the exact model number (no benchmark entry)"
               ]
             },
             "screen": {
-              "label": "Screen quality",
+              "label": "Display quality",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
                 "resolution not stated"
               ]
             },
             "build": {
-              "label": "Keyboard / build comfort",
-              "score": 52,
+              "label": "Keyboard / build / work comfort",
+              "score": 50,
+              "basis": "estimate",
+              "range": [
+                50,
+                50
+              ],
               "evidence": [
-                "consumer/budget line family baseline 52"
-              ]
-            },
-            "ram": {
-              "label": "RAM / upgradeability",
-              "score": 10,
-              "evidence": [
-                "4 GB (title: \"4GB\") → 10"
+                "consumer/budget line family baseline 50 (model-family estimate, not this unit)"
               ]
             },
             "battery": {
-              "label": "Battery",
+              "label": "Battery & mobility",
               "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "battery condition not stated"
+                "battery condition and weight not stated"
               ]
             },
-            "value": {
-              "label": "Value for money",
-              "score": 0,
+            "connectivity": {
+              "label": "Connectivity & longevity",
+              "score": null,
+              "basis": "unknown",
+              "range": [
+                0,
+                100
+              ],
               "evidence": [
-                "performance per KM is better than 0% of the 8 comparable listings"
+                "ports and warranty not stated"
               ]
             }
           }
