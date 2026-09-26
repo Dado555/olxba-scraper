@@ -1,0 +1,2170 @@
+{
+  "generated_at": "2026-09-26T14:42:46.651Z",
+  "run": {
+    "id": 1,
+    "search_url": "https://olx.ba/pretraga?category_id=39&attr=ram(16)&demo=fixtures",
+    "status": "complete",
+    "status_detail": "DEMO: loaded from synthetic fixtures, not live data",
+    "next_page": 4,
+    "last_page": null,
+    "pages_fetched": 3,
+    "started_at": "2026-09-26 14:42:46",
+    "updated_at": "2026-09-26 14:42:46"
+  },
+  "options": {
+    "top": 50
+  },
+  "weights": {
+    "cpu": 30,
+    "value": 24,
+    "screen": 18,
+    "build": 13,
+    "ram": 9,
+    "battery": 6
+  },
+  "considered": 10,
+  "passedFilters": 10,
+  "groups": 9,
+  "results": [
+    {
+      "rank": 1,
+      "groupKey": "lenovo thinkpad t480 | i5-8350u | 16gb | 256gb",
+      "offerCount": 2,
+      "best": {
+        "id": "61000001",
+        "url": "https://olx.ba/artikal/61000001",
+        "title": "Lenovo ThinkPad T480 i5-8350U 16GB RAM 256GB SSD 14\" FHD IPS",
+        "price_km": 650,
+        "price_raw": "650 KM",
+        "total": 70.7,
+        "confidence": 100,
+        "flags": [],
+        "enriched": true,
+        "specs": {
+          "model": {
+            "value": {
+              "brand": "Lenovo",
+              "name": "Lenovo ThinkPad T480",
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "ThinkPad T480"
+          },
+          "cpu": {
+            "value": {
+              "vendor": "Intel",
+              "family": "Core i5",
+              "tier": 5,
+              "gen": 8,
+              "model": "i5-8350U",
+              "suffix": "U",
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "i5-8350U"
+          },
+          "ram_gb": {
+            "value": 16,
+            "source": "attributes",
+            "evidence": "RAM: 16 GB"
+          },
+          "storage": {
+            "value": {
+              "gb": 256,
+              "type": "SSD"
+            },
+            "source": "title",
+            "evidence": "256GB SSD"
+          },
+          "screen_in": {
+            "value": 14,
+            "source": "attributes",
+            "evidence": "14"
+          },
+          "resolution": {
+            "value": "FHD",
+            "source": "title",
+            "evidence": "FHD"
+          },
+          "panel": {
+            "value": "IPS",
+            "source": "title",
+            "evidence": "IPS"
+          },
+          "refresh_hz": null,
+          "condition": {
+            "value": "used",
+            "source": "attributes",
+            "evidence": "Stanje: Korišteno"
+          },
+          "warranty": {
+            "value": {
+              "months": 3
+            },
+            "source": "description",
+            "evidence": "Garancija 3 mjeseca"
+          },
+          "gpu": null,
+          "battery": {
+            "value": {
+              "hours": 6
+            },
+            "source": "description",
+            "evidence": "baterije (unutrašnja + vanjska), baterija drži oko 6h"
+          }
+        },
+        "components": {
+          "cpu": {
+            "label": "CPU performance",
+            "score": 36,
+            "evidence": [
+              "i5-8350U: Intel gen 8 base 36 × tier 1 × suffix U 1 (source: title \"i5-8350U\")"
+            ]
+          },
+          "screen": {
+            "label": "Screen quality",
+            "score": 70,
+            "evidence": [
+              "FHD (title: \"FHD\") → 60",
+              "IPS panel +10"
+            ]
+          },
+          "build": {
+            "label": "Keyboard / build comfort",
+            "score": 90,
+            "evidence": [
+              "ThinkPad T/X/P series family baseline 85",
+              "backlit keyboard +5 (\"pozadinskim osvjetljenjem\")"
+            ]
+          },
+          "ram": {
+            "label": "RAM / upgradeability",
+            "score": 85,
+            "evidence": [
+              "16 GB (attributes: \"RAM: 16 GB\") → 75",
+              "upgradeable +10 (\"dva slota\")"
+            ]
+          },
+          "battery": {
+            "label": "Battery",
+            "score": 66,
+            "evidence": [
+              "\"baterije (unutrašnja + vanjska), baterija drži oko 6h\" (description)",
+              "6 h × 11"
+            ]
+          },
+          "value": {
+            "label": "Value for money",
+            "score": 100,
+            "evidence": [
+              "performance per KM is better than 100% of the 8 comparable listings"
+            ]
+          }
+        }
+      },
+      "offers": [
+        {
+          "id": "61000005",
+          "url": "https://olx.ba/artikal/61000005",
+          "title": "Lenovo ThinkPad T480 i5-8350U 16GB 256GB SSD 14 FHD",
+          "price_km": 590,
+          "price_raw": "590 KM",
+          "total": 61.8,
+          "confidence": 94,
+          "flags": [
+            "panel type unknown",
+            "upgradeability unknown",
+            "Battery unknown (counted as 30)",
+            "title only (description not fetched yet)"
+          ],
+          "enriched": false,
+          "specs": {
+            "model": {
+              "value": {
+                "brand": "Lenovo",
+                "name": "Lenovo ThinkPad T480",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "ThinkPad T480"
+            },
+            "cpu": {
+              "value": {
+                "vendor": "Intel",
+                "family": "Core i5",
+                "tier": 5,
+                "gen": 8,
+                "model": "i5-8350U",
+                "suffix": "U",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "i5-8350U"
+            },
+            "ram_gb": {
+              "value": 16,
+              "source": "title",
+              "evidence": "16GB"
+            },
+            "storage": {
+              "value": {
+                "gb": 256,
+                "type": "SSD"
+              },
+              "source": "title",
+              "evidence": "256GB SSD"
+            },
+            "screen_in": {
+              "value": 14,
+              "source": "title",
+              "evidence": "14 FHD"
+            },
+            "resolution": {
+              "value": "FHD",
+              "source": "title",
+              "evidence": "FHD"
+            },
+            "panel": null,
+            "refresh_hz": null,
+            "condition": {
+              "value": "used",
+              "source": "card",
+              "evidence": "Korišteno"
+            },
+            "warranty": null,
+            "gpu": null,
+            "battery": null
+          },
+          "components": {
+            "cpu": {
+              "label": "CPU performance",
+              "score": 36,
+              "evidence": [
+                "i5-8350U: Intel gen 8 base 36 × tier 1 × suffix U 1 (source: title \"i5-8350U\")"
+              ]
+            },
+            "screen": {
+              "label": "Screen quality",
+              "score": 60,
+              "evidence": [
+                "FHD (title: \"FHD\") → 60"
+              ]
+            },
+            "build": {
+              "label": "Keyboard / build comfort",
+              "score": 85,
+              "evidence": [
+                "ThinkPad T/X/P series family baseline 85"
+              ]
+            },
+            "ram": {
+              "label": "RAM / upgradeability",
+              "score": 75,
+              "evidence": [
+                "16 GB (title: \"16GB\") → 75"
+              ]
+            },
+            "battery": {
+              "label": "Battery",
+              "score": null,
+              "evidence": [
+                "battery condition not stated"
+              ]
+            },
+            "value": {
+              "label": "Value for money",
+              "score": 85.7,
+              "evidence": [
+                "performance per KM is better than 86% of the 8 comparable listings"
+              ]
+            }
+          }
+        },
+        {
+          "id": "61000001",
+          "url": "https://olx.ba/artikal/61000001",
+          "title": "Lenovo ThinkPad T480 i5-8350U 16GB RAM 256GB SSD 14\" FHD IPS",
+          "price_km": 650,
+          "price_raw": "650 KM",
+          "total": 70.7,
+          "confidence": 100,
+          "flags": [],
+          "enriched": true,
+          "specs": {
+            "model": {
+              "value": {
+                "brand": "Lenovo",
+                "name": "Lenovo ThinkPad T480",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "ThinkPad T480"
+            },
+            "cpu": {
+              "value": {
+                "vendor": "Intel",
+                "family": "Core i5",
+                "tier": 5,
+                "gen": 8,
+                "model": "i5-8350U",
+                "suffix": "U",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "i5-8350U"
+            },
+            "ram_gb": {
+              "value": 16,
+              "source": "attributes",
+              "evidence": "RAM: 16 GB"
+            },
+            "storage": {
+              "value": {
+                "gb": 256,
+                "type": "SSD"
+              },
+              "source": "title",
+              "evidence": "256GB SSD"
+            },
+            "screen_in": {
+              "value": 14,
+              "source": "attributes",
+              "evidence": "14"
+            },
+            "resolution": {
+              "value": "FHD",
+              "source": "title",
+              "evidence": "FHD"
+            },
+            "panel": {
+              "value": "IPS",
+              "source": "title",
+              "evidence": "IPS"
+            },
+            "refresh_hz": null,
+            "condition": {
+              "value": "used",
+              "source": "attributes",
+              "evidence": "Stanje: Korišteno"
+            },
+            "warranty": {
+              "value": {
+                "months": 3
+              },
+              "source": "description",
+              "evidence": "Garancija 3 mjeseca"
+            },
+            "gpu": null,
+            "battery": {
+              "value": {
+                "hours": 6
+              },
+              "source": "description",
+              "evidence": "baterije (unutrašnja + vanjska), baterija drži oko 6h"
+            }
+          },
+          "components": {
+            "cpu": {
+              "label": "CPU performance",
+              "score": 36,
+              "evidence": [
+                "i5-8350U: Intel gen 8 base 36 × tier 1 × suffix U 1 (source: title \"i5-8350U\")"
+              ]
+            },
+            "screen": {
+              "label": "Screen quality",
+              "score": 70,
+              "evidence": [
+                "FHD (title: \"FHD\") → 60",
+                "IPS panel +10"
+              ]
+            },
+            "build": {
+              "label": "Keyboard / build comfort",
+              "score": 90,
+              "evidence": [
+                "ThinkPad T/X/P series family baseline 85",
+                "backlit keyboard +5 (\"pozadinskim osvjetljenjem\")"
+              ]
+            },
+            "ram": {
+              "label": "RAM / upgradeability",
+              "score": 85,
+              "evidence": [
+                "16 GB (attributes: \"RAM: 16 GB\") → 75",
+                "upgradeable +10 (\"dva slota\")"
+              ]
+            },
+            "battery": {
+              "label": "Battery",
+              "score": 66,
+              "evidence": [
+                "\"baterije (unutrašnja + vanjska), baterija drži oko 6h\" (description)",
+                "6 h × 11"
+              ]
+            },
+            "value": {
+              "label": "Value for money",
+              "score": 100,
+              "evidence": [
+                "performance per KM is better than 100% of the 8 comparable listings"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "groupKey": "apple macbook air m1 | apple m1 | 8gb | 256gb",
+      "offerCount": 1,
+      "best": {
+        "id": "61000006",
+        "url": "https://olx.ba/artikal/61000006",
+        "title": "Apple MacBook Air M1 8GB 256GB 13.3 Retina",
+        "price_km": 1400,
+        "price_raw": "1.400 KM",
+        "total": 65.7,
+        "confidence": 94,
+        "flags": [
+          "Battery unknown (counted as 30)",
+          "title only (description not fetched yet)"
+        ],
+        "enriched": false,
+        "specs": {
+          "model": {
+            "value": {
+              "brand": "Apple",
+              "name": "Apple MacBook Air M1",
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "MacBook Air M1"
+          },
+          "cpu": {
+            "value": {
+              "vendor": "Apple",
+              "family": "Apple Silicon",
+              "gen": 1,
+              "variant": "",
+              "model": "Apple M1",
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "M1"
+          },
+          "ram_gb": {
+            "value": 8,
+            "source": "title",
+            "evidence": "8GB"
+          },
+          "storage": {
+            "value": {
+              "gb": 256,
+              "type": null
+            },
+            "source": "title",
+            "evidence": "256GB"
+          },
+          "screen_in": {
+            "value": 13.3,
+            "source": "title",
+            "evidence": "13.3 Retina"
+          },
+          "resolution": {
+            "value": "Retina",
+            "source": "title",
+            "evidence": "Retina"
+          },
+          "panel": null,
+          "refresh_hz": null,
+          "condition": {
+            "value": "used",
+            "source": "card",
+            "evidence": "used"
+          },
+          "warranty": null,
+          "gpu": null,
+          "battery": null
+        },
+        "components": {
+          "cpu": {
+            "label": "CPU performance",
+            "score": 62,
+            "evidence": [
+              "Apple M1: Apple Silicon gen 1 (source: title \"M1\")"
+            ]
+          },
+          "screen": {
+            "label": "Screen quality",
+            "score": 82,
+            "evidence": [
+              "Retina (title: \"Retina\") → 82"
+            ]
+          },
+          "build": {
+            "label": "Keyboard / build comfort",
+            "score": 82,
+            "evidence": [
+              "MacBook (aluminium unibody) family baseline 82"
+            ]
+          },
+          "ram": {
+            "label": "RAM / upgradeability",
+            "score": 30,
+            "evidence": [
+              "8 GB (title: \"8GB\") → 40",
+              "soldered −10 (Apple Silicon MacBooks have soldered RAM)"
+            ]
+          },
+          "battery": {
+            "label": "Battery",
+            "score": null,
+            "evidence": [
+              "battery condition not stated"
+            ]
+          },
+          "value": {
+            "label": "Value for money",
+            "score": 71.4,
+            "evidence": [
+              "performance per KM is better than 71% of the 8 comparable listings"
+            ]
+          }
+        }
+      },
+      "offers": [
+        {
+          "id": "61000006",
+          "url": "https://olx.ba/artikal/61000006",
+          "title": "Apple MacBook Air M1 8GB 256GB 13.3 Retina",
+          "price_km": 1400,
+          "price_raw": "1.400 KM",
+          "total": 65.7,
+          "confidence": 94,
+          "flags": [
+            "Battery unknown (counted as 30)",
+            "title only (description not fetched yet)"
+          ],
+          "enriched": false,
+          "specs": {
+            "model": {
+              "value": {
+                "brand": "Apple",
+                "name": "Apple MacBook Air M1",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "MacBook Air M1"
+            },
+            "cpu": {
+              "value": {
+                "vendor": "Apple",
+                "family": "Apple Silicon",
+                "gen": 1,
+                "variant": "",
+                "model": "Apple M1",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "M1"
+            },
+            "ram_gb": {
+              "value": 8,
+              "source": "title",
+              "evidence": "8GB"
+            },
+            "storage": {
+              "value": {
+                "gb": 256,
+                "type": null
+              },
+              "source": "title",
+              "evidence": "256GB"
+            },
+            "screen_in": {
+              "value": 13.3,
+              "source": "title",
+              "evidence": "13.3 Retina"
+            },
+            "resolution": {
+              "value": "Retina",
+              "source": "title",
+              "evidence": "Retina"
+            },
+            "panel": null,
+            "refresh_hz": null,
+            "condition": {
+              "value": "used",
+              "source": "card",
+              "evidence": "used"
+            },
+            "warranty": null,
+            "gpu": null,
+            "battery": null
+          },
+          "components": {
+            "cpu": {
+              "label": "CPU performance",
+              "score": 62,
+              "evidence": [
+                "Apple M1: Apple Silicon gen 1 (source: title \"M1\")"
+              ]
+            },
+            "screen": {
+              "label": "Screen quality",
+              "score": 82,
+              "evidence": [
+                "Retina (title: \"Retina\") → 82"
+              ]
+            },
+            "build": {
+              "label": "Keyboard / build comfort",
+              "score": 82,
+              "evidence": [
+                "MacBook (aluminium unibody) family baseline 82"
+              ]
+            },
+            "ram": {
+              "label": "RAM / upgradeability",
+              "score": 30,
+              "evidence": [
+                "8 GB (title: \"8GB\") → 40",
+                "soldered −10 (Apple Silicon MacBooks have soldered RAM)"
+              ]
+            },
+            "battery": {
+              "label": "Battery",
+              "score": null,
+              "evidence": [
+                "battery condition not stated"
+              ]
+            },
+            "value": {
+              "label": "Value for money",
+              "score": 71.4,
+              "evidence": [
+                "performance per KM is better than 71% of the 8 comparable listings"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "groupKey": "id:61000008",
+      "offerCount": 1,
+      "best": {
+        "id": "61000008",
+        "url": "https://olx.ba/artikal/61000008",
+        "title": "Gaming laptop Lenovo Legion 5 Ryzen 7 5800H RTX 3060 16GB 1TB 165Hz",
+        "price_km": 1990,
+        "price_raw": "1.990 KM",
+        "total": 60.8,
+        "confidence": 76,
+        "flags": [
+          "Screen quality unknown (counted as 30)",
+          "model series only, exact model unknown",
+          "upgradeability unknown",
+          "Battery unknown (counted as 30)",
+          "title only (description not fetched yet)"
+        ],
+        "enriched": false,
+        "specs": {
+          "model": {
+            "value": {
+              "brand": "Lenovo",
+              "name": "Lenovo Legion 5",
+              "exact": false
+            },
+            "source": "title",
+            "evidence": "Legion 5"
+          },
+          "cpu": {
+            "value": {
+              "vendor": "AMD",
+              "family": "Ryzen 7",
+              "tier": 7,
+              "gen": 5,
+              "sub": 0,
+              "model": "Ryzen 7 5800H",
+              "suffix": "H",
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "Ryzen 7 5800H"
+          },
+          "ram_gb": {
+            "value": 16,
+            "source": "title",
+            "evidence": "16GB"
+          },
+          "storage": {
+            "value": {
+              "gb": 1024,
+              "type": null
+            },
+            "source": "title",
+            "evidence": "1TB"
+          },
+          "screen_in": null,
+          "resolution": null,
+          "panel": null,
+          "refresh_hz": {
+            "value": 165,
+            "source": "title",
+            "evidence": "165Hz"
+          },
+          "condition": {
+            "value": "used",
+            "source": "card",
+            "evidence": "used"
+          },
+          "warranty": null,
+          "gpu": {
+            "value": "RTX 3060",
+            "source": "title",
+            "evidence": "RTX 3060"
+          },
+          "battery": null
+        },
+        "components": {
+          "cpu": {
+            "label": "CPU performance",
+            "score": 80.1,
+            "evidence": [
+              "Ryzen 7 5800H: Ryzen 5000 base 55 × tier 1.12 × suffix H 1.3 (source: title \"Ryzen 7 5800H\")"
+            ]
+          },
+          "screen": {
+            "label": "Screen quality",
+            "score": null,
+            "evidence": [
+              "resolution not stated"
+            ]
+          },
+          "build": {
+            "label": "Keyboard / build comfort",
+            "score": 70,
+            "evidence": [
+              "Lenovo Legion family baseline 70"
+            ]
+          },
+          "ram": {
+            "label": "RAM / upgradeability",
+            "score": 75,
+            "evidence": [
+              "16 GB (title: \"16GB\") → 75"
+            ]
+          },
+          "battery": {
+            "label": "Battery",
+            "score": null,
+            "evidence": [
+              "battery condition not stated"
+            ]
+          },
+          "value": {
+            "label": "Value for money",
+            "score": 57.1,
+            "evidence": [
+              "performance per KM is better than 57% of the 8 comparable listings"
+            ]
+          }
+        }
+      },
+      "offers": [
+        {
+          "id": "61000008",
+          "url": "https://olx.ba/artikal/61000008",
+          "title": "Gaming laptop Lenovo Legion 5 Ryzen 7 5800H RTX 3060 16GB 1TB 165Hz",
+          "price_km": 1990,
+          "price_raw": "1.990 KM",
+          "total": 60.8,
+          "confidence": 76,
+          "flags": [
+            "Screen quality unknown (counted as 30)",
+            "model series only, exact model unknown",
+            "upgradeability unknown",
+            "Battery unknown (counted as 30)",
+            "title only (description not fetched yet)"
+          ],
+          "enriched": false,
+          "specs": {
+            "model": {
+              "value": {
+                "brand": "Lenovo",
+                "name": "Lenovo Legion 5",
+                "exact": false
+              },
+              "source": "title",
+              "evidence": "Legion 5"
+            },
+            "cpu": {
+              "value": {
+                "vendor": "AMD",
+                "family": "Ryzen 7",
+                "tier": 7,
+                "gen": 5,
+                "sub": 0,
+                "model": "Ryzen 7 5800H",
+                "suffix": "H",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "Ryzen 7 5800H"
+            },
+            "ram_gb": {
+              "value": 16,
+              "source": "title",
+              "evidence": "16GB"
+            },
+            "storage": {
+              "value": {
+                "gb": 1024,
+                "type": null
+              },
+              "source": "title",
+              "evidence": "1TB"
+            },
+            "screen_in": null,
+            "resolution": null,
+            "panel": null,
+            "refresh_hz": {
+              "value": 165,
+              "source": "title",
+              "evidence": "165Hz"
+            },
+            "condition": {
+              "value": "used",
+              "source": "card",
+              "evidence": "used"
+            },
+            "warranty": null,
+            "gpu": {
+              "value": "RTX 3060",
+              "source": "title",
+              "evidence": "RTX 3060"
+            },
+            "battery": null
+          },
+          "components": {
+            "cpu": {
+              "label": "CPU performance",
+              "score": 80.1,
+              "evidence": [
+                "Ryzen 7 5800H: Ryzen 5000 base 55 × tier 1.12 × suffix H 1.3 (source: title \"Ryzen 7 5800H\")"
+              ]
+            },
+            "screen": {
+              "label": "Screen quality",
+              "score": null,
+              "evidence": [
+                "resolution not stated"
+              ]
+            },
+            "build": {
+              "label": "Keyboard / build comfort",
+              "score": 70,
+              "evidence": [
+                "Lenovo Legion family baseline 70"
+              ]
+            },
+            "ram": {
+              "label": "RAM / upgradeability",
+              "score": 75,
+              "evidence": [
+                "16 GB (title: \"16GB\") → 75"
+              ]
+            },
+            "battery": {
+              "label": "Battery",
+              "score": null,
+              "evidence": [
+                "battery condition not stated"
+              ]
+            },
+            "value": {
+              "label": "Value for money",
+              "score": 57.1,
+              "evidence": [
+                "performance per KM is better than 57% of the 8 comparable listings"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "groupKey": "lenovo thinkpad x1 carbon gen 7 | i7-8665u | 16gb | 512gb",
+      "offerCount": 1,
+      "best": {
+        "id": "61000009",
+        "url": "https://olx.ba/artikal/61000009",
+        "title": "Lenovo ThinkPad X1 Carbon Gen 7 i7-8665U 16GB 512GB 14\" WQHD",
+        "price_km": 1700,
+        "price_raw": "1.700 KM",
+        "total": 56,
+        "confidence": 94,
+        "flags": [
+          "panel type unknown",
+          "upgradeability unknown",
+          "Battery unknown (counted as 30)",
+          "title only (description not fetched yet)"
+        ],
+        "enriched": false,
+        "specs": {
+          "model": {
+            "value": {
+              "brand": "Lenovo",
+              "name": "Lenovo ThinkPad X1 Carbon Gen 7",
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "ThinkPad X1 Carbon Gen 7"
+          },
+          "cpu": {
+            "value": {
+              "vendor": "Intel",
+              "family": "Core i7",
+              "tier": 7,
+              "gen": 8,
+              "model": "i7-8665U",
+              "suffix": "U",
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "i7-8665U"
+          },
+          "ram_gb": {
+            "value": 16,
+            "source": "title",
+            "evidence": "16GB"
+          },
+          "storage": {
+            "value": {
+              "gb": 512,
+              "type": null
+            },
+            "source": "title",
+            "evidence": "512GB"
+          },
+          "screen_in": {
+            "value": 14,
+            "source": "title",
+            "evidence": "14\""
+          },
+          "resolution": {
+            "value": "QHD",
+            "source": "title",
+            "evidence": "WQHD"
+          },
+          "panel": null,
+          "refresh_hz": null,
+          "condition": {
+            "value": "used",
+            "source": "card",
+            "evidence": "Stanje: Korišteno"
+          },
+          "warranty": null,
+          "gpu": null,
+          "battery": null
+        },
+        "components": {
+          "cpu": {
+            "label": "CPU performance",
+            "score": 40.3,
+            "evidence": [
+              "i7-8665U: Intel gen 8 base 36 × tier 1.12 × suffix U 1 (source: title \"i7-8665U\")"
+            ]
+          },
+          "screen": {
+            "label": "Screen quality",
+            "score": 78,
+            "evidence": [
+              "QHD (title: \"WQHD\") → 78"
+            ]
+          },
+          "build": {
+            "label": "Keyboard / build comfort",
+            "score": 85,
+            "evidence": [
+              "ThinkPad T/X/P series family baseline 85"
+            ]
+          },
+          "ram": {
+            "label": "RAM / upgradeability",
+            "score": 75,
+            "evidence": [
+              "16 GB (title: \"16GB\") → 75"
+            ]
+          },
+          "battery": {
+            "label": "Battery",
+            "score": null,
+            "evidence": [
+              "battery condition not stated"
+            ]
+          },
+          "value": {
+            "label": "Value for money",
+            "score": 42.9,
+            "evidence": [
+              "performance per KM is better than 43% of the 8 comparable listings"
+            ]
+          }
+        }
+      },
+      "offers": [
+        {
+          "id": "61000009",
+          "url": "https://olx.ba/artikal/61000009",
+          "title": "Lenovo ThinkPad X1 Carbon Gen 7 i7-8665U 16GB 512GB 14\" WQHD",
+          "price_km": 1700,
+          "price_raw": "1.700 KM",
+          "total": 56,
+          "confidence": 94,
+          "flags": [
+            "panel type unknown",
+            "upgradeability unknown",
+            "Battery unknown (counted as 30)",
+            "title only (description not fetched yet)"
+          ],
+          "enriched": false,
+          "specs": {
+            "model": {
+              "value": {
+                "brand": "Lenovo",
+                "name": "Lenovo ThinkPad X1 Carbon Gen 7",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "ThinkPad X1 Carbon Gen 7"
+            },
+            "cpu": {
+              "value": {
+                "vendor": "Intel",
+                "family": "Core i7",
+                "tier": 7,
+                "gen": 8,
+                "model": "i7-8665U",
+                "suffix": "U",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "i7-8665U"
+            },
+            "ram_gb": {
+              "value": 16,
+              "source": "title",
+              "evidence": "16GB"
+            },
+            "storage": {
+              "value": {
+                "gb": 512,
+                "type": null
+              },
+              "source": "title",
+              "evidence": "512GB"
+            },
+            "screen_in": {
+              "value": 14,
+              "source": "title",
+              "evidence": "14\""
+            },
+            "resolution": {
+              "value": "QHD",
+              "source": "title",
+              "evidence": "WQHD"
+            },
+            "panel": null,
+            "refresh_hz": null,
+            "condition": {
+              "value": "used",
+              "source": "card",
+              "evidence": "Stanje: Korišteno"
+            },
+            "warranty": null,
+            "gpu": null,
+            "battery": null
+          },
+          "components": {
+            "cpu": {
+              "label": "CPU performance",
+              "score": 40.3,
+              "evidence": [
+                "i7-8665U: Intel gen 8 base 36 × tier 1.12 × suffix U 1 (source: title \"i7-8665U\")"
+              ]
+            },
+            "screen": {
+              "label": "Screen quality",
+              "score": 78,
+              "evidence": [
+                "QHD (title: \"WQHD\") → 78"
+              ]
+            },
+            "build": {
+              "label": "Keyboard / build comfort",
+              "score": 85,
+              "evidence": [
+                "ThinkPad T/X/P series family baseline 85"
+              ]
+            },
+            "ram": {
+              "label": "RAM / upgradeability",
+              "score": 75,
+              "evidence": [
+                "16 GB (title: \"16GB\") → 75"
+              ]
+            },
+            "battery": {
+              "label": "Battery",
+              "score": null,
+              "evidence": [
+                "battery condition not stated"
+              ]
+            },
+            "value": {
+              "label": "Value for money",
+              "score": 42.9,
+              "evidence": [
+                "performance per KM is better than 43% of the 8 comparable listings"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "groupKey": "hp elitebook 840 g8 | i5-1135g7 | 16gb | ?",
+      "offerCount": 1,
+      "best": {
+        "id": "61000003",
+        "url": "https://olx.ba/artikal/61000003",
+        "title": "HP EliteBook 840 G8 Ryzen? NE - i5-1135G7 16 GB 15,6",
+        "price_km": 1899.5,
+        "price_raw": "1 899,50 KM",
+        "total": 42.5,
+        "confidence": 76,
+        "flags": [
+          "Screen quality unknown (counted as 30)",
+          "upgradeability unknown",
+          "Battery unknown (counted as 30)",
+          "title only (description not fetched yet)"
+        ],
+        "enriched": false,
+        "specs": {
+          "model": {
+            "value": {
+              "brand": "HP",
+              "name": "HP EliteBook 840 G8",
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "EliteBook 840 G8"
+          },
+          "cpu": {
+            "value": {
+              "vendor": "Intel",
+              "family": "Core i5",
+              "tier": 5,
+              "gen": 11,
+              "model": "i5-1135G7",
+              "suffix": "G7",
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "i5-1135G7"
+          },
+          "ram_gb": {
+            "value": 16,
+            "source": "title",
+            "evidence": "16 GB"
+          },
+          "storage": null,
+          "screen_in": {
+            "value": 15.6,
+            "source": "title",
+            "evidence": "15,6"
+          },
+          "resolution": null,
+          "panel": null,
+          "refresh_hz": null,
+          "condition": {
+            "value": "new",
+            "source": "card",
+            "evidence": "Novo"
+          },
+          "warranty": null,
+          "gpu": null,
+          "battery": null
+        },
+        "components": {
+          "cpu": {
+            "label": "CPU performance",
+            "score": 50,
+            "evidence": [
+              "i5-1135G7: Intel gen 11 base 50 × tier 1 × suffix G7 1 (source: title \"i5-1135G7\")"
+            ]
+          },
+          "screen": {
+            "label": "Screen quality",
+            "score": null,
+            "evidence": [
+              "resolution not stated"
+            ]
+          },
+          "build": {
+            "label": "Keyboard / build comfort",
+            "score": 78,
+            "evidence": [
+              "HP EliteBook/ZBook family baseline 78"
+            ]
+          },
+          "ram": {
+            "label": "RAM / upgradeability",
+            "score": 75,
+            "evidence": [
+              "16 GB (title: \"16 GB\") → 75"
+            ]
+          },
+          "battery": {
+            "label": "Battery",
+            "score": null,
+            "evidence": [
+              "battery condition not stated"
+            ]
+          },
+          "value": {
+            "label": "Value for money",
+            "score": 14.3,
+            "evidence": [
+              "performance per KM is better than 14% of the 8 comparable listings"
+            ]
+          }
+        }
+      },
+      "offers": [
+        {
+          "id": "61000003",
+          "url": "https://olx.ba/artikal/61000003",
+          "title": "HP EliteBook 840 G8 Ryzen? NE - i5-1135G7 16 GB 15,6",
+          "price_km": 1899.5,
+          "price_raw": "1 899,50 KM",
+          "total": 42.5,
+          "confidence": 76,
+          "flags": [
+            "Screen quality unknown (counted as 30)",
+            "upgradeability unknown",
+            "Battery unknown (counted as 30)",
+            "title only (description not fetched yet)"
+          ],
+          "enriched": false,
+          "specs": {
+            "model": {
+              "value": {
+                "brand": "HP",
+                "name": "HP EliteBook 840 G8",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "EliteBook 840 G8"
+            },
+            "cpu": {
+              "value": {
+                "vendor": "Intel",
+                "family": "Core i5",
+                "tier": 5,
+                "gen": 11,
+                "model": "i5-1135G7",
+                "suffix": "G7",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "i5-1135G7"
+            },
+            "ram_gb": {
+              "value": 16,
+              "source": "title",
+              "evidence": "16 GB"
+            },
+            "storage": null,
+            "screen_in": {
+              "value": 15.6,
+              "source": "title",
+              "evidence": "15,6"
+            },
+            "resolution": null,
+            "panel": null,
+            "refresh_hz": null,
+            "condition": {
+              "value": "new",
+              "source": "card",
+              "evidence": "Novo"
+            },
+            "warranty": null,
+            "gpu": null,
+            "battery": null
+          },
+          "components": {
+            "cpu": {
+              "label": "CPU performance",
+              "score": 50,
+              "evidence": [
+                "i5-1135G7: Intel gen 11 base 50 × tier 1 × suffix G7 1 (source: title \"i5-1135G7\")"
+              ]
+            },
+            "screen": {
+              "label": "Screen quality",
+              "score": null,
+              "evidence": [
+                "resolution not stated"
+              ]
+            },
+            "build": {
+              "label": "Keyboard / build comfort",
+              "score": 78,
+              "evidence": [
+                "HP EliteBook/ZBook family baseline 78"
+              ]
+            },
+            "ram": {
+              "label": "RAM / upgradeability",
+              "score": 75,
+              "evidence": [
+                "16 GB (title: \"16 GB\") → 75"
+              ]
+            },
+            "battery": {
+              "label": "Battery",
+              "score": null,
+              "evidence": [
+                "battery condition not stated"
+              ]
+            },
+            "value": {
+              "label": "Value for money",
+              "score": 14.3,
+              "evidence": [
+                "performance per KM is better than 14% of the 8 comparable listings"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "groupKey": "dell latitude 7490 | i7-8650u | 8gb | 512gb",
+      "offerCount": 1,
+      "best": {
+        "id": "61000002",
+        "url": "https://olx.ba/artikal/61000002",
+        "title": "Dell Latitude 7490 Intel Core i7-8650U 8GB 512 GB NVMe 14 inch",
+        "price_km": 1150,
+        "price_raw": "1.150 KM",
+        "total": 40.2,
+        "confidence": 76,
+        "flags": [
+          "Screen quality unknown (counted as 30)",
+          "upgradeability unknown",
+          "Battery unknown (counted as 30)",
+          "title only (description not fetched yet)"
+        ],
+        "enriched": false,
+        "specs": {
+          "model": {
+            "value": {
+              "brand": "Dell",
+              "name": "Dell Latitude 7490",
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "Latitude 7490"
+          },
+          "cpu": {
+            "value": {
+              "vendor": "Intel",
+              "family": "Core i7",
+              "tier": 7,
+              "gen": 8,
+              "model": "i7-8650U",
+              "suffix": "U",
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "Intel Core i7-8650U"
+          },
+          "ram_gb": {
+            "value": 8,
+            "source": "title",
+            "evidence": "8GB"
+          },
+          "storage": {
+            "value": {
+              "gb": 512,
+              "type": "SSD"
+            },
+            "source": "title",
+            "evidence": "512 GB NVMe"
+          },
+          "screen_in": {
+            "value": 14,
+            "source": "title",
+            "evidence": "14 inch"
+          },
+          "resolution": null,
+          "panel": null,
+          "refresh_hz": null,
+          "condition": {
+            "value": "used",
+            "source": "card",
+            "evidence": "used"
+          },
+          "warranty": null,
+          "gpu": null,
+          "battery": null
+        },
+        "components": {
+          "cpu": {
+            "label": "CPU performance",
+            "score": 40.3,
+            "evidence": [
+              "i7-8650U: Intel gen 8 base 36 × tier 1.12 × suffix U 1 (source: title \"Intel Core i7-8650U\")"
+            ]
+          },
+          "screen": {
+            "label": "Screen quality",
+            "score": null,
+            "evidence": [
+              "resolution not stated"
+            ]
+          },
+          "build": {
+            "label": "Keyboard / build comfort",
+            "score": 80,
+            "evidence": [
+              "Latitude 7000/9000 family baseline 80"
+            ]
+          },
+          "ram": {
+            "label": "RAM / upgradeability",
+            "score": 40,
+            "evidence": [
+              "8 GB (title: \"8GB\") → 40"
+            ]
+          },
+          "battery": {
+            "label": "Battery",
+            "score": null,
+            "evidence": [
+              "battery condition not stated"
+            ]
+          },
+          "value": {
+            "label": "Value for money",
+            "score": 28.6,
+            "evidence": [
+              "performance per KM is better than 29% of the 8 comparable listings"
+            ]
+          }
+        }
+      },
+      "offers": [
+        {
+          "id": "61000002",
+          "url": "https://olx.ba/artikal/61000002",
+          "title": "Dell Latitude 7490 Intel Core i7-8650U 8GB 512 GB NVMe 14 inch",
+          "price_km": 1150,
+          "price_raw": "1.150 KM",
+          "total": 40.2,
+          "confidence": 76,
+          "flags": [
+            "Screen quality unknown (counted as 30)",
+            "upgradeability unknown",
+            "Battery unknown (counted as 30)",
+            "title only (description not fetched yet)"
+          ],
+          "enriched": false,
+          "specs": {
+            "model": {
+              "value": {
+                "brand": "Dell",
+                "name": "Dell Latitude 7490",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "Latitude 7490"
+            },
+            "cpu": {
+              "value": {
+                "vendor": "Intel",
+                "family": "Core i7",
+                "tier": 7,
+                "gen": 8,
+                "model": "i7-8650U",
+                "suffix": "U",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "Intel Core i7-8650U"
+            },
+            "ram_gb": {
+              "value": 8,
+              "source": "title",
+              "evidence": "8GB"
+            },
+            "storage": {
+              "value": {
+                "gb": 512,
+                "type": "SSD"
+              },
+              "source": "title",
+              "evidence": "512 GB NVMe"
+            },
+            "screen_in": {
+              "value": 14,
+              "source": "title",
+              "evidence": "14 inch"
+            },
+            "resolution": null,
+            "panel": null,
+            "refresh_hz": null,
+            "condition": {
+              "value": "used",
+              "source": "card",
+              "evidence": "used"
+            },
+            "warranty": null,
+            "gpu": null,
+            "battery": null
+          },
+          "components": {
+            "cpu": {
+              "label": "CPU performance",
+              "score": 40.3,
+              "evidence": [
+                "i7-8650U: Intel gen 8 base 36 × tier 1.12 × suffix U 1 (source: title \"Intel Core i7-8650U\")"
+              ]
+            },
+            "screen": {
+              "label": "Screen quality",
+              "score": null,
+              "evidence": [
+                "resolution not stated"
+              ]
+            },
+            "build": {
+              "label": "Keyboard / build comfort",
+              "score": 80,
+              "evidence": [
+                "Latitude 7000/9000 family baseline 80"
+              ]
+            },
+            "ram": {
+              "label": "RAM / upgradeability",
+              "score": 40,
+              "evidence": [
+                "8 GB (title: \"8GB\") → 40"
+              ]
+            },
+            "battery": {
+              "label": "Battery",
+              "score": null,
+              "evidence": [
+                "battery condition not stated"
+              ]
+            },
+            "value": {
+              "label": "Value for money",
+              "score": 28.6,
+              "evidence": [
+                "performance per KM is better than 29% of the 8 comparable listings"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rank": 7,
+      "groupKey": "id:61000010",
+      "offerCount": 1,
+      "best": {
+        "id": "61000010",
+        "url": "https://olx.ba/artikal/61000010",
+        "title": "Acer Aspire 5 i3-1115G4 8GB",
+        "price_km": null,
+        "price_raw": "Na upit",
+        "total": 36,
+        "confidence": 52,
+        "flags": [
+          "Value for money unknown (counted as 30)",
+          "Screen quality unknown (counted as 30)",
+          "model series only, exact model unknown",
+          "upgradeability unknown",
+          "Battery unknown (counted as 30)",
+          "title only (description not fetched yet)"
+        ],
+        "enriched": false,
+        "specs": {
+          "model": {
+            "value": {
+              "brand": "Acer",
+              "name": "Acer Aspire 5",
+              "exact": false
+            },
+            "source": "title",
+            "evidence": "Aspire 5"
+          },
+          "cpu": {
+            "value": {
+              "vendor": "Intel",
+              "family": "Core i3",
+              "tier": 3,
+              "gen": 11,
+              "model": "i3-1115G4",
+              "suffix": "G4",
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "i3-1115G4"
+          },
+          "ram_gb": {
+            "value": 8,
+            "source": "title",
+            "evidence": "8GB"
+          },
+          "storage": null,
+          "screen_in": null,
+          "resolution": null,
+          "panel": null,
+          "refresh_hz": null,
+          "condition": null,
+          "warranty": null,
+          "gpu": null,
+          "battery": null
+        },
+        "components": {
+          "cpu": {
+            "label": "CPU performance",
+            "score": 37.5,
+            "evidence": [
+              "i3-1115G4: Intel gen 11 base 50 × tier 0.75 × suffix G4 1 (source: title \"i3-1115G4\")"
+            ]
+          },
+          "screen": {
+            "label": "Screen quality",
+            "score": null,
+            "evidence": [
+              "resolution not stated"
+            ]
+          },
+          "build": {
+            "label": "Keyboard / build comfort",
+            "score": 52,
+            "evidence": [
+              "consumer/budget line family baseline 52"
+            ]
+          },
+          "ram": {
+            "label": "RAM / upgradeability",
+            "score": 40,
+            "evidence": [
+              "8 GB (title: \"8GB\") → 40"
+            ]
+          },
+          "battery": {
+            "label": "Battery",
+            "score": null,
+            "evidence": [
+              "battery condition not stated"
+            ]
+          },
+          "value": {
+            "label": "Value for money",
+            "score": null,
+            "evidence": [
+              "price not stated"
+            ]
+          }
+        }
+      },
+      "offers": [
+        {
+          "id": "61000010",
+          "url": "https://olx.ba/artikal/61000010",
+          "title": "Acer Aspire 5 i3-1115G4 8GB",
+          "price_km": null,
+          "price_raw": "Na upit",
+          "total": 36,
+          "confidence": 52,
+          "flags": [
+            "Value for money unknown (counted as 30)",
+            "Screen quality unknown (counted as 30)",
+            "model series only, exact model unknown",
+            "upgradeability unknown",
+            "Battery unknown (counted as 30)",
+            "title only (description not fetched yet)"
+          ],
+          "enriched": false,
+          "specs": {
+            "model": {
+              "value": {
+                "brand": "Acer",
+                "name": "Acer Aspire 5",
+                "exact": false
+              },
+              "source": "title",
+              "evidence": "Aspire 5"
+            },
+            "cpu": {
+              "value": {
+                "vendor": "Intel",
+                "family": "Core i3",
+                "tier": 3,
+                "gen": 11,
+                "model": "i3-1115G4",
+                "suffix": "G4",
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "i3-1115G4"
+            },
+            "ram_gb": {
+              "value": 8,
+              "source": "title",
+              "evidence": "8GB"
+            },
+            "storage": null,
+            "screen_in": null,
+            "resolution": null,
+            "panel": null,
+            "refresh_hz": null,
+            "condition": null,
+            "warranty": null,
+            "gpu": null,
+            "battery": null
+          },
+          "components": {
+            "cpu": {
+              "label": "CPU performance",
+              "score": 37.5,
+              "evidence": [
+                "i3-1115G4: Intel gen 11 base 50 × tier 0.75 × suffix G4 1 (source: title \"i3-1115G4\")"
+              ]
+            },
+            "screen": {
+              "label": "Screen quality",
+              "score": null,
+              "evidence": [
+                "resolution not stated"
+              ]
+            },
+            "build": {
+              "label": "Keyboard / build comfort",
+              "score": 52,
+              "evidence": [
+                "consumer/budget line family baseline 52"
+              ]
+            },
+            "ram": {
+              "label": "RAM / upgradeability",
+              "score": 40,
+              "evidence": [
+                "8 GB (title: \"8GB\") → 40"
+              ]
+            },
+            "battery": {
+              "label": "Battery",
+              "score": null,
+              "evidence": [
+                "battery condition not stated"
+              ]
+            },
+            "value": {
+              "label": "Value for money",
+              "score": null,
+              "evidence": [
+                "price not stated"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rank": 8,
+      "groupKey": "id:61000004",
+      "offerCount": 1,
+      "best": {
+        "id": "61000004",
+        "url": "https://olx.ba/artikal/61000004",
+        "title": "Laptop hitno prodajem",
+        "price_km": null,
+        "price_raw": "Po dogovoru",
+        "total": 30,
+        "confidence": 0,
+        "flags": [
+          "CPU performance unknown (counted as 30)",
+          "Value for money unknown (counted as 30)",
+          "Screen quality unknown (counted as 30)",
+          "Keyboard / build comfort unknown (counted as 30)",
+          "RAM / upgradeability unknown (counted as 30)",
+          "Battery unknown (counted as 30)",
+          "title only (description not fetched yet)"
+        ],
+        "enriched": false,
+        "specs": {
+          "model": null,
+          "cpu": null,
+          "ram_gb": null,
+          "storage": null,
+          "screen_in": null,
+          "resolution": null,
+          "panel": null,
+          "refresh_hz": null,
+          "condition": null,
+          "warranty": null,
+          "gpu": null,
+          "battery": null
+        },
+        "components": {
+          "cpu": {
+            "label": "CPU performance",
+            "score": null,
+            "evidence": [
+              "CPU not stated"
+            ]
+          },
+          "screen": {
+            "label": "Screen quality",
+            "score": null,
+            "evidence": [
+              "resolution not stated"
+            ]
+          },
+          "build": {
+            "label": "Keyboard / build comfort",
+            "score": null,
+            "evidence": [
+              "model not identified"
+            ]
+          },
+          "ram": {
+            "label": "RAM / upgradeability",
+            "score": null,
+            "evidence": [
+              "RAM amount not stated"
+            ]
+          },
+          "battery": {
+            "label": "Battery",
+            "score": null,
+            "evidence": [
+              "battery condition not stated"
+            ]
+          },
+          "value": {
+            "label": "Value for money",
+            "score": null,
+            "evidence": [
+              "price not stated"
+            ]
+          }
+        }
+      },
+      "offers": [
+        {
+          "id": "61000004",
+          "url": "https://olx.ba/artikal/61000004",
+          "title": "Laptop hitno prodajem",
+          "price_km": null,
+          "price_raw": "Po dogovoru",
+          "total": 30,
+          "confidence": 0,
+          "flags": [
+            "CPU performance unknown (counted as 30)",
+            "Value for money unknown (counted as 30)",
+            "Screen quality unknown (counted as 30)",
+            "Keyboard / build comfort unknown (counted as 30)",
+            "RAM / upgradeability unknown (counted as 30)",
+            "Battery unknown (counted as 30)",
+            "title only (description not fetched yet)"
+          ],
+          "enriched": false,
+          "specs": {
+            "model": null,
+            "cpu": null,
+            "ram_gb": null,
+            "storage": null,
+            "screen_in": null,
+            "resolution": null,
+            "panel": null,
+            "refresh_hz": null,
+            "condition": null,
+            "warranty": null,
+            "gpu": null,
+            "battery": null
+          },
+          "components": {
+            "cpu": {
+              "label": "CPU performance",
+              "score": null,
+              "evidence": [
+                "CPU not stated"
+              ]
+            },
+            "screen": {
+              "label": "Screen quality",
+              "score": null,
+              "evidence": [
+                "resolution not stated"
+              ]
+            },
+            "build": {
+              "label": "Keyboard / build comfort",
+              "score": null,
+              "evidence": [
+                "model not identified"
+              ]
+            },
+            "ram": {
+              "label": "RAM / upgradeability",
+              "score": null,
+              "evidence": [
+                "RAM amount not stated"
+              ]
+            },
+            "battery": {
+              "label": "Battery",
+              "score": null,
+              "evidence": [
+                "battery condition not stated"
+              ]
+            },
+            "value": {
+              "label": "Value for money",
+              "score": null,
+              "evidence": [
+                "price not stated"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rank": 9,
+      "groupKey": "id:61000007",
+      "offerCount": 1,
+      "best": {
+        "id": "61000007",
+        "url": "https://olx.ba/artikal/61000007",
+        "title": "Asus VivoBook 15 Celeron N4020 4GB 128GB eMMC",
+        "price_km": 449,
+        "price_raw": "449 KM",
+        "total": 17.9,
+        "confidence": 76,
+        "flags": [
+          "Screen quality unknown (counted as 30)",
+          "model series only, exact model unknown",
+          "upgradeability unknown",
+          "Battery unknown (counted as 30)",
+          "title only (description not fetched yet)"
+        ],
+        "enriched": false,
+        "specs": {
+          "model": {
+            "value": {
+              "brand": "Asus",
+              "name": "Asus VivoBook 15",
+              "exact": false
+            },
+            "source": "title",
+            "evidence": "VivoBook 15"
+          },
+          "cpu": {
+            "value": {
+              "vendor": "Intel",
+              "family": "Celeron",
+              "model": "Celeron N4020",
+              "low": true,
+              "exact": true
+            },
+            "source": "title",
+            "evidence": "Celeron N4020"
+          },
+          "ram_gb": {
+            "value": 4,
+            "source": "title",
+            "evidence": "4GB"
+          },
+          "storage": null,
+          "screen_in": null,
+          "resolution": null,
+          "panel": null,
+          "refresh_hz": null,
+          "condition": {
+            "value": "new",
+            "source": "card",
+            "evidence": "new"
+          },
+          "warranty": null,
+          "gpu": null,
+          "battery": null
+        },
+        "components": {
+          "cpu": {
+            "label": "CPU performance",
+            "score": 10,
+            "evidence": [
+              "Celeron N4020: low-power Celeron/Pentium/Athlon class (source: title \"Celeron N4020\")"
+            ]
+          },
+          "screen": {
+            "label": "Screen quality",
+            "score": null,
+            "evidence": [
+              "resolution not stated"
+            ]
+          },
+          "build": {
+            "label": "Keyboard / build comfort",
+            "score": 52,
+            "evidence": [
+              "consumer/budget line family baseline 52"
+            ]
+          },
+          "ram": {
+            "label": "RAM / upgradeability",
+            "score": 10,
+            "evidence": [
+              "4 GB (title: \"4GB\") → 10"
+            ]
+          },
+          "battery": {
+            "label": "Battery",
+            "score": null,
+            "evidence": [
+              "battery condition not stated"
+            ]
+          },
+          "value": {
+            "label": "Value for money",
+            "score": 0,
+            "evidence": [
+              "performance per KM is better than 0% of the 8 comparable listings"
+            ]
+          }
+        }
+      },
+      "offers": [
+        {
+          "id": "61000007",
+          "url": "https://olx.ba/artikal/61000007",
+          "title": "Asus VivoBook 15 Celeron N4020 4GB 128GB eMMC",
+          "price_km": 449,
+          "price_raw": "449 KM",
+          "total": 17.9,
+          "confidence": 76,
+          "flags": [
+            "Screen quality unknown (counted as 30)",
+            "model series only, exact model unknown",
+            "upgradeability unknown",
+            "Battery unknown (counted as 30)",
+            "title only (description not fetched yet)"
+          ],
+          "enriched": false,
+          "specs": {
+            "model": {
+              "value": {
+                "brand": "Asus",
+                "name": "Asus VivoBook 15",
+                "exact": false
+              },
+              "source": "title",
+              "evidence": "VivoBook 15"
+            },
+            "cpu": {
+              "value": {
+                "vendor": "Intel",
+                "family": "Celeron",
+                "model": "Celeron N4020",
+                "low": true,
+                "exact": true
+              },
+              "source": "title",
+              "evidence": "Celeron N4020"
+            },
+            "ram_gb": {
+              "value": 4,
+              "source": "title",
+              "evidence": "4GB"
+            },
+            "storage": null,
+            "screen_in": null,
+            "resolution": null,
+            "panel": null,
+            "refresh_hz": null,
+            "condition": {
+              "value": "new",
+              "source": "card",
+              "evidence": "new"
+            },
+            "warranty": null,
+            "gpu": null,
+            "battery": null
+          },
+          "components": {
+            "cpu": {
+              "label": "CPU performance",
+              "score": 10,
+              "evidence": [
+                "Celeron N4020: low-power Celeron/Pentium/Athlon class (source: title \"Celeron N4020\")"
+              ]
+            },
+            "screen": {
+              "label": "Screen quality",
+              "score": null,
+              "evidence": [
+                "resolution not stated"
+              ]
+            },
+            "build": {
+              "label": "Keyboard / build comfort",
+              "score": 52,
+              "evidence": [
+                "consumer/budget line family baseline 52"
+              ]
+            },
+            "ram": {
+              "label": "RAM / upgradeability",
+              "score": 10,
+              "evidence": [
+                "4 GB (title: \"4GB\") → 10"
+              ]
+            },
+            "battery": {
+              "label": "Battery",
+              "score": null,
+              "evidence": [
+                "battery condition not stated"
+              ]
+            },
+            "value": {
+              "label": "Value for money",
+              "score": 0,
+              "evidence": [
+                "performance per KM is better than 0% of the 8 comparable listings"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
