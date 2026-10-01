@@ -37,16 +37,28 @@ npm run demo                   # separate DB: data/demo.sqlite
    npm run smoke -- "https://olx.ba/pretraga?category_id=39&..."   # 2-page smoke test
    npm run crawl -- "https://olx.ba/pretraga?category_id=39&..."   # all pages; re-run to resume
    ```
-   The crawl stops at the first empty page, at a page with no new listing IDs, or at the last page the pagination
-   reports. `status=complete` is the only state that means everything reachable was collected. `stopped`, `blocked`
-   and `error` mean it was not, and the CLI says so.
+   The crawl stops at the first empty page or at the last page the site reports.
+
+   **Pagination cap:** OLX's search endpoint appears to serve only about 50 pages per query (36 ads per page, so
+   1800 ads) and then repeats results. When two pages in a row bring no new listing IDs while the site still reports
+   more pages, the crawler treats the search as *capped*, not complete. It then re-runs the same search (all your
+   filters kept) split into price ranges, splitting any range that still exceeds the cap at the median of the prices
+   collected so far. The price parameter names (`price_from`/`price_to`, falling back to `price_min`/`price_max`) are
+   checked on every range: returned prices must lie inside it, and the site must report fewer results than the
+   unfiltered search. If the site ignores them, or a single price band alone exceeds the cap, the run ends as
+   `capped` with the count collected versus the site's total. Ads with no price ("Na upit") can only be reached within
+   the first ~50 pages.
+
+   `status=complete` is the only state that means everything reachable was collected. `stopped`, `capped`,
+   `blocked` and `error` mean it was not, and the CLI says so. Pressing *Crawl / resume* again continues from where it
+   stopped, including runs an older version wrongly marked complete after the first page of repeats.
 2. **Filter and prioritise.** Set hard filters (price in KM, minimum RAM, screen size range, condition). Choose whether
    listings with unknown values may pass (they're flagged if they do). Drag the six priorities into order; positions
-   are weighted 30 / 24 / 18 / 13 / 9 / 6.
+   are weighted 25 / 20 / 20 / 15 / 10 / 10. The top 100 configurations are shown.
 3. **Enrich the shortlist.** *Enrich top 40* fetches detail pages (attribute table + description) only for the listings
    in the current top 40 configuration groups. Descriptions often state the exact CPU, battery condition, RAM slots and
    warranty. Rankings update after enrichment.
-4. **Export.** `npm run export` (or the button) writes `data/results.json` and `data/results.csv`.
+4. **Export.** `npm run export` (or the button) writes the top 100 to `data/results.json` and `data/results.csv`.
 
 ## Scoring (all visible in the UI's "Evidence" panel)
 

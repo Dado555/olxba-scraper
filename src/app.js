@@ -11,7 +11,7 @@ export function latestRun(db) {
   return db.prepare('SELECT * FROM runs ORDER BY updated_at DESC, id DESC LIMIT 1').get() ?? null;
 }
 
-export function rankRun(db, { runId, priorities, weights, filters, top = 50, mode } = {}) {
+export function rankRun(db, { runId, priorities, weights, filters, top = 100, mode } = {}) {
   const rid = runId ?? latestRun(db)?.id;
   return rank(runListings(db, rid), { priorities, weights, filters, top, mode });
 }

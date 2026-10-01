@@ -39,7 +39,8 @@ switch (cmd) {
     if (!arg) { console.error('crawl needs an OLX.ba search URL (quote it in the shell)'); process.exit(2); }
     const s = await crawl(db, makeFetcher(), arg, { maxPages: o['max-pages'] ? +o['max-pages'] : Infinity, restart: o.restart, mode: o.mode });
     console.log(`\nRun ${s.id}: status=${s.status}${s.status_detail ? ` (${s.status_detail})` : ''}`);
-    console.log(`Pages fetched: ${s.pages_fetched}${s.last_page ? ` of ${s.last_page} reported by site` : ''}; unique listings: ${s.unique_listings}`);
+    console.log(`Requests: ${s.pages_fetched}; unique listings: ${s.unique_listings}${s.site_total ? ` (site reports ${s.site_total} results)` : ''}` +
+      `${s.cap_page ? `; site caps each search at ${s.cap_page} pages, so price ranges were used` : ''}`);
     if (s.status !== 'complete') console.log('NOT all results collected. Re-run the same command to resume.');
     process.exitCode = ['blocked', 'error'].includes(s.status) ? 1 : 0;
     break;
@@ -56,7 +57,7 @@ switch (cmd) {
     }
     break;
   }
-  case 'export': console.log(exportResults(db, { out: o.out, filters, top: +(o.top ?? 50), mode: o['rank-mode'] })); break;
+  case 'export': console.log(exportResults(db, { out: o.out, filters, top: +(o.top ?? 100), mode: o['rank-mode'] })); break;
   case 'demo':
     loadDemo(db, fileURLToPath(new URL('../test/fixtures', import.meta.url)));
     console.log('Loaded SYNTHETIC fixture data (not live OLX data).');

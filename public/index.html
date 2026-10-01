@@ -192,7 +192,7 @@ function renderResults(r) {
 let t;
 function refresh() { clearTimeout(t); t = setTimeout(async () => {
   persist();
-  try { renderResults(await api('/api/rank', { priorities, mode: $('#mode').value, filters: filters(), top: 50 })); }
+  try { renderResults(await api('/api/rank', { priorities, mode: $('#mode').value, filters: filters(), top: 100 })); }
   catch (e) { $('#summary').textContent = 'Error: ' + e.message; }
 }, 150); }
 
@@ -217,7 +217,7 @@ $('#crawlBtn').onclick = async () => {
 };
 $('#enrichBtn').onclick = async () => { try { await api('/api/enrich', { n: 40, priorities, mode: $('#mode').value, filters: filters() }); } catch (e) { alert(e.message); } };
 $('#exportBtn').onclick = async () => {
-  try { const r = await api('/api/export', { priorities, mode: $('#mode').value, filters: filters(), top: 50 }); $('#exportMsg').textContent = `Wrote ${r.count} rows to ${r.json} and ${r.csv}`; }
+  try { const r = await api('/api/export', { priorities, mode: $('#mode').value, filters: filters(), top: 100 }); $('#exportMsg').textContent = `Wrote ${r.count} rows to ${r.json} and ${r.csv}`; }
   catch (e) { $('#exportMsg').textContent = e.message; }
 };
 document.querySelectorAll('aside input').forEach(i => i.addEventListener('input', () => { if (i.id !== 'url' && i.id !== 'maxPages') refresh(); }));
