@@ -28,6 +28,7 @@
   .status { font-size:12px; color:var(--muted); }
   .res { border:1px solid var(--line); border-radius:8px; background:var(--card); margin-bottom:10px; padding:10px 12px; }
   .res-head { display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; }
+  .year { font-size:13px; color:var(--muted); } .year small { font-size:11px; }
   .rank { font-weight:700; color:var(--muted); min-width:28px; }
   .total { font-weight:700; font-size:18px; font-variant-numeric:tabular-nums; }
   .price { font-weight:600; }
@@ -85,6 +86,9 @@
     <div class="status" id="weightHelp"></div>
     <label for="mode">Ranking mode</label>
     <select id="mode"></select>
+    <label for="sort">Sort the top 100 by</label>
+    <select id="sort"></select>
+    <div class="status" id="cpuTable"></div>
   </section>
   <section class="card">
     <button id="exportBtn">Export results (JSON + CSV)</button>
@@ -116,7 +120,7 @@ function filters() {
     conditions: [...document.querySelectorAll('.cond:checked')].map(c => c.value), allowUnknown: $('#allowUnknown').checked };
 }
 function persist() {
-  try { localStorage.setItem('olxRanker', JSON.stringify({ priorities, mode: $('#mode').value, filters: filters(), url: $('#url').value })); } catch {}
+  try { localStorage.setItem('olxRanker', JSON.stringify({ priorities, mode: $('#mode').value, sort: $('#sort').value, filters: filters(), url: $('#url').value })); } catch {}
 }
 
 function renderPrio() {
@@ -141,6 +145,11 @@ function move(from, to) {
   renderPrio(); refresh();
 }
 
+const YEAR_BASIS = { stated: 'stated in ad', model: 'model year', cpu: 'CPU launch' };
+function yearText(y) {
+  if (!y || y.value == null) return y?.upTo ? `year ≤${y.upTo}?` : 'year ?';
+  return y.basis === 'cpu' ? `≥${y.value} <small>(${YEAR_BASIS.cpu})</small>` : `${y.value} <small>(${YEAR_BASIS[y.basis]})</small>`;
+}
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 function specLine(s) {
   const v = k => s[k]?.value;
@@ -158,7 +167,7 @@ function specLine(s) {
   return parts.map(esc).join(' · ');
 }
 function renderResults(r) {
-  $('#summary').textContent = `${r.considered} listings · ${r.passedFilters} pass filters · ${r.groups} distinct configurations · showing top ${r.results.length}`;
+  $('#summary').textContent = `${r.considered} listings · ${r.passedFilters} pass filters · ${r.groups} distinct configurations · showing top ${r.results.length}${r.sort && r.sort !== 'score' ? ` · sorted by ${$('#sort').selectedOptions[0]?.text ?? r.sort} (# = score rank)` : ''}`;
   const NAMES = { price: 'Price', ram: 'RAM min', screen: 'Screen size', condition: 'Condition', broken: 'Broken/for parts (always excluded)' };
   const rej = Object.entries(r.rejected || {});
   const rejHtml = rej.length ? `<div class="banner"><b>Removed by hard filters</b> (each listing counted at the first filter it failed):<ul>${
@@ -175,6 +184,7 @@ function renderResults(r) {
       g.offers.map(o => `<tr><td>${o.price_km != null ? o.price_km + ' KM' : esc(o.price_raw || '?')}</td><td><a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.title)}</a></td><td>${o.total}</td></tr>`).join('')}</table></details>` : '';
     return `<div class="res">
       <div class="res-head"><span class="rank">#${g.rank}</span><span class="total">${b.total}</span>
+        <span class="year" title="${esc(b.year?.evidence ?? '')}">${yearText(b.year)}</span>
         <span class="price">${b.price_km != null ? b.price_km.toLocaleString('bs') + ' KM' : esc(b.price_raw || 'price ?')}</span>
         <span class="title"><a href="${esc(b.url)}" target="_blank" rel="noopener">${esc(b.title)}</a></span>
         <span class="conf">quality ${b.quality} (possible ${b.qualityRange[0]}–${b.qualityRange[1]})${r.mode === 'value' ? ` · affordability ${b.affordability ?? 'unknown'}` : ''} · verified ${b.certainty.verified}% / estimated ${b.certainty.estimate}% / partial ${b.certainty.partial}% / unknown ${b.certainty.unknown}% of weight${b.enriched ? ' · description read' : ''}</span></div>
@@ -192,7 +202,7 @@ function renderResults(r) {
 let t;
 function refresh() { clearTimeout(t); t = setTimeout(async () => {
   persist();
-  try { renderResults(await api('/api/rank', { priorities, mode: $('#mode').value, filters: filters(), top: 100 })); }
+  try { renderResults(await api('/api/rank', { priorities, mode: $('#mode').value, sort: $('#sort').value, filters: filters(), top: 100 })); }
   catch (e) { $('#summary').textContent = 'Error: ' + e.message; }
 }, 150); }
 
@@ -217,7 +227,7 @@ $('#crawlBtn').onclick = async () => {
 };
 $('#enrichBtn').onclick = async () => { try { await api('/api/enrich', { n: 40, priorities, mode: $('#mode').value, filters: filters() }); } catch (e) { alert(e.message); } };
 $('#exportBtn').onclick = async () => {
-  try { const r = await api('/api/export', { priorities, mode: $('#mode').value, filters: filters(), top: 100 }); $('#exportMsg').textContent = `Wrote ${r.count} rows to ${r.json} and ${r.csv}`; }
+  try { const r = await api('/api/export', { priorities, mode: $('#mode').value, sort: $('#sort').value, filters: filters(), top: 100 }); $('#exportMsg').textContent = `Wrote ${r.count} rows to ${r.json} and ${r.csv}`; }
   catch (e) { $('#exportMsg').textContent = e.message; }
 };
 document.querySelectorAll('aside input').forEach(i => i.addEventListener('input', () => { if (i.id !== 'url' && i.id !== 'maxPages') refresh(); }));
@@ -230,6 +240,12 @@ document.querySelectorAll('aside input').forEach(i => i.addEventListener('input'
   $('#mode').innerHTML = Object.entries(s.modes || { quality: 'Best laptop within budget' }).map(([k, v]) => `<option value="${k}">${v}${k === 'value' ? ' (80% quality + 20% affordability)' : ' (quality; price max = budget)'}</option>`).join('');
   if (saved.mode && s.modes?.[saved.mode]) $('#mode').value = saved.mode;
   $('#mode').addEventListener('change', refresh);
+  $('#sort').innerHTML = Object.entries(s.sorts || { score: 'Rank (score)' }).map(([k, v]) => `<option value="${k}">${v}</option>`).join('');
+  if (saved.sort && s.sorts?.[saved.sort]) $('#sort').value = saved.sort;
+  $('#sort').addEventListener('change', refresh);
+  const ct = s.cpuTable || {};
+  $('#cpuTable').innerHTML = ct.cpus ? `CPU scores: ${ct.cpus} CPUs from ${esc(ct.source)} (downloaded ${esc((ct.fetched_at || '').slice(0, 10))}).`
+    : 'CPU benchmark table not loaded: CPU scores are estimates. Run <code>npm run cpu-data</code> once, then reload.';
   priorities = (saved.priorities?.length === 6 && saved.priorities.every(k => COMPONENTS[k])) ? saved.priorities : s.defaultPriorities;
   const f = saved.filters || {};
   for (const k of ['priceMin', 'priceMax', 'ramMin', 'screenMin', 'screenMax']) if (f[k] != null) $('#' + k).value = f[k];

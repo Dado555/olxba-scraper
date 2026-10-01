@@ -11,9 +11,9 @@ export function latestRun(db) {
   return db.prepare('SELECT * FROM runs ORDER BY updated_at DESC, id DESC LIMIT 1').get() ?? null;
 }
 
-export function rankRun(db, { runId, priorities, weights, filters, top = 100, mode } = {}) {
+export function rankRun(db, { runId, priorities, weights, filters, top = 100, mode, sort } = {}) {
   const rid = runId ?? latestRun(db)?.id;
-  return rank(runListings(db, rid), { priorities, weights, filters, top, mode });
+  return rank(runListings(db, rid), { priorities, weights, filters, top, mode, sort });
 }
 
 /**
@@ -44,13 +44,13 @@ export function serialize(r) {
   const offer = o => ({
     id: o.listing.id, url: o.listing.url, title: o.listing.title, price_km: o.listing.price_km, price_raw: o.listing.price_raw,
     total: o.total, quality: o.quality, qualityRange: o.qualityRange, affordability: o.affordability,
-    confidence: o.confidence, certainty: o.certainty, needsVerification: o.needsVerification, flags: o.flags, enriched: !!o.listing.detail_fetched_at,
+    year: o.year, confidence: o.confidence, certainty: o.certainty, needsVerification: o.needsVerification, flags: o.flags, enriched: !!o.listing.detail_fetched_at,
     specs: Object.fromEntries(['model', 'cpu', 'ram_gb', 'storage', 'screen_in', 'resolution', 'panel', 'refresh_hz', 'condition', 'warranty', 'gpu', 'battery', 'weight_kg', 'ports', 'cpu_conflict']
       .map(k => [k, o.specs[k] ? { value: o.specs[k].value, source: o.specs[k].source, evidence: o.specs[k].evidence } : null])),
     components: Object.fromEntries(Object.entries(o.components).map(([k, c]) => [k, { label: COMPONENTS[k], score: c.score, basis: c.basis, range: [c.min, c.max], evidence: c.evidence }])),
   });
   return {
-    mode: r.mode, weights: r.weights, considered: r.considered, passedFilters: r.passedFilters, rejected: r.rejected, groups: r.groups,
+    mode: r.mode, sort: r.sort, weights: r.weights, considered: r.considered, passedFilters: r.passedFilters, rejected: r.rejected, groups: r.groups,
     results: r.results.map(g => ({ rank: g.rank, groupKey: g.key, offerCount: g.offers.length, best: offer(g.best), offers: g.offers.map(offer) })),
   };
 }
@@ -62,11 +62,11 @@ export function exportResults(db, { out = 'data/results', ...opts } = {}) {
   writeFileSync(`${out}.json`, JSON.stringify(data, null, 2));
   const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
   const s = (o, k) => { const v = o.specs[k]?.value; return v == null ? '' : typeof v === 'object' ? (v.name ?? v.model ?? v.gb ?? v.months ?? JSON.stringify(v)) : v; };
-  const rows = [['rank', 'offers_in_group', 'total', 'quality', 'affordability', 'confidence_pct', 'price_km', 'title', 'model', 'cpu', 'ram_gb', 'storage_gb', 'screen_in', 'resolution', 'condition',
+  const rows = [['rank', 'offers_in_group', 'total', 'quality', 'affordability', 'confidence_pct', 'price_km', 'year', 'year_basis', 'title', 'model', 'cpu', 'ram_gb', 'storage_gb', 'screen_in', 'resolution', 'condition',
     ...Object.keys(COMPONENTS).map(k => `${k}_score`), 'flags', 'url']];
   for (const g of data.results) {
     const b = g.best;
-    rows.push([g.rank, g.offerCount, b.total, b.quality, b.affordability ?? 'unknown', b.confidence, b.price_km, b.title, s(b, 'model'), s(b, 'cpu'), s(b, 'ram_gb'), s(b, 'storage'), s(b, 'screen_in'),
+    rows.push([g.rank, g.offerCount, b.total, b.quality, b.affordability ?? 'unknown', b.confidence, b.price_km, b.year?.value ?? '', b.year?.basis ?? 'unknown', b.title, s(b, 'model'), s(b, 'cpu'), s(b, 'ram_gb'), s(b, 'storage'), s(b, 'screen_in'),
       s(b, 'resolution'), s(b, 'condition'), ...Object.keys(COMPONENTS).map(k => b.components[k].score ?? 'unknown'), b.flags.join('; '), b.url]);
   }
   writeFileSync(`${out}.csv`, rows.map(r => r.map(esc).join(',')).join('\n') + '\n');

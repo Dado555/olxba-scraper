@@ -5,6 +5,8 @@ import { openDb } from '../src/db.js';
 import { Fetcher } from '../src/fetcher.js';
 import { crawl } from '../src/crawl.js';
 import { enrichShortlist, exportResults, loadDemo, rankRun } from '../src/app.js';
+import { fetchPassmark, buildBenchmarkTable, saveBenchmarks, parseBenchmarkFile } from '../src/cpu-db.js';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { startServer } from '../src/server.js';
 
 const HELP = `Usage: node bin/cli.js <command> [options]
@@ -17,13 +19,16 @@ const HELP = `Usage: node bin/cli.js <command> [options]
   export                   write data/results.json and .csv (--out path/prefix)
   serve                    start the local UI at http://127.0.0.1:5173 (--port)
   demo                     load bundled synthetic fixtures into data/demo.sqlite and serve
+  cpu-data                 download the PassMark CPU list into data/cpu-benchmarks.json (personal use)
+      --file path            build the table from a saved PassMark JSON / CSV instead of downloading
 Common: --db path (default data/olx.sqlite)  --delay seconds between requests (default 6, min 3)
-        --price-max N --ram-min N --top N`;
+        --price-max N --ram-min N --top N
+        --sort score|year|price|cpu|screen|build   order of the top list (rank/export)`;
 
 const { values: o, positionals } = parseArgs({ allowPositionals: true, options: {
   'max-pages': { type: 'string' }, restart: { type: 'boolean' }, mode: { type: 'string', default: 'auto' },
   db: { type: 'string', default: 'data/olx.sqlite' }, delay: { type: 'string', default: '6' }, port: { type: 'string', default: '5173' },
-  top: { type: 'string' }, 'rank-mode': { type: 'string', default: 'quality' }, out: { type: 'string', default: 'data/results' }, 'price-max': { type: 'string' }, 'ram-min': { type: 'string' },
+  top: { type: 'string' }, 'rank-mode': { type: 'string', default: 'quality' }, sort: { type: 'string', default: 'score' }, file: { type: 'string' }, out: { type: 'string', default: 'data/results' }, 'price-max': { type: 'string' }, 'ram-min': { type: 'string' },
   help: { type: 'boolean', short: 'h' } } });
 const [cmd, arg] = positionals;
 const delayMs = Math.max(3, Number(o.delay)) * 1000;
@@ -47,17 +52,34 @@ switch (cmd) {
   }
   case 'enrich': console.log(await enrichShortlist(db, makeFetcher(), { n: +(o.top ?? 40), filters })); break;
   case 'rank': {
-    const r = rankRun(db, { filters, top: +(o.top ?? 20), mode: o['rank-mode'] });
-    console.log(`Mode: ${r.mode}. ${r.considered} listings, ${r.passedFilters} after filters, ${r.groups} configurations. Weights: ${JSON.stringify(r.weights)}`);
+    const r = rankRun(db, { filters, top: +(o.top ?? 20), mode: o['rank-mode'], sort: o.sort });
+    console.log(`Mode: ${r.mode}, sorted by ${r.sort}. ${r.considered} listings, ${r.passedFilters} after filters, ${r.groups} configurations. Weights: ${JSON.stringify(r.weights)}`);
     for (const [k, v] of Object.entries(r.rejected)) console.log(`  removed by ${k} filter: ${v.outOfRange} out of range, ${v.unknown} unknown value`);
     for (const g of r.results) {
       const b = g.best;
-      console.log(`#${g.rank} ${b.total} (quality ${b.quality}, range ${b.qualityRange.join('–')}, verified ${b.confidence}%) ${b.listing.price_km ?? '?'} KM  ${b.listing.title}${g.offers.length > 1 ? `  [${g.offers.length} offers]` : ''}\n     ${b.listing.url}  ` +
+      console.log(`#${g.rank} ${b.total} [${b.year?.value != null ? (b.year.basis === 'cpu' ? '≥' : '') + b.year.value + ' ' + b.year.basis : 'year ?'}] (quality ${b.quality}, range ${b.qualityRange.join('–')}, verified ${b.confidence}%) ${b.listing.price_km ?? '?'} KM  ${b.listing.title}${g.offers.length > 1 ? `  [${g.offers.length} offers]` : ''}\n     ${b.listing.url}  ` +
         Object.entries(b.components).map(([k, c]) => `${k}:${c.score ?? '?'}`).join(' '));
     }
     break;
   }
-  case 'export': console.log(exportResults(db, { out: o.out, filters, top: +(o.top ?? 100), mode: o['rank-mode'] })); break;
+  case 'export': console.log(exportResults(db, { out: o.out, filters, top: +(o.top ?? 100), mode: o['rank-mode'], sort: o.sort })); break;
+  case 'cpu-data': {
+    let rows;
+    if (o.file) rows = parseBenchmarkFile(readFileSync(o.file, 'utf8'));
+    else {
+      try { rows = await fetchPassmark(); }
+      catch (e) {
+        console.error(`Download failed: ${e.message}\nSave it manually instead: open https://www.cpubenchmark.net/CPU_mega_page.html in your browser, ` +
+          `then open https://www.cpubenchmark.net/data/ in the same browser and save the page as cpus.json; then run: npm run cpu-data -- --file cpus.json`);
+        process.exit(1);
+      }
+      mkdirSync('data', { recursive: true });
+      writeFileSync('data/passmark-raw.json', JSON.stringify(rows));
+    }
+    const res = saveBenchmarks(buildBenchmarkTable(rows));
+    console.log(`Read ${rows.length} CPU rows; table has ${res.cpus} laptop/desktop CPU models (${res.ambiguous} ambiguous) → ${res.path}`);
+    break;
+  }
   case 'demo':
     loadDemo(db, fileURLToPath(new URL('../test/fixtures', import.meta.url)));
     console.log('Loaded SYNTHETIC fixture data (not live OLX data).');

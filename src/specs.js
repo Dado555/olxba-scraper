@@ -74,6 +74,7 @@ export function extractSpecs({ title = '', description = '', attributes = null, 
     s.ram_soldered = f(true, 'rule', 'Apple Silicon MacBooks have soldered RAM');
   s.battery = firstOf(sources, parseBattery);
   s.weight_kg = firstOf(sources, parseWeight);
+  s.year_stated = firstOf(sources, parseYear);
   const ports = [...new Set([title, description].flatMap(t => parsePorts(t)))];
   if (ports.length) s.ports = f(ports, 'text', ports.join(', '));
   // Two different exact CPU models in the ad (e.g. "i5-8350U / i7-8650U", or title vs description) → ambiguous.
@@ -190,6 +191,23 @@ export function allExactCpuModels(t) {
   for (const m of t.matchAll(/\bryzen\s*([3579])\s*(?:pro\s*)?(\d{4})([a-z]{0,2})\b/gi)) out.push(`ryzen ${m[1]} ${m[2]}${m[3]}`.toLowerCase());
   for (const m of t.matchAll(/\bcore\s*ultra\s*([579])\s*[- ]?\s*(\d{3})([a-z]{0,2})\b/gi)) out.push(`ultra ${m[1]} ${m[2]}${m[3]}`.toLowerCase());
   return out;
+}
+
+const THIS_YEAR = new Date().getFullYear();
+/**
+ * Year stated in the ad. kind 'model' = production/model year ("2019. godište", "model 2020", "MacBook Pro 2019"),
+ * kind 'purchased' = purchase year ("kupljen 2021"), which is only an upper bound for the manufacture year.
+ */
+export function parseYear(t) {
+  if (!t) return null;
+  const ok = y => y >= 2008 && y <= THIS_YEAR;
+  let m = t.match(/\b(?:kupljen\w*|kupio|kupila|kupovin\w*|ra[cč]un\w* iz)\D{0,25}?(20[0-3]\d)\b/i);
+  const purchased = m && ok(+m[1]) ? ev({ year: +m[1], kind: 'purchased' }, m[0]) : null;
+  m = t.match(/\b(?:proizveden\w*|proizvodnj\w*|godi[sš]t\w*|model(?:\s*iz)?|iz)\s*:?\s*(20[0-3]\d)\b/i)
+    || t.match(/\b(20[0-3]\d)\.?\s*(?:godi[sš]t\w*|god\.?\b|godin\w*)/i)
+    || t.match(/\b(?:macbook|thinkpad|latitude|elitebook|xps|surface|zenbook|probook|yoga|spectre)\b[^,;\n]{0,30}?\b(20[0-3]\d)\b(?!\s*(?:mah|gb|mhz|wh))/i);
+  if (m && ok(+m[1])) return ev({ year: +m[1], kind: 'model' }, m[0]);
+  return purchased;
 }
 
 /** Stated weight, e.g. "1,4 kg", "težina 1.8kg". Only plausible laptop weights. */

@@ -9,6 +9,8 @@
 // so one ad can never change another ad's score.
 import { readFileSync } from 'node:fs';
 import { extractSpecs } from './specs.js';
+import { loadBenchmarks } from './cpu-db.js';
+import { modelYear, modelOverride, loadModelOverrides } from './models.js';
 
 export const COMPONENTS = {
   ram: 'RAM & headroom',
@@ -63,14 +65,15 @@ export function cpuKey(c) {
   return c.model.toLowerCase();
 }
 
-export function cpuScore(cpu, { benchmarks = DEFAULT_BENCHMARKS, conflict = null } = {}) {
+export function cpuScore(cpu, { benchmarks = loadBenchmarks(), conflict = null } = {}) {
   if (conflict) return unknown(`ambiguous CPU: ad mentions ${conflict.value.join(' and ')}`, [], ['CPU ambiguous']);
   if (!cpu) return unknown('CPU not stated');
   const c = cpu.value;
   const src = `(source: ${cpu.source} "${cpu.evidence}")`;
   if (!c.exact) return unknown(`only "${c.family}" stated; exact CPU unknown, performance not inferred ${src}`, [], ['exact CPU unknown']);
   const b = benchmarks?.cpus?.[cpuKey(c)];
-  if (b && (b.single != null || b.multi != null)) {
+  if (b?.ambiguous) return unknown(`benchmark list has several differing entries for ${c.model} (${b.names.join(' / ')}); not guessed ${src}`, [], ['CPU benchmark ambiguous']);
+  if (b && (b.single != null || b.multi != null) && benchmarks.reference?.single && benchmarks.reference?.multi) {
     const ref = benchmarks.reference, parts = [], ev = [];
     if (b.single != null) { const v = saturating(b.single, ref.single); parts.push(v); ev.push(`single-thread ${b.single} ${benchmarks.units.single} → ${round(v)}`); }
     if (b.multi != null) { const v = saturating(b.multi, ref.multi); parts.push(v); ev.push(`multi-thread ${b.multi} ${benchmarks.units.multi} → ${round(v)}`); }
@@ -107,8 +110,13 @@ export function cpuScore(cpu, { benchmarks = DEFAULT_BENCHMARKS, conflict = null
 
 const RES_SCORE = { HD: 20, FHD: 60, WUXGA: 66, QHD: 78, Retina: 82, '3K': 85, '4K': 88 };
 /** Only what this ad states about its own screen; the model's other configurations are never assumed. */
-export function screenScore(s) {
+export function screenScore(s, { overrides } = {}) {
   if (!s.resolution) return unknown('resolution not stated', s.panel ? [`panel ${s.panel.value} stated`] : []);
+  const ov = modelOverride(s.model?.value.name, overrides ?? loadModelOverrides());
+  if (ov?.display != null && ov.resolution && String(ov.resolution).toUpperCase() === s.resolution.value.toUpperCase()) {
+    return result(+ov.display, 'estimate', [`your rating for "${ov.match}" with ${ov.resolution} (source: ${ov.source ?? 'not given'})`,
+      `ad states ${s.resolution.value} ("${s.resolution.evidence}")`]);
+  }
   let score = RES_SCORE[s.resolution.value];
   const ev = [`${s.resolution.value} (${s.resolution.source}: "${s.resolution.evidence}") → ${score}`], flags = [];
   if (s.panel) {
@@ -137,9 +145,11 @@ const FAMILY_BUILD = [
   [/tuf|nitro|victus|omen|predator/i, 56, 'mid-range gaming line'],
   [/ideapad|vivobook|aspire|pavilion|inspiron|vostro|\bhp\s*2[45]0/i, 50, 'consumer/budget line'],
 ];
-export function buildScore(s) {
+export function buildScore(s, { overrides } = {}) {
   const name = s.model?.value.name;
-  const fam = name && FAMILY_BUILD.find(([re]) => re.test(name));
+  const ov = modelOverride(name, overrides ?? loadModelOverrides());
+  const fam = ov?.build != null ? [null, +ov.build, `your rating for "${ov.match}" (source: ${ov.source ?? 'not given'})`]
+    : name && FAMILY_BUILD.find(([re]) => re.test(name));
   const stated = [];
   if (s.backlit) stated.push([6, `backlit keyboard +6 ("${s.backlit.evidence}")`]);
   if (s.metal) stated.push([3, `metal chassis +3 ("${s.metal.evidence}")`]);
@@ -153,7 +163,8 @@ export function buildScore(s) {
       { min: adj, max: 100 + adj });
   }
   if (!s.model.value.exact) flags.push('model series only, exact model unknown');
-  return result(fam[1] + adj, 'estimate', [`${fam[2]} family baseline ${fam[1]} (model-family estimate, not this unit)`, ...stated.map(x => x[1])], flags);
+  const base = ov?.build != null ? `${fam[2]}: ${fam[1]}` : `${fam[2]} family baseline ${fam[1]} (model-family estimate, not this unit)`;
+  return result(fam[1] + adj, 'estimate', [base, ...stated.map(x => x[1])], flags);
 }
 
 export function ramScore(s) {
@@ -215,20 +226,51 @@ function combineSubs(subs, flags = []) {
     [...flags, ...missing.map(m => `${m} unknown`)], { min: sum / n, max: (sum + missing.length * 100) / n });
 }
 
+// ---------- manufacture year ----------
+
+/**
+ * Best available year: stated in the ad > model year (your file, then curated rules) > "not before" CPU launch.
+ * `value` is the year shown and sorted on; `basis` says where it comes from.
+ */
+export function yearInfo(s, benchmarks = loadBenchmarks(), overrides = loadModelOverrides()) {
+  const name = s.model?.value.name;
+  const bench = !s.cpu_conflict && s.cpu?.value.exact ? benchmarks?.cpus?.[cpuKey(s.cpu.value)] : null;
+  const cpuYear = bench?.released ? +bench.released.slice(0, 4) : null;
+  const flags = [];
+  let out = null;
+  const st = s.year_stated?.value;
+  if (st?.kind === 'model') out = { value: st.year, basis: 'stated', evidence: `ad: "${s.year_stated.evidence}"` };
+  if (!out) {
+    const ov = modelOverride(name, overrides);
+    if (ov?.year) out = { value: +ov.year, basis: 'model', evidence: `your model list: "${ov.match}" → ${ov.year} (source: ${ov.source ?? 'not given'})` };
+  }
+  if (!out) {
+    const my = modelYear(name);
+    if (my) out = { value: my.year, basis: 'model', evidence: `model release year, curated rule: ${my.rule}` };
+  }
+  if (!out && cpuYear) out = { value: cpuYear, basis: 'cpu', evidence: `not before ${bench.released} (CPU ${s.cpu.value.model} launch, benchmark list)` };
+  if (out && cpuYear && out.basis !== 'cpu' && out.value < cpuYear) flags.push(`year ${out.value} is before the CPU launch (${bench.released})`);
+  if (st?.kind === 'purchased') {
+    if (out && out.value > st.year) flags.push(`purchase year ${st.year} is before year ${out.value}`);
+    if (!out) out = { value: null, basis: 'unknown', evidence: `only purchase year stated ("${s.year_stated.evidence}"): made in or before ${st.year}`, upTo: st.year };
+  }
+  return out ? { ...out, flags } : { value: null, basis: 'unknown', evidence: 'no year stated, model year unknown, CPU launch date unknown', flags };
+}
+
 // ---------- scoring, filters, ranking ----------
 
-export function scoreListings(listings, { benchmarks } = {}) {
+export function scoreListings(listings, { benchmarks = loadBenchmarks(), overrides = loadModelOverrides() } = {}) {
   return listings.map(l => {
     const specs = extractSpecs(l);
     const components = {
       ram: ramScore(specs),
       cpu: cpuScore(specs.cpu, { benchmarks, conflict: specs.cpu_conflict }),
-      screen: screenScore(specs),
-      build: buildScore(specs),
+      screen: screenScore(specs, { overrides }),
+      build: buildScore(specs, { overrides }),
       battery: batteryScore(specs),
       connectivity: connectivityScore(specs),
     };
-    return { listing: l, specs, components };
+    return { listing: l, specs, components, year: yearInfo(specs, benchmarks, overrides) };
   });
 }
 
@@ -308,6 +350,7 @@ export function scoreRow(r, weights, { mode = 'quality', affordabilityScaleKm = 
   if (!r.listing.detail_fetched_at) flags.push('title only (description not fetched yet)');
   r.flags = [...new Set(flags)];
   r.groupKey = groupKey(r.specs, r.listing.id);
+  if (r.year?.flags?.length) r.flags.push(...r.year.flags);
   return r;
 }
 
@@ -318,10 +361,10 @@ export function compareRows(a, b) {
 
 /** Mode 'quality' = best laptop within budget (budget is the hard price filter). Mode 'value' = 80% quality + 20% affordability. */
 export function rank(listings, { priorities = DEFAULT_PRIORITIES, weights: weightOverride = null, filters = {}, top = 100,
-  mode = 'quality', affordabilityScaleKm = AFFORDABILITY_SCALE_KM, benchmarks } = {}) {
+  mode = 'quality', affordabilityScaleKm = AFFORDABILITY_SCALE_KM, benchmarks, overrides, sort = 'score' } = {}) {
   if (!MODES[mode]) mode = 'quality';
   const weights = resolveWeights(priorities, weightOverride);
-  const all = scoreListings(listings, { benchmarks });
+  const all = scoreListings(listings, { benchmarks, overrides });
   const rejected = {};
   const rows = applyFilters(all, filters, rejected).map(r => scoreRow(r, weights, { mode, affordabilityScaleKm }));
   rows.sort(compareRows);
@@ -332,7 +375,32 @@ export function rank(listings, { priorities = DEFAULT_PRIORITIES, weights: weigh
   }
   const ranked = [...groups.values()].slice(0, top).map((g, i) => ({ rank: i + 1, ...g,
     offers: [...g.offers].sort((a, b) => (a.listing.price_km ?? Infinity) - (b.listing.price_km ?? Infinity) || b.total - a.total) }));
-  return { mode, weights, considered: all.length, passedFilters: rows.length, rejected, groups: groups.size, results: ranked };
+  if (!SORTS[sort]) sort = 'score';
+  if (sort !== 'score') ranked.sort(sortBy(sort));
+  return { mode, sort, weights, considered: all.length, passedFilters: rows.length, rejected, groups: groups.size, results: ranked };
+}
+
+/** Re-orderings of the top-N list. `rank` keeps the score position; unknown values always go last. */
+export const SORTS = {
+  score: 'Rank (score)', year: 'Year (newest first)', price: 'Price (lowest first)',
+  cpu: 'CPU performance', screen: 'Display quality', build: 'Build / comfort',
+};
+export function sortBy(key) {
+  const val = {
+    year: g => g.best.year?.value ?? null,
+    price: g => g.best.listing.price_km ?? null,
+    cpu: g => g.best.components.cpu.score,
+    screen: g => g.best.components.screen.score,
+    build: g => g.best.components.build.score,
+  }[key];
+  const asc = key === 'price';
+  return (a, b) => {
+    const x = val(a), y = val(b);
+    if (x == null && y == null) return a.rank - b.rank;
+    if (x == null) return 1;
+    if (y == null) return -1;
+    return (asc ? x - y : y - x) || a.rank - b.rank;
+  };
 }
 
 export const rankBestWithinBudget = (listings, opts = {}) => rank(listings, { ...opts, mode: 'quality' });
