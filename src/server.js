@@ -21,7 +21,7 @@ export function startServer(db, makeFetcher, { port = 5173, host = '127.0.0.1' }
       job: { running: job.running, kind: job.kind, log: job.log.slice(-60) }, components: COMPONENTS, defaultPriorities: DEFAULT_PRIORITIES, positionWeights: POSITION_WEIGHTS, modes: MODES }),
     'POST /api/rank': b => serialize(rankRun(db, b)),
     'POST /api/crawl': b => { startJob('crawl', () => crawl(db, makeFetcher(log), b.url, { maxPages: b.maxPages || Infinity, restart: !!b.restart, log })
-      .then(s => log(`Crawl ${s.status}: ${s.unique_listings} unique listings, ${s.pages_fetched} pages. ${s.status_detail ?? ''}`))); return { started: true }; },
+      .then(s => log(`Crawl ${s.status}: ${s.unique_listings} unique listings${s.site_total ? ` (site reports ${s.site_total})` : ''}, ${s.pages_fetched} requests. ${s.status_detail ?? ''}`))); return { started: true }; },
     'POST /api/enrich': b => { startJob('enrich', () => enrichShortlist(db, makeFetcher(log), { ...b, log })
       .then(r => log(`Enrichment: ${r.done}/${r.total} detail pages fetched${r.stopped ? ' — stopped: ' + r.stopped : ''}`))); return { started: true }; },
     'POST /api/export': b => exportResults(db, b),

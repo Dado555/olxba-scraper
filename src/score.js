@@ -317,7 +317,7 @@ export function compareRows(a, b) {
 }
 
 /** Mode 'quality' = best laptop within budget (budget is the hard price filter). Mode 'value' = 80% quality + 20% affordability. */
-export function rank(listings, { priorities = DEFAULT_PRIORITIES, weights: weightOverride = null, filters = {}, top = 50,
+export function rank(listings, { priorities = DEFAULT_PRIORITIES, weights: weightOverride = null, filters = {}, top = 100,
   mode = 'quality', affordabilityScaleKm = AFFORDABILITY_SCALE_KM, benchmarks } = {}) {
   if (!MODES[mode]) mode = 'quality';
   const weights = resolveWeights(priorities, weightOverride);

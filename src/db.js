@@ -39,6 +39,28 @@ CREATE TABLE IF NOT EXISTS listings (
   first_seen TEXT NOT NULL DEFAULT (datetime('now')),
   last_seen TEXT NOT NULL DEFAULT (datetime('now'))
 );
+-- Price-range slices used when the site stops paginating (e.g. API serves at most N pages per query).
+CREATE TABLE IF NOT EXISTS slices (
+  id INTEGER PRIMARY KEY,
+  run_id INTEGER NOT NULL REFERENCES runs(id),
+  lo REAL NOT NULL,                          -- price_from (KM)
+  hi REAL NOT NULL,                          -- price_to (KM)
+  depth INTEGER NOT NULL DEFAULT 0,
+  status TEXT NOT NULL DEFAULT 'pending',    -- pending | crawling | split | done | capped | unsupported
+  next_page INTEGER NOT NULL DEFAULT 1,
+  last_page INTEGER,
+  detail TEXT
+);
+CREATE TABLE IF NOT EXISTS slice_pages (
+  slice_id INTEGER NOT NULL REFERENCES slices(id),
+  page INTEGER NOT NULL,
+  url TEXT NOT NULL,
+  http_status INTEGER,
+  listings_found INTEGER,
+  new_listings INTEGER,
+  fetched_at TEXT NOT NULL DEFAULT (datetime('now')),
+  PRIMARY KEY (slice_id, page)
+);
 CREATE TABLE IF NOT EXISTS run_listings (
   run_id INTEGER NOT NULL REFERENCES runs(id),
   listing_id TEXT NOT NULL REFERENCES listings(id),
@@ -51,7 +73,16 @@ export function openDb(path = 'data/olx.sqlite') {
   const db = new DatabaseSync(path);
   db.exec('PRAGMA journal_mode=WAL; PRAGMA foreign_keys=ON;');
   db.exec(SCHEMA);
+  // Columns added after the first release; existing databases are upgraded in place.
+  ensureColumn(db, 'runs', 'cap_page', 'INTEGER');        // last page the site really serves for one query
+  ensureColumn(db, 'runs', 'price_params', 'TEXT');       // "price_from,price_to" once verified
+  ensureColumn(db, 'runs', 'site_total', 'INTEGER');      // total results the site reports for the search
   return db;
+}
+
+function ensureColumn(db, table, column, type) {
+  const cols = db.prepare(`PRAGMA table_info(${table})`).all().map(c => c.name);
+  if (!cols.includes(column)) db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${type}`);
 }
 
 export function upsertListing(db, l) {
