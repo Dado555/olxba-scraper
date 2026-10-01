@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T17:41:03.004Z",
+  "generated_at": "2026-10-01T20:15:50.212Z",
   "run": {
     "id": 1,
     "search_url": "https://olx.ba/pretraga?category_id=39&attr=ram(16)&demo=fixtures",
@@ -8,13 +8,17 @@
     "next_page": 4,
     "last_page": null,
     "pages_fetched": 3,
-    "started_at": "2026-09-26 17:41:02",
-    "updated_at": "2026-09-26 17:41:02"
+    "started_at": "2026-10-01 20:15:50",
+    "updated_at": "2026-10-01 20:15:50",
+    "cap_page": null,
+    "price_params": null,
+    "site_total": null
   },
   "options": {
-    "top": 50
+    "top": 100
   },
   "mode": "quality",
+  "sort": "score",
   "weights": {
     "ram": 25,
     "cpu": 20,
@@ -45,6 +49,12 @@
           63.9
         ],
         "affordability": 64.8,
+        "year": {
+          "value": 2018,
+          "basis": "model",
+          "evidence": "model release year, curated rule: ThinkPad T4x0: T4N0 → 2010+N",
+          "flags": []
+        },
         "confidence": 45,
         "certainty": {
           "verified": 45,
@@ -231,6 +241,12 @@
             63.7
           ],
           "affordability": 67.5,
+          "year": {
+            "value": 2018,
+            "basis": "model",
+            "evidence": "model release year, curated rule: ThinkPad T4x0: T4N0 → 2010+N",
+            "flags": []
+          },
           "confidence": 45,
           "certainty": {
             "verified": 45,
@@ -400,6 +416,12 @@
             63.9
           ],
           "affordability": 64.8,
+          "year": {
+            "value": 2018,
+            "basis": "model",
+            "evidence": "model release year, curated rule: ThinkPad T4x0: T4N0 → 2010+N",
+            "flags": []
+          },
           "confidence": 45,
           "certainty": {
             "verified": 45,
@@ -591,6 +613,12 @@
           69.2
         ],
         "affordability": 32.2,
+        "year": {
+          "value": 2019,
+          "basis": "model",
+          "evidence": "model release year, curated rule: X1 Carbon Gen N (N≥3) → 2012+N",
+          "flags": []
+        },
         "confidence": 45,
         "certainty": {
           "verified": 45,
@@ -761,6 +789,12 @@
             69.2
           ],
           "affordability": 32.2,
+          "year": {
+            "value": 2019,
+            "basis": "model",
+            "evidence": "model release year, curated rule: X1 Carbon Gen N (N≥3) → 2012+N",
+            "flags": []
+          },
           "confidence": 45,
           "certainty": {
             "verified": 45,
@@ -936,6 +970,12 @@
           79.9
         ],
         "affordability": 26.5,
+        "year": {
+          "value": null,
+          "basis": "unknown",
+          "evidence": "no year stated, model year unknown, CPU launch date unknown",
+          "flags": []
+        },
         "confidence": 25,
         "certainty": {
           "verified": 25,
@@ -1107,6 +1147,12 @@
             79.9
           ],
           "affordability": 26.5,
+          "year": {
+            "value": null,
+            "basis": "unknown",
+            "evidence": "no year stated, model year unknown, CPU launch date unknown",
+            "flags": []
+          },
           "confidence": 25,
           "certainty": {
             "verified": 25,
@@ -1283,6 +1329,12 @@
           63.7
         ],
         "affordability": 39.3,
+        "year": {
+          "value": 2020,
+          "basis": "model",
+          "evidence": "model release year, curated rule: MacBook Air M1 → 2020",
+          "flags": []
+        },
         "confidence": 45,
         "certainty": {
           "verified": 45,
@@ -1449,6 +1501,12 @@
             63.7
           ],
           "affordability": 39.3,
+          "year": {
+            "value": 2020,
+            "basis": "model",
+            "evidence": "model release year, curated rule: MacBook Air M1 → 2020",
+            "flags": []
+          },
           "confidence": 45,
           "certainty": {
             "verified": 45,
@@ -1620,6 +1678,12 @@
           73.6
         ],
         "affordability": 28.2,
+        "year": {
+          "value": 2021,
+          "basis": "model",
+          "evidence": "model release year, curated rule: EliteBook x40 Gn → 2013+n",
+          "flags": []
+        },
         "confidence": 25,
         "certainty": {
           "verified": 25,
@@ -1779,6 +1843,12 @@
             73.6
           ],
           "affordability": 28.2,
+          "year": {
+            "value": 2021,
+            "basis": "model",
+            "evidence": "model release year, curated rule: EliteBook x40 Gn → 2013+n",
+            "flags": []
+          },
           "confidence": 25,
           "certainty": {
             "verified": 25,
@@ -1943,6 +2013,12 @@
           66
         ],
         "affordability": 46.5,
+        "year": {
+          "value": 2018,
+          "basis": "model",
+          "evidence": "model release year, curated rule: Latitude [357]x80…x50 → 2017…2024",
+          "flags": []
+        },
         "confidence": 25,
         "certainty": {
           "verified": 25,
@@ -2108,6 +2184,12 @@
             66
           ],
           "affordability": 46.5,
+          "year": {
+            "value": 2018,
+            "basis": "model",
+            "evidence": "model release year, curated rule: Latitude [357]x80…x50 → 2017…2024",
+            "flags": []
+          },
           "confidence": 25,
           "certainty": {
             "verified": 25,
@@ -2278,6 +2360,12 @@
           60.5
         ],
         "affordability": null,
+        "year": {
+          "value": null,
+          "basis": "unknown",
+          "evidence": "no year stated, model year unknown, CPU launch date unknown",
+          "flags": []
+        },
         "confidence": 25,
         "certainty": {
           "verified": 25,
@@ -2430,6 +2518,12 @@
             60.5
           ],
           "affordability": null,
+          "year": {
+            "value": null,
+            "basis": "unknown",
+            "evidence": "no year stated, model year unknown, CPU launch date unknown",
+            "flags": []
+          },
           "confidence": 25,
           "certainty": {
             "verified": 25,
@@ -2587,6 +2681,12 @@
           100
         ],
         "affordability": null,
+        "year": {
+          "value": null,
+          "basis": "unknown",
+          "evidence": "no year stated, model year unknown, CPU launch date unknown",
+          "flags": []
+        },
         "confidence": 0,
         "certainty": {
           "verified": 0,
@@ -2711,6 +2811,12 @@
             100
           ],
           "affordability": null,
+          "year": {
+            "value": null,
+            "basis": "unknown",
+            "evidence": "no year stated, model year unknown, CPU launch date unknown",
+            "flags": []
+          },
           "confidence": 0,
           "certainty": {
             "verified": 0,
@@ -2840,6 +2946,12 @@
           49.5
         ],
         "affordability": 74.1,
+        "year": {
+          "value": null,
+          "basis": "unknown",
+          "evidence": "no year stated, model year unknown, CPU launch date unknown",
+          "flags": []
+        },
         "confidence": 25,
         "certainty": {
           "verified": 25,
@@ -2994,6 +3106,12 @@
             49.5
           ],
           "affordability": 74.1,
+          "year": {
+            "value": null,
+            "basis": "unknown",
+            "evidence": "no year stated, model year unknown, CPU launch date unknown",
+            "flags": []
+          },
           "confidence": 25,
           "certainty": {
             "verified": 25,

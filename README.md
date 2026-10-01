@@ -60,6 +60,57 @@ npm run demo                   # separate DB: data/demo.sqlite
    warranty. Rankings update after enrichment.
 4. **Export.** `npm run export` (or the button) writes the top 100 to `data/results.json` and `data/results.csv`.
 
+## Data sources: CPU benchmarks, manufacture year, build/display ratings
+
+**CPU benchmarks (recommended, one command):**
+
+```bash
+npm run cpu-data          # downloads the PassMark CPU list into data/cpu-benchmarks.json (two requests)
+```
+
+This fetches cpubenchmark.net's public CPU list (the data behind its "CPU Mega Page"): single-thread rating,
+multi-thread CPU Mark and launch month for each CPU. The download runs on your machine, checks robots.txt, and stops
+on any block or captcha. PassMark data is for personal use, so the file stays in `data/` (git-ignored) and isn't
+committed. If the download is refused, open https://www.cpubenchmark.net/CPU_mega_page.html in your browser, then
+https://www.cpubenchmark.net/data/ in the same browser, save it as `cpus.json`, and run
+`npm run cpu-data -- --file cpus.json`. A CSV with `name,cpumark,thread,date` columns also works.
+
+How CPU names are matched:
+- Each listing's **exact** CPU model is matched (`i5-8350U`, `Ryzen 7 5800H`, `Core Ultra 7 155H`, `Apple M1`).
+- If the list has several entries for one model whose scores differ by more than 10% (for example the 8- and 10-core
+  M1 Pro), the CPU is marked **ambiguous** and not scored.
+- CPU score = average of single- and multi-thread, each mapped 100·x/(x+ref). `ref` is the 75th percentile of laptop
+  CPUs in the downloaded list, so it is fixed per download and never depends on the OLX listings.
+- Without the table, exact CPUs fall back to a labelled tier estimate.
+
+**Manufacture year** (shown on each result; sortable):
+1. *stated in ad*: "2019. godište", "model 2020", "proizveden 2018", "MacBook Pro 2019". "kupljen 2021" is only kept as
+   "made in or before 2021".
+2. *model year*: from your `data/laptop-models.json`, or else built-in rules for product lines with regular naming
+   (ThinkPad T4x0/T5x0/X2x0/T14·X13 Gen N/X1 Carbon Gen N, Latitude [357]x80…x50, EliteBook x40 Gn, XPS 13/15,
+   MacBook M-series). These rules are curated, so verify them for edge cases.
+3. *≥ CPU launch*: the laptop can't be older than its CPU (from the benchmark list).
+
+A year earlier than the CPU launch, or later than the stated purchase year, is flagged.
+
+**Build / comfort / display ratings:** I found no open, downloadable dataset that rates laptop build quality, keyboards
+or displays per model. Review sites such as Notebookcheck and RTINGS publish them, but not as open data. The app
+therefore uses a fixed, labelled model-family table for comfort, and only the ad's own screen specs for display. You can add your
+own ratings (for example from reviews you trust) in `data/laptop-models.json`:
+
+```json
+[
+  { "match": "thinkpad t480", "year": 2018, "build": 82, "display": 62, "resolution": "FHD", "source": "https://…review…" }
+]
+```
+
+`match` words must all appear in the model name; the longest match wins. `build` replaces the family estimate. `display`
+is used only when the ad states the same `resolution`, because other configurations of the model may have different
+panels. Ratings stay labelled *estimate*, with your source in the evidence.
+
+**Sorting:** the UI's "Sort the top 100 by" menu (and `--sort` for `rank`/`export`) re-orders the top 100 by score, year
+(newest first), price (lowest first), CPU, display or build score. Unknown values go last, and `#` keeps the score rank.
+
 ## Scoring (all visible in the UI's "Evidence" panel)
 
 Ranking targets development and DevOps work. The pipeline runs in this order:

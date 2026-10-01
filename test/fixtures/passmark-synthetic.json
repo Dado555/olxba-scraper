@@ -1,0 +1,20 @@
+{"_comment": "SYNTHETIC test data in the shape of cpubenchmark.net /data/ rows. Numbers are made up for tests; NOT real benchmark results.",
+ "data": [
+  {"name": "Intel Core i5-8350U @ 1.70GHz", "cpumark": "6,000", "thread": "2,000", "date": "Aug 2017", "cat": "Laptop"},
+  {"name": "Intel Core i7-8650U @ 1.90GHz", "cpumark": "6,600", "thread": "2,200", "date": "Aug 2017", "cat": "Laptop"},
+  {"name": "Intel Core i7-8665U @ 1.90GHz", "cpumark": "6,800", "thread": "2,300", "date": "Apr 2019", "cat": "Laptop"},
+  {"name": "Intel Core i5-1135G7 @ 2.40GHz", "cpumark": "10,000", "thread": "2,700", "date": "Sep 2020", "cat": "Laptop"},
+  {"name": "Intel Core i3-1115G4 @ 3.00GHz", "cpumark": "6,200", "thread": "2,600", "date": "Sep 2020", "cat": "Laptop"},
+  {"name": "AMD Ryzen 7 5800H", "cpumark": "21,000", "thread": "3,100", "date": "Jan 2021", "cat": "Laptop"},
+  {"name": "AMD Ryzen 7 PRO 5850U", "cpumark": "18,000", "thread": "3,000", "date": "Mar 2021", "cat": "Laptop"},
+  {"name": "AMD Ryzen 5 5600U", "cpumark": "15,000", "thread": "2,900", "date": "Jan 2021", "cat": "Laptop"},
+  {"name": "AMD Ryzen 5 PRO 5600U", "cpumark": "15,500", "thread": "2,950", "date": "Jan 2021", "cat": "Laptop"},
+  {"name": "Apple M1 8 Core 3200 MHz", "cpumark": "14,500", "thread": "3,600", "date": "Nov 2020", "cat": "Laptop, Desktop"},
+  {"name": "Apple M1 Pro 8 Core 3200 MHz", "cpumark": "18,000", "thread": "3,800", "date": "Oct 2021", "cat": "Laptop"},
+  {"name": "Apple M1 Pro 10 Core 3200 MHz", "cpumark": "23,000", "thread": "3,800", "date": "Oct 2021", "cat": "Laptop"},
+  {"name": "Intel Celeron N4020 @ 1.10GHz", "cpumark": "1,600", "thread": "1,000", "date": "Nov 2019", "cat": "Laptop"},
+  {"name": "Intel Core Ultra 7 155H", "cpumark": "25,000", "thread": "3,900", "date": "Dec 2023", "cat": "Laptop"},
+  {"name": "Intel N100", "cpumark": "5,500", "thread": "1,900", "date": "Jan 2023", "cat": "Laptop, Desktop"},
+  {"name": "Intel Core i9-13900K", "cpumark": "60,000", "thread": "4,700", "date": "Oct 2022", "cat": "Desktop"},
+  {"name": "Some Unknown CPU X", "cpumark": "999", "thread": "NA", "date": "NA", "cat": "Server"}
+ ]}

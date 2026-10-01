@@ -15,9 +15,10 @@
     "enrich": "node --no-warnings bin/cli.js enrich",
     "export": "node --no-warnings bin/cli.js export",
     "smoke": "node --no-warnings bin/cli.js crawl --max-pages 2",
-    "test": "node --no-warnings --test test/*.test.js",
+    "test": "OLX_NO_LOCAL_DATA=1 node --no-warnings --test test/*.test.js",
     "demo": "node --no-warnings bin/cli.js demo",
-    "rank": "node --no-warnings bin/cli.js rank"
+    "rank": "node --no-warnings bin/cli.js rank",
+    "cpu-data": "node --no-warnings bin/cli.js cpu-data"
   },
   "license": "MIT",
   "dependencies": {
